@@ -9,18 +9,16 @@
     tools:context="com.example.test.MainActivity">
 
     <TextView
-        android:id="@+id/signin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="50dp"
-        android:gravity="center"
+        android:id="@+id/signin"
         android:text="Sign in"
         android:textColor="@color/white"
         android:textSize="35dp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:layout_margin="50dp"
+        android:gravity="center"
+        />
 
     <EditText
         android:id="@+id/username"
@@ -71,7 +69,7 @@
         android:textColorHint="@color/purple_700" />
 
     <Button
-        android:id="@+id/signinbutton"
+        android:id="@+id/Signin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/forgotpass"
@@ -82,19 +80,18 @@
         android:text="Sign In" />
 
     <TextView
-        android:id="@+id/createaccount"
-        android:layout_width="118dp"
-        android:layout_height="39dp"
-        android:layout_below="@id/password"
-        android:layout_alignEnd="@+id/password"
+        android:id="@+id/signup"
+        android:layout_width="218dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="0dp"
         android:layout_marginTop="9dp"
-        android:layout_marginEnd="1dp"
-        android:hint="Forgot Password"
-        android:textStyle="bold"
-        android:gravity="left"
-        android:textColor="@color/black"
-        android:textColorHint="@color/purple_700" />
-
+        android:layout_marginEnd="193dp"
+        android:layout_marginBottom="501dp"
+        android:text="Don't have an account? Sign up"
+        android:textAlignment="center" />
 
 
 </RelativeLayout>
