@@ -19,24 +19,23 @@ import com.example.test.databinding.ActivityMainBinding;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button button;
+    private TextView signup_tag_click;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        button = (Button)findViewById(R.id.Signup);
-        button.setOnClickListener(new View.OnClickListener() {
+        
+        signup_tag_click = (TextView) findViewById(R.id.signup);
+        signup_tag_click.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openactivity_sign_up();
+                startActivity(new Intent(MainActivity.this, SignUpActivity.class));
             }
         });
     }
-    public void openactivity_sign_up(){
-        Intent intent = new Intent(this, SignUpActivity.class);
-        startActivity(intent);
-    }
+    
 }
