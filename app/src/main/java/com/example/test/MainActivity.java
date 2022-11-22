@@ -19,6 +19,7 @@ import com.example.test.databinding.ActivityMainBinding;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        button = findViewById(R.id.Signup);
+        button = (TextView)findViewById(R.id.createaccount);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
