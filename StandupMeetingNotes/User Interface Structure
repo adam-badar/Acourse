@@ -1,0 +1,27 @@
+Structure
+
+- Sign up and login page
+- Forgot password page
+- Need an algorithm to connect to prerequisites in FireBase
+
+
+*STUDENT VIEW*
+
+- Welcome page with drop down
+   ~ View taken courses
+   ~ Search available courses
+   ~ See last generated timetable
+
+- List of courses taken (searchable)
+- List of courses available (searchable)
+- Prerequisites appear in a pop-up menu when a course is pressed, user has option to add to timetable
+- Timetable page - students can look at what they’ve tentatively added, then can choose to delete courses if necessary and generate timetable
+- Page for viewing past timetables
+
+
+*ADMIN VIEW*
+
+- Adding a course
+- Deleting/editing courses from available courses
+   ~ Pop up menu to with options to delete or edit course
+
