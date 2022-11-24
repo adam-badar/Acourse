@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_background"
+    tools:context=".searchCourses2">
+
+        <SearchView
+            android:id="@+id/SearchCoursesTitle"
+            android:layout_width="294dp"
+            android:layout_height="46dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/white"
+            app:layout_constraintEnd_toStartOf="@+id/TimetableGenerator"
+            app:layout_constraintTop_toBottomOf="@+id/SearchCoursesId" />
+
+        <TextView
+            android:id="@+id/SearchCoursesId"
+            android:layout_width="412dp"
+            android:layout_height="58dp"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Search Courses"
+            android:textAlignment="center"
+            android:textColor="@color/font_color"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/TimetableGenerator"
+            android:layout_width="49dp"
+            android:layout_height="46dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/main_background"
+            android:contentDescription="timetable_Generator"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/SearchCoursesId"
+            app:srcCompat="@android:drawable/ic_menu_today" />
+
+        <ImageButton
+            android:id="@+id/search_button"
+            android:layout_width="133dp"
+            android:layout_height="94dp"
+            android:layout_marginBottom="4dp"
+            android:background="@color/main_background"
+            android:contentDescription="Takes student to search bar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@android:drawable/ic_menu_search" />
+
+        <AutoCompleteTextView
+            android:id="@+id/search_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="620dp"
+            android:completionThreshold="1"
+            android:hint="Search for the course name"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Spinner
+            android:id="@+id/courses"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/SearchCoursesTitle"
+            android:layout_marginStart="52dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/SearchCoursesTitle">
+        </Spinner>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
