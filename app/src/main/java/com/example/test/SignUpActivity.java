@@ -3,7 +3,6 @@ package com.example.test;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.test.databinding.ActivityMainBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -39,9 +39,12 @@ public class SignUpActivity extends AppCompatActivity {
     //private FirebaseAuth fAuth;
 
     private FirebaseAuth auth;
-    private ProgressBar progressBar;
+    private FirebaseDatabase db;
+    private DatabaseReference reference;
 
-    @SuppressLint("RestrictedApi")
+    private ActivityMainBinding binding;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +60,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
         //progressBar =
-        String pattern = "[a-zA-z0-9._-]+@[a-z]+\\.+[a-z]+";
+
         signupbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,16 +78,15 @@ public class SignUpActivity extends AppCompatActivity {
                     Toast.makeText(SignUpActivity.this, "Password too short", Toast.LENGTH_SHORT).show();
                 } else if (!txt_password.equals(txt_password2)) {
                     Toast.makeText(SignUpActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
-                } else if(!txt_email.matches(pattern)){
-                    Toast.makeText(SignUpActivity.this, "Incorrect Email Format", Toast.LENGTH_SHORT).show();
-                }
-                else {
+                } else {
+                    User user = new User(txt_email, txt_password, txt_firstname, txt_lastname, txt_id);
+                    db = FirebaseDatabase.getInstance();
+                    reference = db.getReference("Users");
+                    reference.child(txt_id).setValue(user);
                     registerUser(txt_email, txt_password);
                 }
             }
         });
-        getSupportActionBar().setTitle("Sign-In");
-        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
     }
 
     private void registerUser(String email, String password) {
@@ -101,7 +103,6 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
     }
-
     /*
     private EditText firstname;
     private EditText lastname;
