@@ -60,7 +60,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
         //progressBar =
-
+        String pattern = "[a-zA-z0-9._-]+@[a-z]+\\.+[a-z]+";
         signupbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,7 +78,10 @@ public class SignUpActivity extends AppCompatActivity {
                     Toast.makeText(SignUpActivity.this, "Password too short", Toast.LENGTH_SHORT).show();
                 } else if (!txt_password.equals(txt_password2)) {
                     Toast.makeText(SignUpActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
-                } else {
+                } else if (!txt_email.matches(pattern)) {
+                    Toast.makeText(SignUpActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+                }
+                else {
                     User user = new User(txt_email, txt_password, txt_firstname, txt_lastname, txt_id);
                     db = FirebaseDatabase.getInstance();
                     reference = db.getReference("Users");
