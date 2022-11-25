@@ -7,13 +7,7 @@
     android:background="@color/main_background"
     tools:context=".StudentHomepageActivity">
 
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/support_simple_spinner_dropdown_item"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-    </include>
+
 
     <TextView
         android:id="@+id/welcomeId"
@@ -36,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Jonathan"
+        android:text="Insert Name"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@color/font_color"
@@ -47,7 +41,7 @@
         app:layout_constraintTop_toBottomOf="@+id/welcomeId" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/timeline_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="398dp"

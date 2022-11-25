@@ -38,6 +38,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     //private FirebaseAuth fAuth;
 
+    private Button sign_up_click;
     private FirebaseAuth auth;
     private FirebaseDatabase db;
     private DatabaseReference reference;
@@ -49,63 +50,70 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-
-        firstname = findViewById(R.id.firstname);
-        lastname = findViewById(R.id.lastname);
-        email = findViewById(R.id.email);
-        id = findViewById(R.id.idnum);
-        password = findViewById(R.id.password);
-        confirmpassword = findViewById(R.id.confirmpassword);
-        signupbutton = findViewById(R.id.Signup);
-
-        auth = FirebaseAuth.getInstance();
-        //progressBar =
-        String pattern = "[a-zA-z0-9._-]+@[a-z]+\\.+[a-z]+";
-        signupbutton.setOnClickListener(new View.OnClickListener() {
+        sign_up_click = findViewById(R.id.Signup);
+        sign_up_click.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                String txt_firstname = firstname.getText().toString().trim();
-                String txt_lastname = lastname.getText().toString().trim();
-                String txt_email = email.getText().toString().trim();
-                String txt_id = id.getText().toString().trim();
-                String txt_password = password.getText().toString().trim();
-                String txt_password2 = confirmpassword.getText().toString().trim();
-                //Toast.makeText(SignUpActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
-                if (TextUtils.isEmpty(txt_firstname) || TextUtils.isEmpty(txt_lastname) || TextUtils.isEmpty(txt_email) ||
-                        TextUtils.isEmpty(txt_id) || TextUtils.isEmpty(txt_password) || TextUtils.isEmpty(txt_password2)) {
-                    Toast.makeText(SignUpActivity.this, "Empty Credentials", Toast.LENGTH_SHORT).show();
-                } else if (txt_password.length() < 6) {
-                    Toast.makeText(SignUpActivity.this, "Password too short", Toast.LENGTH_SHORT).show();
-                } else if (!txt_password.equals(txt_password2)) {
-                    Toast.makeText(SignUpActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
-                } else if (!txt_email.matches(pattern)) {
-                    Toast.makeText(SignUpActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    User user = new User(txt_email, txt_password, txt_firstname, txt_lastname, txt_id);
-                    db = FirebaseDatabase.getInstance();
-                    reference = db.getReference("Users");
-                    reference.child(txt_id).setValue(user);
-                    registerUser(txt_email, txt_password);
-                }
+            public void onClick(View view) {
+                startActivity((new Intent(SignUpActivity.this, StudentHomepageActivity.class)));
             }
         });
+
+//        firstname = findViewById(R.id.firstname);
+//        lastname = findViewById(R.id.lastname);
+//        email = findViewById(R.id.email);
+//        id = findViewById(R.id.idnum);
+//        password = findViewById(R.id.password);
+//        confirmpassword = findViewById(R.id.confirmpassword);
+//        signupbutton = findViewById(R.id.Signup);
+//
+//        auth = FirebaseAuth.getInstance();
+//        //progressBar =
+//        String pattern = "[a-zA-z0-9._-]+@[a-z]+\\.+[a-z]+";
+//        signupbutton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String txt_firstname = firstname.getText().toString().trim();
+//                String txt_lastname = lastname.getText().toString().trim();
+//                String txt_email = email.getText().toString().trim();
+//                String txt_id = id.getText().toString().trim();
+//                String txt_password = password.getText().toString().trim();
+//                String txt_password2 = confirmpassword.getText().toString().trim();
+//                //Toast.makeText(SignUpActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+//                if (TextUtils.isEmpty(txt_firstname) || TextUtils.isEmpty(txt_lastname) || TextUtils.isEmpty(txt_email) ||
+//                        TextUtils.isEmpty(txt_id) || TextUtils.isEmpty(txt_password) || TextUtils.isEmpty(txt_password2)) {
+//                    Toast.makeText(SignUpActivity.this, "Empty Credentials", Toast.LENGTH_SHORT).show();
+//                } else if (txt_password.length() < 6) {
+//                    Toast.makeText(SignUpActivity.this, "Password too short", Toast.LENGTH_SHORT).show();
+//                } else if (!txt_password.equals(txt_password2)) {
+//                    Toast.makeText(SignUpActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+//                } else if (!txt_email.matches(pattern)) {
+//                    Toast.makeText(SignUpActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+//                }
+//                else {
+//                    User user = new User(txt_email, txt_password, txt_firstname, txt_lastname, txt_id);
+//                    db = FirebaseDatabase.getInstance();
+//                    reference = db.getReference("Users");
+//                    reference.child(txt_id).setValue(user);
+//                    registerUser(txt_email, txt_password);
+//                }
+//            }
+//        });
     }
 
-    private void registerUser(String email, String password) {
-        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    Toast.makeText(SignUpActivity.this, "Registering user successful!", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                }
-                else {
-                    Toast.makeText(SignUpActivity.this, "Registration failed", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
+//    private void registerUser(String email, String password) {
+//        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
+//            @Override
+//            public void onComplete(@NonNull Task<AuthResult> task) {
+//                if (task.isSuccessful()) {
+//                    Toast.makeText(SignUpActivity.this, "Registering user successful!", Toast.LENGTH_SHORT).show();
+//                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+//                }
+//                else {
+//                    Toast.makeText(SignUpActivity.this, "Registration failed", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
+//    }
     /*
     private EditText firstname;
     private EditText lastname;
