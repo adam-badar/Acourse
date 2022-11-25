@@ -14,9 +14,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-class
 
-public class AddCourseActivity extends AppCompatActivity {
+public class AddCourseActivity extends AppCompatActivity {/*
     Spinner spinner;
     String[] sessions = {"Fall", "Winter", "Summer"};
     @Override
