@@ -2,24 +2,27 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/backgroundapp"
+    android:background="@color/main_background"
     tools:context="com.example.test.MainActivity">
 
+<!--    Information for the Page Sign-in Title-->
     <TextView
+        android:id="@+id/signin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/signin"
-        android:text="Sign in"
-        android:textColor="@color/white"
-        android:textSize="35dp"
-        android:textStyle="bold"
-        android:layout_margin="50dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="50dp"
         android:gravity="center"
-        />
+        android:text="Sign in"
+        android:textColor="@color/font_color"
+        android:textSize="35dp"
+        android:textStyle="bold" />
 
+    <!--    Contains the  Edit Text Information-->
     <EditText
         android:id="@+id/username"
         android:layout_width="match_parent"
@@ -32,7 +35,7 @@
         android:background="#30ffffff"
         android:drawableLeft="@drawable/ic_baseline_person_24"
         android:drawablePadding="20dp"
-        android:hint="Username"
+        android:hint="Email"
         android:padding="20dp"
         android:textColor="@color/white"
         android:textColorHint="@color/white" />
@@ -56,17 +59,28 @@
 
     <TextView
         android:id="@+id/forgotpass"
-        android:layout_width="118dp"
-        android:layout_height="39dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@id/password"
         android:layout_alignEnd="@+id/password"
         android:layout_marginTop="9dp"
-        android:layout_marginEnd="1dp"
-        android:hint="Forgot Password"
+        android:hint="Forgot Password?"
         android:textStyle="bold"
         android:gravity="right"
-        android:textColor="@color/black"
-        android:textColorHint="@color/purple_700" />
+        android:textColor="@color/font_color"
+        android:textColorHint="@color/font_color" />
+
+    <TextView
+        android:id="@+id/signup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/password"
+        android:layout_alignStart="@id/password"
+        android:layout_marginTop="9dp"
+        android:text="Don't have an account? Sign up"
+        android:gravity="left"
+        android:textColor="@color/font_color"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/Signin"
@@ -76,24 +90,9 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="160dp"
-        android:background="#12D1EA"
-        android:text="Sign In" />
-
-    <TextView
-        android:id="@+id/signup"
-        android:layout_width="218dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="9dp"
-        android:layout_marginEnd="193dp"
-        android:layout_marginBottom="501dp"
-        android:text="Don't have an account? Sign up"
-        android:textAlignment="center"
-        android:textStyle="bold"
-        android:textColor="@color/purple_700" />
+        android:background="@drawable/roundbuttons"
+        android:text="Sign In"
+        android:textColor="@color/font_color" />
 
 
 </RelativeLayout>
