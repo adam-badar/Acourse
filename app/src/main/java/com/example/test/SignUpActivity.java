@@ -59,12 +59,12 @@ public class SignUpActivity extends AppCompatActivity {
         signupbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String txt_firstname = firstname.getText().toString();
-                String txt_lastname = lastname.getText().toString();
-                String txt_email = email.getText().toString();
-                String txt_id = id.getText().toString();
-                String txt_password = password.getText().toString();
-                String txt_password2 = confirmpassword.getText().toString();
+                String txt_firstname = firstname.getText().toString().trim();
+                String txt_lastname = lastname.getText().toString().trim();
+                String txt_email = email.getText().toString().trim();
+                String txt_id = id.getText().toString().trim();
+                String txt_password = password.getText().toString().trim();
+                String txt_password2 = confirmpassword.getText().toString().trim();
                 //Toast.makeText(SignUpActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
                 if (TextUtils.isEmpty(txt_firstname) || TextUtils.isEmpty(txt_lastname) || TextUtils.isEmpty(txt_email) ||
                         TextUtils.isEmpty(txt_id) || TextUtils.isEmpty(txt_password) || TextUtils.isEmpty(txt_password2)) {
