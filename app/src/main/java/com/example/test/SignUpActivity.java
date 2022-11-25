@@ -85,7 +85,7 @@ public class SignUpActivity extends AppCompatActivity {
                     User user = new User(txt_email, txt_password, txt_firstname, txt_lastname, txt_id);
                     db = FirebaseDatabase.getInstance();
                     reference = db.getReference("Users");
-                    reference.child(txt_id).setValue(user);
+                    reference.child("Students").child(txt_id).setValue(user);
                     registerUser(txt_email, txt_password);
                 }
             }
