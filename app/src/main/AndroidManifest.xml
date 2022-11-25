@@ -13,6 +13,13 @@
         android:theme="@style/Theme.Test"
         tools:targetApi="31">
         <activity
+            android:name=".CourseListPopUp"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
@@ -29,10 +36,21 @@
         </activity>
         <activity
             android:name=".SignUpActivity"
-            android:label="Preference"></activity>
+            android:label=" "
+            android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".WelcomeAdminActivity"
-            android:label="Preference"></activity>
+            android:name=".StudentHomepageActivity"
+            android:banner="@color/button_color"
+            android:label="Home"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".searchCourses2"
+            android:banner="@color/button_color"
+            android:label="Search Courses"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".Pop_up_Menu"
+            android:parentActivityName=".MainActivity" />
     </application>
 
 </manifest>
