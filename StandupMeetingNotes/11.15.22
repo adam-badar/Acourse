@@ -1,0 +1,29 @@
+Rawad’s Employees
+
+Standup Meeting #1
+
+11/15/2022
+
+Dissected core functionality of the app to help break down tasks
+Assigned all team members to link Android Studio with GitHub
+
+Aaliyah
+	~ As the project goes along, ensure our code aligns with the SOLID 	  principles and Design Patterns
+	~ In charge of UI for the sign up and log in page
+
+Adam
+	~ Created document for outline of next steps 
+	~ Figure out how to represent creating an account
+
+Andrew
+	~ Figure out how to represent logging an account
+
+Kody
+	~ Work with Aaliyah on developing the user interface
+
+Sana
+	~ Set up how to design a database to host all the accounts and distinguish students from admin
+
+Yann
+	~ Work on developing the GitHub repository 
+	

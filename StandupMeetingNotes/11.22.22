@@ -1,0 +1,32 @@
+Rawad’s Employees
+
+Standup Meeting #3
+
+11/22/2022
+
+All team members will work towards creating the pages before completing the code
+
+Aaliyah
+	~ Designed and illustrated all the necessary pages for the app
+  ~ Assigned the different pages on Jira to the team members
+
+Adam
+	~ Coded and completed Sign-In and New Registration pages
+  ~ Created a new GitHub repository and was able to successfully push and pull code 
+
+Andrew
+	~ Worked with Aaliyah to create the design for the Student and Admin pages
+  ~ Decided the order in which pages would need to be completed
+
+Kody
+	~ Connected FireBase and wrote code to make sure that input is not empty
+  ~ Worked with Sana to decide the best way to connect FireBase for registration
+
+Sana
+	~ Watched tutorials on how to utilize FireBase
+  ~ Shared that when configured properly, all information we code will be accessible through the FireBase
+
+Yann
+	~ Designed and coded sign-in and registration pages with Adam
+  ~ Came up with ideas for logos, theme, and company name
+	
