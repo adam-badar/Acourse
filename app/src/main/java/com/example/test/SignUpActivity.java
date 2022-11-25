@@ -57,7 +57,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
         //progressBar =
-
+        String pattern = "[a-zA-z0-9._-]+@[a-z]+\\.+[a-z]+";
         signupbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,12 +75,15 @@ public class SignUpActivity extends AppCompatActivity {
                     Toast.makeText(SignUpActivity.this, "Password too short", Toast.LENGTH_SHORT).show();
                 } else if (!txt_password.equals(txt_password2)) {
                     Toast.makeText(SignUpActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
-                } else {
+                } else if(!txt_email.matches(pattern)){
+                    Toast.makeText(SignUpActivity.this, "Incorrect Email Format", Toast.LENGTH_SHORT).show();
+                }
+                else {
                     registerUser(txt_email, txt_password);
                 }
             }
         });
-        getSupportActionBar().setTitle("MainActivity");
+        getSupportActionBar().setTitle("Sign-In");
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
     }
 
