@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.test.databinding.ActivityMainBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -38,7 +39,11 @@ public class SignUpActivity extends AppCompatActivity {
     //private FirebaseAuth fAuth;
 
     private FirebaseAuth auth;
-    private ProgressBar progressBar;
+    private FirebaseDatabase db;
+    private DatabaseReference reference;
+
+    private ActivityMainBinding binding;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +79,10 @@ public class SignUpActivity extends AppCompatActivity {
                 } else if (!txt_password.equals(txt_password2)) {
                     Toast.makeText(SignUpActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
                 } else {
+                    User user = new User(txt_email, txt_password, txt_firstname, txt_lastname, txt_id);
+                    db = FirebaseDatabase.getInstance();
+                    reference = db.getReference("Users");
+                    reference.child(txt_id).setValue(user);
                     registerUser(txt_email, txt_password);
                 }
             }
