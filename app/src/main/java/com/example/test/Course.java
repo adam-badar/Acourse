@@ -1,52 +1,43 @@
 package com.example.test;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class Course {
 
         public String courseName;
-        public int courseCode;
+        public String courseCode;
         public ArrayList<String> prerequisites;
-        public ArrayList<String> session_offerings;
-        public boolean approved;
+        public ArrayList<String> sessionOfferings;
 
+        public Course(){
+
+        }
+
+        public Course(String courseName, String courseCode, ArrayList<String> prerequisites, ArrayList<String> sessionOfferings)
+        {
+        this.courseName = courseName;
+        this.courseCode = courseCode;
+        this.prerequisites = new ArrayList<String>();
+        this.sessionOfferings = new ArrayList<String>();
+
+        }
 
         public String getCourseName() {
             return courseName;
         }
 
-        public int getCourseCode() {
+        public String getCourseCode() {
             return courseCode;
         }
 
-        public Boolean getApproved() {
-            return this.approved;
+        public ArrayList<String> getPrerequisites() {
+                return prerequisites;
+        }
+
+        public ArrayList<String> getSessionOfferings() {
+                return sessionOfferings;
         }
 
 
-        public Course(String name)
-        {
-            this.courseName = courseName;
-            this.courseCode = courseCode;
-            this.prerequisites = new ArrayList<String>();
-            this.session_offerings = new ArrayList<String>();
-            this.approved = false;
-
-
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            Course course = (Course) o;
-            return courseName == course.courseName && courseCode == course.courseCode;
-        }
-
-        @Override
-        public int hashCode() {
-            return courseCode;
-        }
 
 }
