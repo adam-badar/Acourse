@@ -24,6 +24,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     private TextView signup_tag_click;
+    private Button sign_in_click;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +35,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, SignUpActivity.class));
+            }
+        });
+
+        sign_in_click = findViewById(R.id.Signin);
+        sign_in_click.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity((new Intent(MainActivity.this, StudentHomepageActivity.class)));
             }
         });
     }
