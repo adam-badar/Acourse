@@ -3,6 +3,7 @@ package com.example.test;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -40,6 +41,7 @@ public class SignUpActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private ProgressBar progressBar;
 
+    @SuppressLint("RestrictedApi")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +80,8 @@ public class SignUpActivity extends AppCompatActivity {
                 }
             }
         });
+        getSupportActionBar().setTitle("MainActivity");
+        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
     }
 
     private void registerUser(String email, String password) {
@@ -94,6 +98,7 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
     }
+
     /*
     private EditText firstname;
     private EditText lastname;

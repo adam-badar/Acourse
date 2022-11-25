@@ -28,7 +28,8 @@
                 android:value="" />
         </activity>
         <activity android:name=".SignUpActivity"
-            android:label="Preference">
+            android:label="SignupPage"
+            android:parentActivityName=".MainActivity">
         </activity>
     </application>
 
