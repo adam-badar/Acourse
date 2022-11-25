@@ -31,6 +31,10 @@
             android:label="SignupPage"
             android:parentActivityName=".MainActivity">
         </activity>
+        <activity android:name=".User"
+            android:label="UserPage"
+            android:parentActivityName=".MainActivity">
+        </activity>
     </application>
 
 </manifest>

@@ -107,12 +107,19 @@ public class SignUpActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     Toast.makeText(SignUpActivity.this, "Registering user successful!", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    sendUsertoNextActivity();
                 }
                 else {
                     Toast.makeText(SignUpActivity.this, "Registration failed", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+    }
+
+    private void sendUsertoNextActivity() {
+    Intent intent= new Intent(SignUpActivity.this, User.class);
+    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+    startActivity(intent);
     }
 
 }
