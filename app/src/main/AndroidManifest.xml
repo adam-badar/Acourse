@@ -27,10 +27,12 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity android:name=".SignUpActivity"
-            android:label="SignupPage"
-            android:parentActivityName=".MainActivity">
-        </activity>
+        <activity
+            android:name=".SignUpActivity"
+            android:label="Preference"></activity>
+        <activity
+            android:name=".WelcomeAdminActivity"
+            android:label="Preference"></activity>
     </application>
 
 </manifest>
