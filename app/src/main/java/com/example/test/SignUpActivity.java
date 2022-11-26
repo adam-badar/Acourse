@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -41,7 +42,8 @@ public class SignUpActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private FirebaseDatabase db;
     private DatabaseReference reference;
-
+    FirebaseAuth mAuth;
+    FirebaseUser mUser;
     private ActivityMainBinding binding;
 
 
@@ -57,9 +59,11 @@ public class SignUpActivity extends AppCompatActivity {
         password = findViewById(R.id.password);
         confirmpassword = findViewById(R.id.confirmpassword);
         signupbutton = findViewById(R.id.Signup);
-
+        mAuth = FirebaseAuth.getInstance();
+        mUser = mAuth.getCurrentUser();
         auth = FirebaseAuth.getInstance();
         String pattern = "[a-zA-z0-9._-]+@[a-z]+\\.+[a-z]+";
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         signupbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,7 +82,7 @@ public class SignUpActivity extends AppCompatActivity {
                 } else if (!txt_password.equals(txt_password2)) {
                     Toast.makeText(SignUpActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
                 } else if (!txt_email.matches(pattern)) {
-                    Toast.makeText(SignUpActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUpActivity.this, "Incorrect email format", Toast.LENGTH_SHORT).show();
                 } else if (txt_id.length() != 10) {
                     Toast.makeText(SignUpActivity.this, "Invalid IDD", Toast.LENGTH_SHORT).show();
                 } else if (!txt_id.substring(0, 3).equals("100") && !txt_id.substring(0, 3).equals("200")) {
@@ -106,8 +110,8 @@ public class SignUpActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     Toast.makeText(SignUpActivity.this, "Registering user successful!", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                    sendUsertoNextActivity();
+                    startActivity(new Intent(getApplicationContext(), StudentHomepageActivity.class));
+                    //sendUserToNextActivity();
                 }
                 else {
                     Toast.makeText(SignUpActivity.this, "Registration failed", Toast.LENGTH_SHORT).show();
@@ -116,10 +120,9 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
-    private void sendUsertoNextActivity() {
-    Intent intent= new Intent(SignUpActivity.this, User.class);
-    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-    startActivity(intent);
-    }
+//    private void sendUserToNextActivity() {
+//        Intent intent = new Intent(SignUpActivity.this, )
+//    }
+
 
 }
