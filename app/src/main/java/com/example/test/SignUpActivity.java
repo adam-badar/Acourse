@@ -92,13 +92,18 @@ public class SignUpActivity extends AppCompatActivity {
                     User user = new User(txt_email, txt_password, txt_firstname, txt_lastname, txt_id);
                     db = FirebaseDatabase.getInstance();
                     reference = db.getReference("Users");
-                    if (txt_id.substring(0, 3).equals("100")) {
+                    int ind = txt_email.indexOf("@");
+                    if (txt_email.substring(ind+1, ind+8).equals("student")) {
                         reference.child("Students").child(txt_id).setValue(user);
+                        registerUser(txt_email, txt_password);
                     }
-                    else {
+                    else if(txt_email.substring(ind+1, ind+6).equals("admin")) {
                         reference.child("Admins").child(txt_id).setValue(user);
+                        registerUser(txt_email, txt_password);
                     }
-                    registerUser(txt_email, txt_password);
+                    else{
+                        Toast.makeText(SignUpActivity.this, "Email does not contain admin/student" + ind, Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -110,8 +115,8 @@ public class SignUpActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     Toast.makeText(SignUpActivity.this, "Registering user successful!", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getApplicationContext(), StudentHomepageActivity.class));
-                    //sendUserToNextActivity();
+                    //startActivity(new Intent(getApplicationContext(), StudentHomepageActivity.class));
+                    sendUserToNextActivity();
                 }
                 else {
                     Toast.makeText(SignUpActivity.this, "Registration failed", Toast.LENGTH_SHORT).show();
@@ -120,9 +125,16 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
-//    private void sendUserToNextActivity() {
-//        Intent intent = new Intent(SignUpActivity.this, )
-//    }
+    private void sendUserToNextActivity() {
+        email = findViewById(R.id.email);
+        String txt_email = email.getText().toString().trim();
+        int ind = txt_email.indexOf("@");
+        if(txt_email.substring(ind+1, ind+7).equals("student")) {
+            startActivity(new Intent(getApplicationContext(), StudentHomepageActivity.class));
+        }else if(txt_email.substring(ind+1, ind+5).equals("admin")){
+            startActivity(new Intent(getApplicationContext(), WelcomeAdminActivity.class));
+        }
+    }
 
 
 }

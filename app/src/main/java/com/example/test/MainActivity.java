@@ -107,13 +107,23 @@ public class MainActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
                         Toast.makeText(MainActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(getApplicationContext(), StudentHomepageActivity.class));
+                        sendUserToNextActivity();
                     }
                     else {
                         Toast.makeText(MainActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
+        }
+    }
+    private void sendUserToNextActivity() {
+        email = findViewById(R.id.email);
+        String txt_email = email.getText().toString().trim();
+        int ind = txt_email.indexOf("@");
+        if(txt_email.substring(ind+1, ind+8).equals("student")) {
+            startActivity(new Intent(getApplicationContext(), StudentHomepageActivity.class));
+        }else if(txt_email.substring(ind+1, ind+6).equals("admin")){
+            startActivity(new Intent(getApplicationContext(), WelcomeAdminActivity.class));
         }
     }
 
