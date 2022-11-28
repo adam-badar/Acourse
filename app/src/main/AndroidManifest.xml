@@ -51,6 +51,12 @@
         <activity
             android:name=".Pop_up_Menu"
             android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".WelcomeAdminActivity"
+            android:banner="@color/button_color"
+            android:label="Home"
+            android:parentActivityName=".MainActivity"
+            />
     </application>
 
 </manifest>
