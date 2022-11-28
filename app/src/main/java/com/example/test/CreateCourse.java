@@ -68,7 +68,7 @@ import java.util.stream.Stream;
                     String txt_prerequisites = prerequisites.getText().toString().trim();
                     String txt_sessionOfferings = sessionOfferings.getText().toString().trim();
 
-                    if ( TextUtils.isEmpty(txt_courseName) || TextUtils.isEmpty(txt_courseCode) || TextUtils.isEmpty((txt_sessionOfferings) {
+                    if ( TextUtils.isEmpty(txt_courseName) || TextUtils.isEmpty(txt_courseCode) || TextUtils.isEmpty((txt_sessionOfferings)) {
                             Toast.makeText(com.example.test.CreateCourse.this, "Empty Credentials", Toast.LENGTH_SHORT).show();
                     } else if (txt_courseCode.length() != 6) {
                         Toast.makeText(com.example.test.CreateCourse.this, "CourseCode too short", Toast.LENGTH_SHORT).show();
