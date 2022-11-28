@@ -35,6 +35,7 @@ import java.util.stream.Stream;
         private EditText courseCode;
         private EditText prerequisites;
         private EditText sessionOfferings;
+        private Button createcoursebutton;
 
 
         //private FirebaseAuth fAuth;
