@@ -29,6 +29,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -38,17 +39,10 @@
             android:label=" "
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".WelcomeAdminActivity"
-            android:label=""
-            android:theme="@style/Theme.Test.NoActionBar"/>
-        <activity
-            android:name=".AddCourseActivity"
-            android:label=""
-            android:theme="@style/Theme.Test.NoActionBar"/>
-        <activity
-            android:name=".EditCourseActivity"
-            android:label=""
-            android:theme="@style/Theme.Test.NoActionBar"/>
+            android:name=".StudentHomepageActivity"
+            android:banner="@color/button_color"
+            android:label="Home"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".searchCourses2"
             android:banner="@color/button_color"
@@ -57,5 +51,12 @@
         <activity
             android:name=".Pop_up_Menu"
             android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".WelcomeAdminActivity"
+            android:banner="@color/button_color"
+            android:label="Home"
+            android:parentActivityName=".MainActivity"
+            />
     </application>
+
 </manifest>
