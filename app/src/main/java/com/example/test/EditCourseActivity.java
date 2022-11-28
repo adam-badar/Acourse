@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 
-public class AddCourseActivity extends AppCompatActivity {
+public class EditCourseActivity extends AppCompatActivity {
    /* Spinner spinner;
     String[] sessions = {"Fall", "Winter", "Summer"};*/
 
@@ -41,33 +41,17 @@ public class AddCourseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_course);
-        /*spinner = findViewById(R.id.session_dropdown);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(AddCourseActivity.this, android.R.layout.simple_spinner_item, sessions);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String value = parent.getItemAtPosition(position).toString();
-                Toast.makeText(AddCourseActivity.this, value, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });*/
-        createCourseButton = (Button) findViewById(R.id.create_course);
+        setContentView(R.layout.activity_edit_course);
+        createCourseButton = (Button) findViewById(R.id.save_change_button);
 
         //prerequisites
-        courseButton = findViewById(R.id.course_dropdown);
+        courseButton = findViewById(R.id.edit_course_dropdown);
         selectedCourse = new boolean[courseArray.length];
 
         createCourseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(AddCourseActivity.this, searchCourses2.class));
+                startActivity(new Intent(EditCourseActivity.this, searchCourses2.class));
             }
         });
 
@@ -75,7 +59,7 @@ public class AddCourseActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(
-                        AddCourseActivity.this
+                        EditCourseActivity.this
                 );
                 builder.setTitle("Select Sessions");
                 builder.setCancelable(false);
@@ -125,13 +109,13 @@ public class AddCourseActivity extends AppCompatActivity {
 
         });
         //sessions
-        sessionButton = findViewById(R.id.session_dropdown_multiple);
+        sessionButton = findViewById(R.id.edit_session_dropdown_multiple);
         selectedSession = new boolean[sessionArray.length];
         sessionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(
-                        AddCourseActivity.this
+                        EditCourseActivity.this
                 );
                 builder.setTitle("Select Sessions");
                 builder.setCancelable(false);

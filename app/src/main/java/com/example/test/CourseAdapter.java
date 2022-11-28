@@ -13,7 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CourseAdapter extends ArrayAdapter<CourseListAdapter> {
-    private Context mContext;
+    private
+    Context mContext;
     int mResource;
     public CourseAdapter(Context context, int resource, ArrayList<CourseListAdapter> objects){
         super(context, resource, objects);
