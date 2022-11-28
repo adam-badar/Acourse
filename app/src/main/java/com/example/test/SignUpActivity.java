@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -41,7 +42,8 @@ public class SignUpActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private FirebaseDatabase db;
     private DatabaseReference reference;
-
+    FirebaseAuth mAuth;
+    FirebaseUser mUser;
     private ActivityMainBinding binding;
 
 
@@ -57,9 +59,11 @@ public class SignUpActivity extends AppCompatActivity {
         password = findViewById(R.id.password);
         confirmpassword = findViewById(R.id.confirmpassword);
         signupbutton = findViewById(R.id.Signup);
-
+        mAuth = FirebaseAuth.getInstance();
+        mUser = mAuth.getCurrentUser();
         auth = FirebaseAuth.getInstance();
         String pattern = "[a-zA-z0-9._-]+@[a-z]+\\.+[a-z]+";
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         signupbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,7 +82,7 @@ public class SignUpActivity extends AppCompatActivity {
                 } else if (!txt_password.equals(txt_password2)) {
                     Toast.makeText(SignUpActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
                 } else if (!txt_email.matches(pattern)) {
-                    Toast.makeText(SignUpActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUpActivity.this, "Incorrect email format", Toast.LENGTH_SHORT).show();
                 } else if (txt_id.length() != 10) {
                     Toast.makeText(SignUpActivity.this, "Invalid IDD", Toast.LENGTH_SHORT).show();
                 } else if (!txt_id.substring(0, 3).equals("100") && !txt_id.substring(0, 3).equals("200")) {
@@ -88,13 +92,18 @@ public class SignUpActivity extends AppCompatActivity {
                     User user = new User(txt_email, txt_password, txt_firstname, txt_lastname, txt_id);
                     db = FirebaseDatabase.getInstance();
                     reference = db.getReference("Users");
-                    if (txt_id.substring(0, 3).equals("100")) {
+                    int ind = txt_email.indexOf("@");
+                    if (txt_email.substring(ind+1, ind+8).equals("student")) {
                         reference.child("Students").child(txt_id).setValue(user);
+                        registerUser(txt_email, txt_password);
                     }
-                    else {
+                    else if(txt_email.substring(ind+1, ind+6).equals("admin")) {
                         reference.child("Admins").child(txt_id).setValue(user);
+                        registerUser(txt_email, txt_password);
                     }
-                    registerUser(txt_email, txt_password);
+                    else{
+                        Toast.makeText(SignUpActivity.this, "Email does not contain admin/student" + ind, Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -106,7 +115,8 @@ public class SignUpActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     Toast.makeText(SignUpActivity.this, "Registering user successful!", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    //startActivity(new Intent(getApplicationContext(), StudentHomepageActivity.class));
+                    sendUserToNextActivity();
                 }
                 else {
                     Toast.makeText(SignUpActivity.this, "Registration failed", Toast.LENGTH_SHORT).show();
@@ -114,5 +124,17 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void sendUserToNextActivity() {
+        email = findViewById(R.id.email);
+        String txt_email = email.getText().toString().trim();
+        int ind = txt_email.indexOf("@");
+        if(txt_email.substring(ind+1, ind+7).equals("student")) {
+            startActivity(new Intent(getApplicationContext(), StudentHomepageActivity.class));
+        }else if(txt_email.substring(ind+1, ind+5).equals("admin")){
+            startActivity(new Intent(getApplicationContext(), WelcomeAdminActivity.class));
+        }
+    }
+
 
 }
