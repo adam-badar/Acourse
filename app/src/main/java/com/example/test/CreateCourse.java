@@ -49,7 +49,7 @@ import java.util.stream.Stream;
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.AddCourse);
+            setContentView(R.layout.activity_create_course);
 
             courseName = findViewById(R.id.courseName);
             courseCode = findViewById(R.id.courseCode);
