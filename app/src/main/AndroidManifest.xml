@@ -29,6 +29,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -50,6 +51,12 @@
         <activity
             android:name=".Pop_up_Menu"
             android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".WelcomeAdminActivity"
+            android:banner="@color/button_color"
+            android:label="Home"
+            android:parentActivityName=".MainActivity"
+            />
     </application>
 
 </manifest>

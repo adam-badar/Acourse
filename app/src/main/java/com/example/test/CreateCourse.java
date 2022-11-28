@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.test.databinding.ActivityMainBinding;
@@ -34,8 +35,8 @@ import java.util.stream.Stream;
 
         private EditText courseName;
         private EditText courseCode;
-        private EditText prerequisites;
-        private EditText sessionOfferings;
+        private Spinner prerequisites;
+        private Spinner sessionOfferings;
 
 
         //private FirebaseAuth fAuth;
@@ -45,22 +46,23 @@ import java.util.stream.Stream;
         private DatabaseReference reference;
 
         private ActivityMainBinding binding;
-
+        private Button createcoursebutton;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_create_course);
 
-            courseName = findViewById(R.id.s);
+            courseName = findViewById(R.id.courseName);
             courseCode = findViewById(R.id.courseCode);
-            prerequisites = findViewById(R.id.prerequsities);
-            sessionOfferings = findViewById(R.id.sessionOfferings);
-
+            prerequisites = findViewById(R.id.prereq_dropdown);
+            sessionOfferings = findViewById(R.id.session_dropdown);
+            createcoursebutton = findViewById(R.id.addcourses);
 
             auth = FirebaseAuth.getInstance();
             //progressBar =
             String pattern = "[a-zA-z0-9._-]+@[a-z]+\\.+[a-z]+";
+
             createcoursebutton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
