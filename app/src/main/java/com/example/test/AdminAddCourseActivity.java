@@ -56,27 +56,9 @@ public class AdminAddCourseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_course);
-        /*spinner = findViewById(R.id.session_dropdown);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(AddCourseActivity.this, android.R.layout.simple_spinner_item, sessions);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String value = parent.getItemAtPosition(position).toString();
-                Toast.makeText(AddCourseActivity.this, value, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });*/
         createCourseButton = (Button) findViewById(R.id.createCourseBtn);
-        //prerequisites
         courseButton = findViewById(R.id.prereqs);
         selectedCourse = new boolean[courseArray.length];
-
         createCourseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -196,11 +178,6 @@ public class AdminAddCourseActivity extends AppCompatActivity {
         courseCode = findViewById(R.id.courseCode);
         prerequisites = findViewById(R.id.prereqs);
         sessionOfferings = findViewById(R.id.sessionOffered);
-
-
-        auth = FirebaseAuth.getInstance();
-        //progressBar =
-        String pattern = "[a-zA-z0-9._-]+@[a-z]+\\.+[a-z]+";
         createCourseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -215,30 +192,19 @@ public class AdminAddCourseActivity extends AppCompatActivity {
                     Toast.makeText(AdminAddCourseActivity.this, "CourseCode too short", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    Course course = new Course(txt_courseName, txt_courseCode, prerequisites, txt_sessionOfferings);
+                    AdminCourse course = new AdminCourse(txt_courseName, txt_courseCode, txt_prerequisites, txt_sessionOfferings);
                     db = FirebaseDatabase.getInstance();
                     reference = db.getReference("Courses");
                     reference.child(txt_courseCode).setValue(course);
-                    //registerUser(txt_email, txt_password);
+                    sendUserToNextActivity();
                 }
             }
         });
 
     }
-
-    private void CreateCourse(String courseName, String courseCode ) {
-        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(AdminAddCourseActivity.this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    Toast.makeText(AdminAddCourseActivity.this, "Course creation successful!", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(getApplicationContext(), AdminWelcomePage.class));
-                }
-                else {
-                    Toast.makeText(AdminAddCourseActivity.this, "Creation failed", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+    private void sendUserToNextActivity() {
+        Toast.makeText(AdminAddCourseActivity.this, "Course Created Successfully", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(getApplicationContext(), AdminWelcomePage.class));
     }
 
 }
