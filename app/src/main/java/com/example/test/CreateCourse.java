@@ -32,7 +32,7 @@ import java.util.stream.Stream;
 
 
     public class CreateCourse extends AppCompatActivity {
-
+        /*
         private EditText courseName;
         private EditText courseCode;
         private Spinner prerequisites;
@@ -101,5 +101,5 @@ import java.util.stream.Stream;
                 }
             });
         }
-    }
+    }*/
 }

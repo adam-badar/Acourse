@@ -67,6 +67,7 @@ public class AddCourseActivity extends AppCompatActivity {
         createCourseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 startActivity(new Intent(AddCourseActivity.this, searchCourses2.class));
             }
         });
