@@ -27,7 +27,6 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText firstname;
     private EditText lastname;
     private EditText email;
-    private EditText id;
     private EditText password;
     private EditText confirmpassword;
     private Button signupbutton;
@@ -50,7 +49,6 @@ public class SignUpActivity extends AppCompatActivity {
         firstname = findViewById(R.id.firstname);
         lastname = findViewById(R.id.lastname);
         email = findViewById(R.id.email);
-        id = findViewById(R.id.idnum);
         password = findViewById(R.id.password);
         confirmpassword = findViewById(R.id.confirmpassword);
         signupbutton = findViewById(R.id.Signup);
@@ -65,12 +63,10 @@ public class SignUpActivity extends AppCompatActivity {
                 String txt_firstname = firstname.getText().toString().trim();
                 String txt_lastname = lastname.getText().toString().trim();
                 String txt_email = email.getText().toString().trim();
-                String txt_id = id.getText().toString().trim();
                 String txt_password = password.getText().toString().trim();
                 String txt_password2 = confirmpassword.getText().toString().trim();
                 //Toast.makeText(SignUpActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
-                if (TextUtils.isEmpty(txt_firstname) || TextUtils.isEmpty(txt_lastname) || TextUtils.isEmpty(txt_email) ||
-                        TextUtils.isEmpty(txt_id) || TextUtils.isEmpty(txt_password) || TextUtils.isEmpty(txt_password2)) {
+                if (TextUtils.isEmpty(txt_firstname) || TextUtils.isEmpty(txt_lastname) || TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_password) || TextUtils.isEmpty(txt_password2)) {
                     Toast.makeText(SignUpActivity.this, "Empty Credentials", Toast.LENGTH_SHORT).show();
                 } else if (txt_password.length() < 6) {
                     Toast.makeText(SignUpActivity.this, "Password too short", Toast.LENGTH_SHORT).show();
@@ -78,22 +74,18 @@ public class SignUpActivity extends AppCompatActivity {
                     Toast.makeText(SignUpActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
                 } else if (!txt_email.matches(pattern)) {
                     Toast.makeText(SignUpActivity.this, "Incorrect email format", Toast.LENGTH_SHORT).show();
-                } else if (txt_id.length() != 10) {
-                    Toast.makeText(SignUpActivity.this, "Invalid IDD", Toast.LENGTH_SHORT).show();
-                } else if (!txt_id.substring(0, 3).equals("100") && !txt_id.substring(0, 3).equals("200")) {
-                    Toast.makeText(SignUpActivity.this, "Invalid ID", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    User user = new User(txt_email, txt_password, txt_firstname, txt_lastname, txt_id);
+                    User user = new User(txt_email, txt_password, txt_firstname, txt_lastname);
                     db = FirebaseDatabase.getInstance();
                     reference = db.getReference("Users");
                     int ind = txt_email.indexOf("@");
                     if (txt_email.substring(ind+1, ind+8).equals("student")) {
-                        reference.child("Students").child(txt_id).setValue(user);
+                        reference.child("Students").child(txt_email).setValue(user);
                         registerUser(txt_email, txt_password);
                     }
                     else if(txt_email.substring(ind+1, ind+6).equals("admin")) {
-                        reference.child("Admins").child(txt_id).setValue(user);
+                        reference.child("Admins").child(txt_email).setValue(user);
                         registerUser(txt_email, txt_password);
                     }
                     else{

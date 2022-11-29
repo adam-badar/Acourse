@@ -52,6 +52,7 @@
                     android:textSize="30dp" />
 
                 <EditText
+                    android:id="@+id/courseName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
@@ -72,6 +73,7 @@
                     android:textSize="30dp" />
 
                 <EditText
+                    android:id="@+id/courseCode"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
@@ -91,7 +93,7 @@
                     android:textSize="30dp" />
 
                 <TextView
-                    android:id="@+id/session_dropdown_multiple"
+                    android:id="@+id/sessionOffered"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
@@ -124,7 +126,7 @@
                     android:textSize="30dp" />
 
                 <TextView
-                    android:id="@+id/course_dropdown"
+                    android:id="@+id/prereqs"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
@@ -150,7 +152,7 @@
                         android:spinnerMode="dropdown"/>
                     -->
                 <Button
-                    android:id="@+id/create_course"
+                    android:id="@+id/createCourseBtn"
                     android:layout_width="250dp"
                     android:layout_height="100dp"
                     android:layout_marginTop="30dp"
