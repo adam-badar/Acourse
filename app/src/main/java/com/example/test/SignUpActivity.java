@@ -4,15 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.test.databinding.ActivityMainBinding;
@@ -23,8 +20,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.stream.Stream;
 
 
 public class SignUpActivity extends AppCompatActivity {
@@ -44,7 +39,7 @@ public class SignUpActivity extends AppCompatActivity {
     private DatabaseReference reference;
     FirebaseAuth mAuth;
     FirebaseUser mUser;
-    private ActivityMainBinding binding;
+    private SignInActivity binding;
 
 
     @Override
@@ -132,7 +127,7 @@ public class SignUpActivity extends AppCompatActivity {
         if(txt_email.substring(ind+1, ind+7).equals("student")) {
             startActivity(new Intent(getApplicationContext(), StudentHomepageActivity.class));
         }else if(txt_email.substring(ind+1, ind+5).equals("admin")){
-            startActivity(new Intent(getApplicationContext(), WelcomeAdminActivity.class));
+            startActivity(new Intent(getApplicationContext(), AdminWelcomePage.class));
         }
     }
 

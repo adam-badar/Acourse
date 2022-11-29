@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/adminpage"
-    tools:context="com.example.test.AddCourseActivity">
+    tools:context="com.example.test.AdminAddCourseActivity">
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -175,17 +175,9 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
-            android:id="@+id/profileButton"
-            android:layout_width="137dp"
-            android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:srcCompat="@drawable/courses" />
-
-        <ImageView
             android:id="@+id/homeButton"
-            android:layout_width="137dp"
+            android:layout_weight="0.5"
+            android:layout_width = "match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
@@ -193,11 +185,12 @@
 
         <ImageView
             android:id="@+id/logOutButton"
-            android:layout_width="137dp"
+            android:layout_weight="0.5"
+            android:layout_width = "match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            app:srcCompat="@drawable/searchbar" />
+            app:srcCompat="@drawable/signout" />
     </LinearLayout>
 
 

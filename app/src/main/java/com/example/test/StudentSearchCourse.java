@@ -2,7 +2,6 @@ package com.example.test;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -13,15 +12,13 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class searchCourses2 extends AppCompatActivity {
+public class StudentSearchCourse extends AppCompatActivity {
 
     TextView test_dropdown;
     Dialog dialog;
@@ -50,7 +47,7 @@ public class searchCourses2 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Initialize dialog
-                dialog=new Dialog(searchCourses2.this);
+                dialog=new Dialog(StudentSearchCourse.this);
 
                 // set custom dialog
                 dialog.setContentView(R.layout.search_spinner_dialogue);
@@ -67,7 +64,7 @@ public class searchCourses2 extends AppCompatActivity {
                 EditText editText=dialog.findViewById(R.id.edit_text);
                 ListView listView=dialog.findViewById(R.id.list_view);
 
-                ArrayAdapter<String> adapter=new ArrayAdapter<>(searchCourses2.this, android.R.layout.simple_list_item_1,courses);
+                ArrayAdapter<String> adapter=new ArrayAdapter<>(StudentSearchCourse.this, android.R.layout.simple_list_item_1,courses);
 
                 listView.setAdapter(adapter);
                 editText.addTextChangedListener(new TextWatcher() {
@@ -93,7 +90,7 @@ public class searchCourses2 extends AppCompatActivity {
                         // set selected item on textView
                         test_dropdown.setText(adapter.getItem(position));
                          courseTitle= adapter.getItem(position);
-                        startActivity(new Intent(searchCourses2.this,Pop_up_Menu.class));
+                        startActivity(new Intent(StudentSearchCourse.this, StudentPopUpMenu.class));
 
                         // Dismiss dialog
                         dialog.dismiss();

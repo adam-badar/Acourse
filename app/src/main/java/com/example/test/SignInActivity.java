@@ -1,12 +1,10 @@
 package com.example.test;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.snackbar.Snackbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,27 +12,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-
-import com.example.test.databinding.ActivityMainBinding;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
 
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
-public class MainActivity extends AppCompatActivity {
+public class SignInActivity extends AppCompatActivity {
 
     private TextView signup_tag_click;
     private Button sign_in_click;
@@ -59,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         signup_tag_click.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, SignUpActivity.class));
+                startActivity(new Intent(SignInActivity.this, SignUpActivity.class));
             }
         });
 
@@ -77,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
         forgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast myToast = Toast.makeText(MainActivity.this,
+                Toast myToast = Toast.makeText(SignInActivity.this,
                         "Coming Soon", Toast.LENGTH_SHORT);
                 myToast.show();
             }
@@ -94,11 +81,11 @@ public class MainActivity extends AppCompatActivity {
         //Toast.makeText(SignUpActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
         if (TextUtils.isEmpty(txt_email) ||
                 TextUtils.isEmpty(txt_password)) {
-            Toast.makeText(MainActivity.this, "Empty Credentials", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SignInActivity.this, "Empty Credentials", Toast.LENGTH_SHORT).show();
         } else if (txt_password.length() < 6) {
-            Toast.makeText(MainActivity.this, "Password too short", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SignInActivity.this, "Password too short", Toast.LENGTH_SHORT).show();
         }  else if (!txt_email.matches(pattern)) {
-            Toast.makeText(MainActivity.this, "Incorrect email format", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SignInActivity.this, "Incorrect email format", Toast.LENGTH_SHORT).show();
         }
         else {
 
@@ -106,11 +93,11 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()){
-                        Toast.makeText(MainActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignInActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
                         sendUserToNextActivity();
                     }
                     else {
-                        Toast.makeText(MainActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignInActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -121,9 +108,9 @@ public class MainActivity extends AppCompatActivity {
         String txt_email = email.getText().toString().trim();
         int ind = txt_email.indexOf("@");
         if(txt_email.substring(ind+1, ind+8).equals("student")) {
-            startActivity(new Intent(getApplicationContext(), StudentHomepageActivity.class));
+            startActivity(new Intent(getApplicationContext(), StudentWelcomePage.class));
         }else if(txt_email.substring(ind+1, ind+6).equals("admin")){
-            startActivity(new Intent(getApplicationContext(), WelcomeAdminActivity.class));
+            startActivity(new Intent(getApplicationContext(), AdminWelcomePage.class));
         }
     }
 

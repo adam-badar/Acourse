@@ -35,12 +35,12 @@ public class CourseAdapter extends ArrayAdapter<CourseListAdapter> {
         convertView = inflater.inflate(mResource, parent, false);
 
         TextView Lname = (TextView) convertView.findViewById(R.id.viewCoursesList);
-        TextView Lstate = (TextView) convertView.findViewById(R.id.stateOfCourse);
-        TextView Lcheck = (TextView) convertView.findViewById(R.id.tab2);
+        //TextView Lstate = (TextView) convertView.findViewById(R.id.stateOfCourse);
+        //TextView Lcheck = (TextView) convertView.findViewById(R.id.tab2);
 
         Lname.setText(name);
-        Lstate.setText(name);
-        Lcheck.setText(name);
+        //Lstate.setText(name);
+        //Lcheck.setText(name);
         return convertView;
     }
 }

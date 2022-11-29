@@ -4,11 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class WelcomeAdminActivity extends AppCompatActivity {
+public class AdminWelcomePage extends AppCompatActivity {
     private Button admin_create_course;
     private Button admin_edit_course;
     @Override
@@ -20,13 +19,13 @@ public class WelcomeAdminActivity extends AppCompatActivity {
         admin_create_course.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(WelcomeAdminActivity.this, AddCourseActivity.class));
+                startActivity(new Intent(AdminWelcomePage.this, AdminAddCourseActivity.class));
             }
         });
         admin_edit_course.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(WelcomeAdminActivity.this, EditCourseActivity.class));
+                startActivity(new Intent(AdminWelcomePage.this, AdminEditCourseActivity.class));
             }
         });
     }
