@@ -20,13 +20,6 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".CourseListPopUp"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".SignInActivity"
             android:exported="true"
             android:label="@string/app_name"
@@ -75,6 +68,12 @@
             android:banner="@color/button_color"
             android:label="Home"
             android:parentActivityName=".AdminWelcomePage"
+            />
+        <activity
+            android:name=".StudentWelcomePage"
+            android:banner="@color/button_color"
+            android:label="Home"
+            android:parentActivityName=".SignInActivity"
             />
     </application>
 
