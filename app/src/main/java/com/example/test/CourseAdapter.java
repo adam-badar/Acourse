@@ -21,26 +21,26 @@ public class CourseAdapter extends ArrayAdapter<CourseListAdapter> {
         mContext = context;
     }
 
-    @NonNull
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent){
-
-        String name = getItem(position).getCourse_name();
-        String state = getItem(position).getState();
-        String check = getItem(position).getCheck();
-
-        CourseListAdapter courses  = new CourseListAdapter (name, state,check);
-
-        LayoutInflater inflater = LayoutInflater.from(mContext);
-        convertView = inflater.inflate(mResource, parent, false);
-
-        TextView Lname = (TextView) convertView.findViewById(R.id.viewCoursesList);
-        TextView Lstate = (TextView) convertView.findViewById(R.id.stateOfCourse);
-        TextView Lcheck = (TextView) convertView.findViewById(R.id.tab2);
-
-        Lname.setText(name);
-        Lstate.setText(name);
-        Lcheck.setText(name);
-        return convertView;
-    }
+//    @NonNull
+//    @Override
+//    public View getView(int position, View convertView, ViewGroup parent){
+//
+//        String name = getItem(position).getCourse_name();
+//        String state = getItem(position).getState();
+//        String check = getItem(position).getCheck();
+//
+//        CourseListAdapter courses  = new CourseListAdapter (name, state,check);
+//
+//        LayoutInflater inflater = LayoutInflater.from(mContext);
+//        convertView = inflater.inflate(mResource, parent, false);
+//
+//        TextView Lname = (TextView) convertView.findViewById(R.id.viewCoursesList);
+//        TextView Lstate = (TextView) convertView.findViewById(R.id.stateOfCourse);
+//        TextView Lcheck = (TextView) convertView.findViewById(R.id.tab2);
+//
+//        Lname.setText(name);
+//        Lstate.setText(name);
+//        Lcheck.setText(name);
+//        return convertView;
+//    }
 }
