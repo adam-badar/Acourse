@@ -1,4 +1,4 @@
-package com.example.test;
+/*package com.example.test;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -37,10 +37,6 @@ import java.util.stream.Stream;
         private EditText sessionOfferings;
         private Button createcoursebutton;
 
-
-        //private FirebaseAuth fAuth;
-
-        private FirebaseAuth auth;
         private FirebaseDatabase db;
         private DatabaseReference reference;
 
@@ -54,7 +50,7 @@ import java.util.stream.Stream;
 
             courseName = findViewById(R.id.courseName);
             courseCode = findViewById(R.id.courseCode);
-            prerequisites = findViewById(R.id.prerequsities);
+            prerequisites = findViewById(R.id.prerequisites);
             sessionOfferings = findViewById(R.id.sessionOfferings);
 
 
@@ -79,7 +75,7 @@ import java.util.stream.Stream;
                         db = FirebaseDatabase.getInstance();
                         reference = db.getReference("Courses");
                         reference.child(txt_courseCode).setValue(course);
-                        //registerUser(txt_email, txt_password);
+
                     }
                 }
             });
@@ -101,3 +97,6 @@ import java.util.stream.Stream;
         }
     }
 }
+
+
+ */
