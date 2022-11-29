@@ -9,9 +9,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.w3c.dom.Text;
-
-public class Pop_up_Menu extends AppCompatActivity {
+public class StudentPopUpMenu extends AppCompatActivity {
 
     Button courselist;
     @Override
@@ -33,7 +31,7 @@ public class Pop_up_Menu extends AppCompatActivity {
         courselist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity((new Intent(Pop_up_Menu.this, CourseListPopUp.class)));
+                startActivity((new Intent(StudentPopUpMenu.this, CourseListPopUp.class)));
             }
         });
     }

@@ -3,27 +3,18 @@ package com.example.test;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
 
-public class AddCourseActivity extends AppCompatActivity {
+public class AdminAddCourseActivity extends AppCompatActivity {
    /* Spinner spinner;
     String[] sessions = {"Fall", "Winter", "Summer"};*/
 
@@ -67,7 +58,7 @@ public class AddCourseActivity extends AppCompatActivity {
         createCourseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(AddCourseActivity.this, searchCourses2.class));
+                startActivity(new Intent(AdminAddCourseActivity.this, StudentSearchCourse.class));
             }
         });
 
@@ -75,7 +66,7 @@ public class AddCourseActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(
-                        AddCourseActivity.this
+                        AdminAddCourseActivity.this
                 );
                 builder.setTitle("Select Sessions");
                 builder.setCancelable(false);
@@ -131,7 +122,7 @@ public class AddCourseActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(
-                        AddCourseActivity.this
+                        AdminAddCourseActivity.this
                 );
                 builder.setTitle("Select Sessions");
                 builder.setCancelable(false);
