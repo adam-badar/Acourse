@@ -8,7 +8,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-public class ViewPastCourses extends AppCompatActivity {
+public class StudentViewPastCourses extends AppCompatActivity {
 
     ArrayList<String> courses;
     @Override
@@ -27,7 +27,7 @@ public class ViewPastCourses extends AppCompatActivity {
         courses.add("CSCB20");
 
         ListView listView = (ListView) findViewById(R.id.PastCoursesView);
-        ArrayAdapter<String> adapter=new ArrayAdapter<>(ViewPastCourses.this, android.R.layout.simple_list_item_1,courses);
+        ArrayAdapter<String> adapter=new ArrayAdapter<>(StudentViewPastCourses.this, android.R.layout.simple_list_item_1,courses);
         listView.setAdapter(adapter);
     }
 }
