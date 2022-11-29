@@ -1,7 +1,6 @@
 package com.example.test;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 
 import android.content.Intent;
@@ -22,7 +21,7 @@ public class StudentHomepageActivity extends AppCompatActivity {
         view_timeline_click.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity((new Intent(StudentHomepageActivity.this, searchCourses2.class)));
+                startActivity((new Intent(StudentHomepageActivity.this, StudentSearchCourse.class)));
             }
         });
     }

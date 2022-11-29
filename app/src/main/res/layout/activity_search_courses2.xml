@@ -8,7 +8,7 @@
     android:background="@color/main_background"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".searchCourses2">
+    tools:context=".StudentSearchCourse">
 
 
 <!--        <SearchView-->
