@@ -86,12 +86,13 @@
             android:id="@+id/view_timeline"
             android:layout_width="250dp"
             android:layout_height="100dp"
+            android:layout_gravity="center"
             android:layout_marginBottom="20dp"
-            android:layout_gravity = "center"
             android:backgroundTint="@color/white"
             android:text="View My Timeline"
             android:textColor="@color/black"
             android:textSize="20dp" />
+
         <Button
             android:id="@+id/past_courses"
             android:layout_width="250dp"
@@ -105,7 +106,7 @@
 
     <LinearLayout
         android:id="@+id/Navbar"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="#000000"
         android:orientation="horizontal"
