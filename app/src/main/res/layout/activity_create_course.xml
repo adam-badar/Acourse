@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/adminpage"
-    tools:context="com.example.test.SignUpActivity">
+    tools:context="com.example.test.AdminCreateCourse">
 
     <LinearLayout
         android:id = "@+id/add_courses_heading"
@@ -47,6 +47,7 @@
             android:textSize = "30dp"
             android:textColor = "@color/black"/>
         <EditText
+            android:id ="@+id/courseName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
@@ -65,6 +66,7 @@
             android:textSize = "30dp"
             android:textColor = "@color/black"/>
         <EditText
+            android:id ="@+id/courseCode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
@@ -100,7 +102,7 @@
             android:textSize = "30dp"
             android:textColor = "@color/black"/>
         <Spinner
-            android:id = "@+id/prereq_dropdown"
+            android:id = "@+id/prereqs"
             android:layout_width="match_parent"
             android:layout_marginStart="30dp"
             android:layout_marginTop="10dp"

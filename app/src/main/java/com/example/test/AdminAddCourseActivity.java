@@ -28,7 +28,7 @@ public class AdminAddCourseActivity extends AppCompatActivity {
     TextView courseButton;
     boolean [] selectedCourse;
     ArrayList<Integer> courseList = new ArrayList<>();
-    String [] courseArray = {"CSCA48", "CSCA67", "CSCB36", "MATB41", "STAB52", "MATA31"};
+    String [] courseArray = {"None", "CSCA48", "CSCA67", "CSCB36", "MATB41", "STAB52", "MATA31"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
