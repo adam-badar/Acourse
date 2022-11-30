@@ -19,12 +19,16 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 
@@ -41,8 +45,10 @@ public class AdminAddCourseActivity extends AppCompatActivity {
     ArrayList<Integer> sessionList = new ArrayList<>();
     String [] sessionArray = {"Fall", "Winter", "Summer"};
     ArrayList<Integer> courseList = new ArrayList<>();
-    String [] courseArray = {"None", "CSCA48", "CSCA67", "CSCB36", "MATB41", "STAB52", "MATA31"};
-
+    ArrayList<String> coursesList = new ArrayList<>();
+    //String [] courseArray = {"None", "CSCA48", "CSCA67", "CSCB36", "MATB41", "STAB52", "MATA31"};
+    String [] courseArray;
+    boolean setFirebase = false;
     private EditText courseName;
     private EditText courseCode;
     private TextView prerequisites;
@@ -56,9 +62,20 @@ public class AdminAddCourseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_course);
+        FirebaseDatabase.getInstance().getReference().child("Courses").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                    AdminCourse admincourse = snapshot.getValue(AdminCourse.class);
+                    coursesList.add(admincourse.courseCode);
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
         createCourseButton = (Button) findViewById(R.id.createCourseBtn);
         courseButton = findViewById(R.id.prereqs);
-        selectedCourse = new boolean[courseArray.length];
         createCourseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,6 +91,11 @@ public class AdminAddCourseActivity extends AppCompatActivity {
                 );
                 builder.setTitle("Select Sessions");
                 builder.setCancelable(false);
+                if (setFirebase == false) {
+                    courseArray = coursesList.toArray(new String[coursesList.size()]);
+                    selectedCourse = new boolean[coursesList.size()];
+                    setFirebase = true;
+                }
                 builder.setMultiChoiceItems(courseArray, selectedCourse, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i, boolean b) {
