@@ -13,6 +13,13 @@
         android:theme="@style/Theme.Test"
         tools:targetApi="31">
         <activity
+            android:name=".ViewTimetable"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".StudentViewPastCourses"
             android:exported="false">
             <meta-data
@@ -62,20 +69,17 @@
             android:name=".AdminWelcomePage"
             android:banner="@color/button_color"
             android:label="Home"
-            android:parentActivityName=".SignInActivity"
-            />
+            android:parentActivityName=".SignInActivity" />
         <activity
             android:name=".AdminEditCourseActivity"
             android:banner="@color/button_color"
             android:label="Home"
-            android:parentActivityName=".AdminWelcomePage"
-            />
+            android:parentActivityName=".AdminWelcomePage" />
         <activity
             android:name=".AdminAddCourseActivity"
             android:banner="@color/button_color"
             android:label="Home"
-            android:parentActivityName=".AdminWelcomePage"
-            />
+            android:parentActivityName=".AdminWelcomePage" />
     </application>
 
 </manifest>

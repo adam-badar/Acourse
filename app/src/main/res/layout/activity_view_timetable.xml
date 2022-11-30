@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_background"
+    android:paddingTop="15dp"
+    android:paddingBottom="15dp"
+    android:layout_marginBottom="3dp"
+    tools:context=".ViewTimetable">
+
+    <TextView
+        android:id="@+id/timeTableBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Timetable"
+        android:textColor="@color/font_color"
+        android:textSize="35dp"
+        android:textAlignment="center"
+        >
+    </TextView>
+
+    <LinearLayout
+        android:id="@+id/timetableLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/timeTableBar"
+        android:layout_marginTop="0dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/sessionBar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_weight="0.5"
+            android:background="@color/button_color"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:text="Session"
+            android:layout_gravity="top"
+            android:textColor="@color/font_color"
+            android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/courseBar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_weight="0.5"
+            android:layout_gravity="top"
+            android:background="@color/button_color"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:text="Courses"
+            android:textColor="@color/font_color"
+            android:textSize="20dp" />
+
+    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/recyclerView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@id/timetableLayout"
+    android:background="#D6EEEE" />
+
+</RelativeLayout>
