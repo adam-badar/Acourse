@@ -1,0 +1,25 @@
+Rawad’s Employees
+
+Standup Meeting #7
+
+11/28/2022
+
+Aaliyah
+	~ Completed the Viewing Past Courses Pages and XML files, cleaned up the search pages for consistency
+
+Adam
+	~ Successfully completed second user story, edited file names and parent classes for proper navigation and helped all team members get on track and complete tasks
+
+Andrew
+	~ Modified the structure of navigation and edited the manifest file for readability 
+
+Kody
+    ~ Created the CourseClass to add courses to FireBase and chose a different method to separate students and admin (emails instead of ID number)
+
+Sana
+	~ Linked the adding courses functionality for admin to FireBase
+
+Yann
+	~ Readjusted all the pages that teammates have completed and adjusted structure so all pages include navigation bar, same colour scheme, and flawless transitions
+    
+	

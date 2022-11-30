@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools" >
 
     <application
         android:allowBackup="true"
@@ -11,10 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Test"
-        tools:targetApi="31">
+        tools:targetApi="31" >
         <activity
             android:name=".StudentViewPastCourses"
-            android:exported="false">
+            android:exported="false" >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -23,7 +23,7 @@
             android:name=".SignInActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Test.NoActionBar">
+            android:theme="@style/Theme.Test.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -55,26 +55,22 @@
             android:name=".AdminWelcomePage"
             android:banner="@color/button_color"
             android:label="Home"
-            android:parentActivityName=".SignInActivity"
-            />
+            android:parentActivityName=".SignInActivity" />
         <activity
             android:name=".AdminEditCourseActivity"
             android:banner="@color/button_color"
             android:label="Home"
-            android:parentActivityName=".AdminWelcomePage"
-            />
+            android:parentActivityName=".AdminWelcomePage" />
         <activity
             android:name=".AdminAddCourseActivity"
             android:banner="@color/button_color"
             android:label="Home"
-            android:parentActivityName=".AdminWelcomePage"
-            />
+            android:parentActivityName=".AdminWelcomePage" />
         <activity
             android:name=".StudentWelcomePage"
             android:banner="@color/button_color"
             android:label="Home"
-            android:parentActivityName=".SignInActivity"
-            />
+            android:parentActivityName=".SignInActivity" />
     </application>
 
 </manifest>
