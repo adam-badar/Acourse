@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.text.SpannableStringBuilder;
 import android.text.style.RelativeSizeSpan;
 import android.util.TypedValue;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -39,7 +40,7 @@ public class AdminEditCourseActivity extends AppCompatActivity implements Adapte
     private ListView listView;
     private Button createCourseButton;
 
-    String [] selectCourseArray = {"Select Course", "MATA31", "MATA32", "MATA33", "MATA34"};
+    String [] selectCourseArray;//= {"Select Course", "MATA31", "MATA32", "MATA33", "MATA34"};
     //below is multiple dropdown
     TextView sessionButton;
     boolean [] selectedSession;
@@ -95,6 +96,13 @@ public class AdminEditCourseActivity extends AppCompatActivity implements Adapte
         //get courses from firebase
         //spinner select course to edit
         Spinner spinner = findViewById(R.id.select_course);
+        spinner.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                selectCourseArray = coursesList.toArray(new String[coursesList.size()]);
+                return view.performClick();
+            }
+        });
         spinner.setOnItemSelectedListener(this);
         ArrayAdapter ad = new ArrayAdapter(this, R.layout.edit_course_spinner, selectCourseArray);
         ad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
