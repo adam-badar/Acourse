@@ -82,11 +82,19 @@ public class AdminWelcomePage extends AppCompatActivity {
                         }
                     }
                 });
+                String[] finalCourseArray1 = courseArray;
+
                 builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         StringBuilder stringBuilder = new StringBuilder();
-
+                        for (int j = 0; j < finalCourseArray1.length; j++) {
+                            System.out.println(finalCourseArray1[j]);
+                            if(selectedCourse[j] == true) {
+                                DatabaseReference del = FirebaseDatabase.getInstance().getReference().child("Courses").child(finalCourseArray1[j]);
+                                del.removeValue();
+                            }
+                        }
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -106,6 +114,7 @@ public class AdminWelcomePage extends AppCompatActivity {
                 });
                 builder.show();
 
+                coursesList.clear();
             }
             //prerequisites
 
