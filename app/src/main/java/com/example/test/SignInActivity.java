@@ -109,7 +109,7 @@ public class SignInActivity extends AppCompatActivity {
         String txt_email = email.getText().toString().trim();
         int ind = txt_email.indexOf("@");
         if(txt_email.substring(ind+1, ind+8).equals("student")) {
-            startActivity(new Intent(getApplicationContext(), StudentHomepageActivity.class));
+            startActivity(new Intent(getApplicationContext(), StudentWelcomePage.class));
         }else if(txt_email.substring(ind+1, ind+6).equals("admin")){
             startActivity(new Intent(getApplicationContext(), AdminWelcomePage.class));
         }

@@ -69,8 +69,7 @@ public class SignUpActivity extends AppCompatActivity {
                 String txt_password = password.getText().toString().trim();
                 String txt_password2 = confirmpassword.getText().toString().trim();
                 //Toast.makeText(SignUpActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
-                if (TextUtils.isEmpty(txt_firstname) || TextUtils.isEmpty(txt_lastname) || TextUtils.isEmpty(txt_email) ||
-                        TextUtils.isEmpty(txt_id) || TextUtils.isEmpty(txt_password) || TextUtils.isEmpty(txt_password2)) {
+                if (TextUtils.isEmpty(txt_firstname) || TextUtils.isEmpty(txt_lastname) || TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_password) || TextUtils.isEmpty(txt_password2)) {
                     Toast.makeText(SignUpActivity.this, "Empty Credentials", Toast.LENGTH_SHORT).show();
                 } else if (txt_password.length() < 6) {
                     Toast.makeText(SignUpActivity.this, "Password too short", Toast.LENGTH_SHORT).show();
