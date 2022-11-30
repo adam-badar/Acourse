@@ -113,7 +113,6 @@ public class AdminWelcomePage extends AppCompatActivity {
                     }
                 });
                 builder.show();
-
                 coursesList.clear();
             }
             //prerequisites
