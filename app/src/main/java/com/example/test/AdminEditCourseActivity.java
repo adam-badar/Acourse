@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.SpannableStringBuilder;
+import android.text.TextUtils;
 import android.text.style.RelativeSizeSpan;
 import android.util.TypedValue;
 import android.view.MotionEvent;
@@ -46,7 +47,7 @@ public class AdminEditCourseActivity extends AppCompatActivity implements Adapte
     //String [] selectCourseArray;//= GetCourses.fetch();//= {"Select Course", "MATA31", "MATA32", "MATA33", "MATA34"};
 
     private ListView listView;
-    private Button createCourseButton;
+    private Button saveChangesButton;
     //below is multiple dropdown
     TextView sessionButton;
     boolean [] selectedSession;
@@ -141,13 +142,27 @@ public class AdminEditCourseActivity extends AppCompatActivity implements Adapte
         ad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(ad);
         //
-        createCourseButton = (Button) findViewById(R.id.save_change_button);
+        saveChangesButton = (Button) findViewById(R.id.saveChanges);
         //prerequisites
         courseButton = findViewById(R.id.prereqs);
-        createCourseButton.setOnClickListener(new View.OnClickListener() {
+        saveChangesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(AdminEditCourseActivity.this, StudentSearchCourse.class));
+                String txt_courseName = courseName.getText().toString().trim();
+                String txt_courseCode = courseCode.getText().toString().trim();
+                String txt_prerequisites = prerequisites.getText().toString().trim();
+                String txt_sessionOfferings = sessionOfferings.getText().toString().trim();
+
+                if ( TextUtils.isEmpty(txt_courseName) || TextUtils.isEmpty(txt_courseCode) || TextUtils.isEmpty((txt_sessionOfferings))) {
+                    Toast.makeText(AdminEditCourseActivity.this, "Empty Credentials", Toast.LENGTH_SHORT).show();
+                } else if (txt_courseCode.length() != 6) {
+                    Toast.makeText(AdminEditCourseActivity.this, "CourseCode too short", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    AdminCourse course = new AdminCourse(txt_courseName, txt_courseCode, txt_prerequisites, txt_sessionOfferings);
+                    FirebaseDatabase.getInstance().getReference("Courses").child(txt_courseCode).setValue(course);
+                    sendUserToNextActivity();
+                }
             }
         });
 
@@ -347,5 +362,10 @@ public class AdminEditCourseActivity extends AppCompatActivity implements Adapte
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
+    }
+
+    private void sendUserToNextActivity() {
+        Toast.makeText(AdminEditCourseActivity.this, "Course Edited Successfully", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(getApplicationContext(), AdminWelcomePage.class));
     }
 }
