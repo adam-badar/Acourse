@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -26,6 +28,7 @@ public class AdminWelcomePage extends AppCompatActivity {
     private Button admin_create_course;
     private Button admin_edit_course;
     private Button admin_delete_course;
+    private ImageView signout;
     private ListView listView;
     boolean [] selectedCourse;
 
@@ -37,6 +40,7 @@ public class AdminWelcomePage extends AppCompatActivity {
         admin_create_course = (Button) findViewById(R.id.create_course_button);
         admin_edit_course = (Button) findViewById(R.id.edit_course_button);
         admin_delete_course = (Button) findViewById(R.id.courseDeleteBtn);
+        signout = findViewById(R.id.logOutButton);
 
         ArrayList<String> coursesList = new ArrayList<>();
         ArrayList<Integer> courseList = new ArrayList<>();
@@ -130,5 +134,15 @@ public class AdminWelcomePage extends AppCompatActivity {
                 startActivity(new Intent(AdminWelcomePage.this, AdminEditCourseActivity.class));
             }
         });
+        signout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AdminWelcomePage.this, SignInActivity.class));
+                Toast.makeText(AdminWelcomePage.this, "Successfully Signed Out", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
     }
 }
