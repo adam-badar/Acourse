@@ -22,13 +22,28 @@
 
     <Button
         android:id="@+id/addButton"
-        android:layout_width="177dp"
-        android:layout_height="59dp"
-        android:layout_alignParentEnd="true"
+        android:layout_width="263dp"
+        android:layout_height="wrap_content"
 
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="48dp"
-        android:layout_marginBottom="33dp"
-        android:text="Add Course" />
+        android:layout_marginStart="74dp"
+        android:layout_marginEnd="74dp"
+        android:layout_marginBottom="118dp"
+        android:text="Add Taken Course" />
+
+    <Button
+        android:id="@+id/addToTimeline"
+        android:layout_width="263dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="74dp"
+        android:layout_marginEnd="74dp"
+        android:layout_marginBottom="216dp"
+        android:fontFamily="sans-serif-condensed"
+        android:text="Add to Timeline" />
 
 </RelativeLayout>
