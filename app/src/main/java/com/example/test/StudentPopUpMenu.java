@@ -89,6 +89,7 @@ public class StudentPopUpMenu extends AppCompatActivity {
                                 referenzi.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if (snapshot.getValue() == null)
                                         for (DataSnapshot childSnapshot: snapshot.getChildren()) {
                                             precourse = childSnapshot.getValue(String.class);
                                             if (precourse.equals("Past Courses")) {
