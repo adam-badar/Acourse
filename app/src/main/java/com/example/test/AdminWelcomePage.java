@@ -69,7 +69,19 @@ public class AdminWelcomePage extends AppCompatActivity {
                 );
                 builder.setTitle("Select Courses to Delete");
                 builder.setCancelable(false);
-
+                reference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        coursesList.clear();
+                        for (DataSnapshot snapshot: dataSnapshot.getChildren()){
+                            AdminCourse admincourse = snapshot.getValue(AdminCourse.class);
+                            coursesList.add(admincourse.courseCode);
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
                 String [] courseArray = new String[coursesList.size()];
                 courseArray = coursesList.toArray(courseArray);
                 selectedCourse = new boolean[courseArray.length];
@@ -91,9 +103,7 @@ public class AdminWelcomePage extends AppCompatActivity {
                 builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        StringBuilder stringBuilder = new StringBuilder();
                         for (int j = 0; j < finalCourseArray1.length; j++) {
-                            System.out.println(finalCourseArray1[j]);
                             if(selectedCourse[j] == true) {
                                 DatabaseReference del = FirebaseDatabase.getInstance().getReference().child("Courses").child(finalCourseArray1[j]);
                                 del.removeValue();
@@ -110,14 +120,11 @@ public class AdminWelcomePage extends AppCompatActivity {
                 builder.setNeutralButton("Clear All", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        for (int j=0; j<selectedCourse.length; j++) {
-                            selectedCourse[j] = false;
-                            courseList.clear();
-                        }
+                        dialogInterface.dismiss();
                     }
                 });
                 builder.show();
-                coursesList.clear();
+
             }
             //prerequisites
 
