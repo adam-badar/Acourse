@@ -8,9 +8,10 @@
     tools:context=".StudentViewPastCourses">
     <TextView
         android:id="@+id/pastCourses"
-        android:layout_width="412dp"
-        android:layout_height="58dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
+        android:paddingBottom="50dp"
         android:fontFamily="sans-serif-condensed"
         android:text="View Past Courses"
         android:textAlignment="center"
@@ -22,7 +23,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <Button
+        android:id="@+id/pastCourseButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Add Past Courses"
+        android:textSize="15dp"
+        android:padding="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/PastCoursesView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+    <!--<TextView
         android:id="@+id/pastCourseButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,9 +51,9 @@
         app:layout_constraintBottom_toTopOf="@+id/PastCoursesView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
+-->
     <ListView
-        android:layout_width="409dp"
+        android:layout_width="match_parent"
         android:layout_height="547dp"
         android:layout_marginStart="1dp"
         android:layout_marginTop="77dp"
