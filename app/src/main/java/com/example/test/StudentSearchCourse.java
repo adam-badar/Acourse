@@ -29,8 +29,15 @@ public class StudentSearchCourse extends AppCompatActivity {
     TextView test_dropdown;
     Dialog dialog;
     ArrayList<String> courses;
-    String courseTitle;
+    protected static String courseTitle;
 
+    protected static String getCourseTitle() {
+        return courseTitle;
+    }
+
+    public void setCourseTitle(String courseTitle) {
+        this.courseTitle = courseTitle;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,13 +103,14 @@ public class StudentSearchCourse extends AppCompatActivity {
                         // when item selected from list
                         // set selected item on textView
                         test_dropdown.setText(adapter.getItem(position));
-                         courseTitle= adapter.getItem(position);
+                        courseTitle= adapter.getItem(position);
                         startActivity(new Intent(StudentSearchCourse.this, StudentPopUpMenu.class));
 
                         // Dismiss dialog
                         dialog.dismiss();
                     }
                 });
+
             }
         });
     }
