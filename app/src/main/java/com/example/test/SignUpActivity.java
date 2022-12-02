@@ -78,12 +78,12 @@ public class SignUpActivity extends AppCompatActivity {
                 } else if (!txt_email.matches(pattern)) {
                     Toast.makeText(SignUpActivity.this, "Incorrect email format", Toast.LENGTH_SHORT).show();
                 } else if (txt_id.length() != 10) {
-                    Toast.makeText(SignUpActivity.this, "Invalid IDD", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUpActivity.this, "Invalid ID", Toast.LENGTH_SHORT).show();
                 } else if (!txt_id.substring(0, 3).equals("100") && !txt_id.substring(0, 3).equals("200")) {
                     Toast.makeText(SignUpActivity.this, "Invalid ID", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    User user = new User(txt_email, txt_password, txt_firstname, txt_lastname, txt_id);
+                    User user = new User("",txt_email, txt_password, txt_firstname, txt_lastname, txt_id);
                     db = FirebaseDatabase.getInstance();
                     reference = db.getReference("Users");
                     int ind = txt_email.indexOf("@");

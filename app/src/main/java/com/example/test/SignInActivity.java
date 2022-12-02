@@ -131,28 +131,33 @@ public class SignInActivity extends AppCompatActivity {
                 }
                 Set<String> taskSet = new HashSet<>(courseList);
                 editor.putStringSet("courses", taskSet);
-                FirebaseDatabase.getInstance().getReference().child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
-                            FetchUser user = snapshot.getValue(FetchUser.class);
-                            if (txt_email == user.email) {
-                                editor.putString("id", user.id);
-                                editor.putString("first_name", user.first_name);
+                int ind = txt_email.indexOf("@");
+                if (txt_email.substring(ind+1, ind+8).equals("student")) {
+                    FirebaseDatabase.getInstance().getReference().child("Users").child("Students").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                                FetchUser user = snapshot.getValue(FetchUser.class);
+                                System.out.println("2;"+user.email);
+                                if (txt_email.equals(user.email)) {
+                                    editor.putString("courses_taken", user.coursesTaken);
+                                    System.out.println("1;"+user.coursesTaken);
+                                    editor.putString("id", user.id);
+                                    editor.putString("first_name", user.first_name);
+                                }
                             }
-                        }
-                        editor.commit();
-                        int ind = txt_email.indexOf("@");
-                        if(txt_email.substring(ind+1, ind+8).equals("student")) {
+                            editor.commit();
                             startActivity(new Intent(getApplicationContext(), StudentWelcomePage.class));
-                        }else if(txt_email.substring(ind+1, ind+6).equals("admin")){
-                            startActivity(new Intent(getApplicationContext(), AdminWelcomePage.class));
                         }
-                    }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                    }
-                });
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                        }
+                    });
+                }
+                else if(txt_email.substring(ind+1, ind+6).equals("admin")){
+                    editor.commit();
+                    startActivity(new Intent(getApplicationContext(), AdminWelcomePage.class));
+                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

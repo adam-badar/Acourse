@@ -4,13 +4,16 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,25 +33,33 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 
 public class AdminAddCourseActivity extends AppCompatActivity {
    /* Spinner spinner;
     String[] sessions = {"Fall", "Winter", "Summer"};*/
-
+    private ImageView signout;
     private Button createCourseButton;
     //below is multiple dropdown
     TextView sessionButton;
     TextView courseButton;
     boolean [] selectedSession;
     boolean [] selectedCourse;
+    boolean [] finalSelectedSession;
+    boolean [] finalSelectedCourse;
     ArrayList<Integer> sessionList = new ArrayList<>();
+    ArrayList<Integer> finalSessionList = new ArrayList<>();
+
     String [] sessionArray = {"Fall", "Winter", "Summer"};
     ArrayList<Integer> courseList = new ArrayList<>();
+    ArrayList<Integer> finalCourseList = new ArrayList<>();
+
     ArrayList<String> coursesList = new ArrayList<>();
     //String [] courseArray = {"None", "CSCA48", "CSCA67", "CSCB36", "MATB41", "STAB52", "MATA31"};
     String [] courseArray;
-    boolean setFirebase = false;
+    //boolean setFirebase = false;
     private EditText courseName;
     private EditText courseCode;
     private TextView prerequisites;
@@ -56,13 +67,31 @@ public class AdminAddCourseActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private FirebaseDatabase db;
     private DatabaseReference reference;
+    Set<String> tempSet;
 
     private ActivityMainBinding binding;
+    void arrayCopy(boolean[] currentArray, boolean[] wantedArray) {
+        for (int i=0; i<wantedArray.length; i++) {
+            currentArray[i] = wantedArray[i];
+        }
+    }
+    void arrayListCopy(ArrayList<Integer> currentList, ArrayList<Integer> wantedList) {
+        currentList.clear();
+        if (wantedList == null) return;
+        for (int num: wantedList){
+            currentList.add(num);
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_course);
-        FirebaseDatabase.getInstance().getReference().child("Courses").addValueEventListener(new ValueEventListener() {
+        SharedPreferences sp = getApplicationContext().getSharedPreferences("MyUserPrefs", Context.MODE_PRIVATE);
+        tempSet = sp.getStringSet("courses", null);
+        courseArray = tempSet.toArray(new String[tempSet.size()]);
+        selectedCourse = new boolean[tempSet.size()];
+        finalSelectedCourse = new boolean[tempSet.size()];
+       /* FirebaseDatabase.getInstance().getReference().child("Courses").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
@@ -73,8 +102,9 @@ public class AdminAddCourseActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
-        });
+        });*/
         createCourseButton = (Button) findViewById(R.id.createCourseBtn);
+        signout = findViewById(R.id.logOutButton);
         courseButton = findViewById(R.id.prereqs);
         createCourseButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,11 +121,11 @@ public class AdminAddCourseActivity extends AppCompatActivity {
                 );
                 builder.setTitle("Select Sessions");
                 builder.setCancelable(false);
-                if (setFirebase == false) {
+                /*if (setFirebase == false) {
                     courseArray = coursesList.toArray(new String[coursesList.size()]);
                     selectedCourse = new boolean[coursesList.size()];
                     setFirebase = true;
-                }
+                }*/
                 builder.setMultiChoiceItems(courseArray, selectedCourse, new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i, boolean b) {
@@ -118,11 +148,15 @@ public class AdminAddCourseActivity extends AppCompatActivity {
                             }
                         }
                         courseButton.setText(stringBuilder.toString());
+                        arrayCopy(finalSelectedCourse, selectedCourse);
+                        arrayListCopy(finalCourseList, courseList);
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        arrayCopy(selectedCourse, finalSelectedCourse);
+                        arrayListCopy(courseList, finalCourseList);
                         dialogInterface.dismiss();
                     }
                 });
@@ -132,6 +166,7 @@ public class AdminAddCourseActivity extends AppCompatActivity {
                         for (int j=0; j<selectedCourse.length; j++) {
                             selectedCourse[j] = false;
                             courseList.clear();
+                            finalCourseList.clear();
                             courseButton.setText("");
                         }
                     }
@@ -143,7 +178,8 @@ public class AdminAddCourseActivity extends AppCompatActivity {
         });
         //sessions
         sessionButton = findViewById(R.id.sessionOffered);
-        selectedSession = new boolean[sessionArray.length];
+        selectedSession = new boolean[3];
+        finalSelectedSession = new boolean[3];
         sessionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -174,11 +210,15 @@ public class AdminAddCourseActivity extends AppCompatActivity {
                             }
                         }
                         sessionButton.setText(stringBuilder.toString());
+                        arrayCopy(finalSelectedSession, selectedSession);
+                        arrayListCopy(finalSessionList, sessionList);
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        arrayCopy(selectedSession, finalSelectedSession);
+                        arrayListCopy(sessionList, finalSessionList);
                         dialogInterface.dismiss();
                     }
                 });
@@ -188,6 +228,7 @@ public class AdminAddCourseActivity extends AppCompatActivity {
                         for (int j=0; j<selectedSession.length; j++) {
                             selectedSession[j] = false;
                             sessionList.clear();
+                            finalSessionList.clear();
                             sessionButton.setText("");
                         }
                     }
@@ -218,8 +259,21 @@ public class AdminAddCourseActivity extends AppCompatActivity {
                     db = FirebaseDatabase.getInstance();
                     reference = db.getReference("Courses");
                     reference.child(txt_courseCode).setValue(course);
+                    tempSet.add(txt_courseCode);
+                    SharedPreferences.Editor editor = sp.edit();
+                    editor.putStringSet("courses", new HashSet<>(tempSet));
+                    editor.commit();
                     sendUserToNextActivity();
                 }
+            }
+        });
+
+        signout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AdminAddCourseActivity.this, SignInActivity.class));
+                Toast.makeText(AdminAddCourseActivity.this, "Successfully Signed Out", Toast.LENGTH_SHORT).show();
+
             }
         });
 

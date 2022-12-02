@@ -193,9 +193,15 @@ public class AdminEditCourseActivity extends AppCompatActivity implements Adapte
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        int courseNameIndex = Arrays.asList(courseArray).indexOf(courseCode.getText().toString().trim());
+                        System.out.println(courseNameIndex);
+                        System.out.println(courseCode.getText().toString().trim());
+                        if (selectedCourse[courseNameIndex] == true) {
+                            selectedCourse[courseNameIndex] = false;
+                            courseList.remove(courseNameIndex);
+                            Toast.makeText(getApplicationContext(), "Cannot Add Itself", Toast.LENGTH_SHORT).show();
+                        }
                         setTextFunction(courseList, courseArray, courseButton);
-                        arrayCopy(finalSelectedCourse, selectedCourse);
-                        arrayListCopy(finalCourseList, courseList);
                         /*StringBuilder stringBuilder = new StringBuilder();
                         for (int j=0; j<courseList.size(); j++) {
                             stringBuilder.append(courseArray[courseList.get(j)]);
