@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class FetchUser {
 
+    public String coursesTaken;
     public String email;
     public String first_name;
     public String id;
@@ -14,14 +15,17 @@ public class FetchUser {
 
     }
 
-    public FetchUser(String email, String first_name, String id, String last_name, String password)
+    public FetchUser(String coursesTaken, String email, String first_name, String id, String last_name, String password)
     {
+        this.coursesTaken = coursesTaken;
         this.email = email;
         this.first_name = first_name;
         this.id = id;
         this.last_name = last_name;
         this.password = password;
     }
+
+    public String getCoursesTaken() { return coursesTaken; }
 
     public String getEmail() {
         return email;
