@@ -13,6 +13,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,7 +40,7 @@ import java.util.Set;
 public class AdminAddCourseActivity extends AppCompatActivity {
    /* Spinner spinner;
     String[] sessions = {"Fall", "Winter", "Summer"};*/
-
+    private ImageView signout;
     private Button createCourseButton;
     //below is multiple dropdown
     TextView sessionButton;
@@ -103,6 +104,7 @@ public class AdminAddCourseActivity extends AppCompatActivity {
             }
         });*/
         createCourseButton = (Button) findViewById(R.id.createCourseBtn);
+        signout = findViewById(R.id.logOutButton);
         courseButton = findViewById(R.id.prereqs);
         createCourseButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -263,6 +265,15 @@ public class AdminAddCourseActivity extends AppCompatActivity {
                     editor.commit();
                     sendUserToNextActivity();
                 }
+            }
+        });
+
+        signout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AdminAddCourseActivity.this, SignInActivity.class));
+                Toast.makeText(AdminAddCourseActivity.this, "Successfully Signed Out", Toast.LENGTH_SHORT).show();
+
             }
         });
 
