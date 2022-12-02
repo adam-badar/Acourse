@@ -26,6 +26,7 @@ public class StudentPopUpMenu extends AppCompatActivity {
     private FirebaseDatabase db;
     private AdminCourse course;
     private String precourse;
+    private String plsprecourse;
     String courseCode;
     private String coursename;
     private String prereq;
@@ -34,6 +35,7 @@ public class StudentPopUpMenu extends AppCompatActivity {
 
     private String x;
     private int j = 0;
+    private int k = 0;
     //private String y = StudentSearchCourse.get
 
 
@@ -57,7 +59,7 @@ public class StudentPopUpMenu extends AppCompatActivity {
         db = FirebaseDatabase.getInstance();
         referencia = db.getReference("Users").child("Students");
         //if (FirebaseDatabase.getInstance().getReference("Users").child("1002349856").child("Past Courses");
-        referenzi = FirebaseDatabase.getInstance().getReference("Users").child("Students").child("1002349856").child("Past Courses");
+        referenzi = FirebaseDatabase.getInstance().getReference("Users").child("Students").child("1003456789");
 
         courselist = findViewById(R.id.addButton);
         courselist.setOnClickListener(new View.OnClickListener() {
@@ -73,7 +75,7 @@ public class StudentPopUpMenu extends AppCompatActivity {
                             if (course.courseCode.equals(x)) {
                                 prereq = course.prerequisites;
                                 ArrayList<String> listy = new ArrayList<>(Arrays.asList(prereq.split(", ")));
-
+                                Toast.makeText(StudentPopUpMenu.this, prereq , Toast.LENGTH_SHORT).show();
                                 //String z = "";
 
                                 /*
@@ -89,36 +91,56 @@ public class StudentPopUpMenu extends AppCompatActivity {
                                 referenzi.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        if (snapshot.getValue() == null)
-                                        for (DataSnapshot childSnapshot: snapshot.getChildren()) {
-                                            precourse = childSnapshot.getValue(String.class);
-                                            if (precourse.equals("Past Courses")) {
+                                        /*if (!snapshot.hasChild("coursesTaken")) {
+                                            referencia.child("1003456789").child("coursesTaken").setValue("");
+                                            Toast.makeText(StudentPopUpMenu.this, "buddy" , Toast.LENGTH_SHORT).show();
+                                        }*/
+                                        for (DataSnapshot broSnapshot: snapshot.getChildren()) {
+                                            precourse = broSnapshot.getKey();
+                                            //Toast.makeText(StudentPopUpMenu.this, precourse , Toast.LENGTH_SHORT).show();
+                                            if (precourse.equals("coursesTaken")) {
+                                                plsprecourse = broSnapshot.getValue(String.class);
+                                                //Toast.makeText(StudentPopUpMenu.this, "precourse" , Toast.LENGTH_SHORT).show();
                                                 for (String corse: listy) {
-                                                    if (!precourse.contains(corse)) {
+                                                    if (!plsprecourse.contains(corse)) {
                                                         j++;
+                                                        Toast.makeText(StudentPopUpMenu.this, "Prerequisites not met" , Toast.LENGTH_SHORT).show();
                                                         break;
                                                     }
                                                 }
                                             }
                                         }
-                                        if (j == 0) {
-                                            //Toast.makeText(StudentPopUpMenu.this, "yo" , Toast.LENGTH_SHORT).show();
-
-                                            referencia.child("1002349856").child("Past Courses").setValue(takenCourses);
-                                        }
-                                        String z = snapshot.getValue(String.class);
-                                        Toast.makeText(StudentPopUpMenu.this, "hey", Toast.LENGTH_SHORT).show();
-                                        //Toast.makeText(StudentPopUpMenu.this, Integer.toString(j), Toast.LENGTH_SHORT).show();
-                                        String p = takenCourses + "," + x;
-                                        //takenCourses = takenCourses + "," + x;
+                                        takenCourses = plsprecourse;
                                         Toast.makeText(StudentPopUpMenu.this, takenCourses, Toast.LENGTH_SHORT).show();
+                                        if (takenCourses.contains(x)) {
+                                            Toast.makeText(StudentPopUpMenu.this, "You have already taken this course", Toast.LENGTH_SHORT).show();
+                                            k++;
+                                        }
+                                        if (k == 0) {
+                                            String newTakenCourses = "";
+                                            newTakenCourses = takenCourses + x + ",";
+                                            //takenCourses = takenCourses + x;
+                                            //takenCourses = takenCourses + ",";
+                                            Toast.makeText(StudentPopUpMenu.this, Integer.toString(j) , Toast.LENGTH_SHORT).show();
+                                            if (j == 0) {
+                                                Toast.makeText(StudentPopUpMenu.this, "yo" , Toast.LENGTH_SHORT).show();
+                                                referenzi.child("coursesTaken").setValue(newTakenCourses);
+                                            }
+                                        }
+
+                                        //String z = snapshot.getValue(String.class);
+                                        //Toast.makeText(StudentPopUpMenu.this, "hey", Toast.LENGTH_SHORT).show();
+                                        //Toast.makeText(StudentPopUpMenu.this, Integer.toString(j), Toast.LENGTH_SHORT).show();
+                                        //String p = takenCourses + "," + x;
+                                        //takenCourses = takenCourses + "," + x;
+                                        //Toast.makeText(StudentPopUpMenu.this, takenCourses, Toast.LENGTH_SHORT).show();
                                         //coursename = course.courseName;
                                         //session = course.sessionOfferings;
                                         //AdminCourse course1 = new AdminCourse(coursename, x, prereq, session);
                                         //if (course.courseName == null) Toast.makeText(StudentPopUpMenu.this, "u bum", Toast.LENGTH_SHORT).show();
                                         //Toast.makeText(StudentPopUpMenu.this, coursename, Toast.LENGTH_SHORT).show();
                                         //Toast.makeText(StudentPopUpMenu.this, coursename, Toast.LENGTH_SHORT).show();
-                                        referencia.child("1002349856").child("Past Courses").setValue(takenCourses);
+                                        //referencia.child("1002349856").child("Past Courses").setValue(takenCourses);
 
 
                                         /*
