@@ -3,6 +3,7 @@ package com.example.test;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.renderscript.Sampler;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -107,6 +108,23 @@ public class AdminWelcomePage extends AppCompatActivity {
                             if(selectedCourse[j] == true) {
                                 DatabaseReference del = FirebaseDatabase.getInstance().getReference().child("Courses").child(finalCourseArray1[j]);
                                 del.removeValue();
+                                int finalJ = j;
+                                FirebaseDatabase.getInstance().getReference().child("Users").child("Students").addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        for(DataSnapshot ds: snapshot.getChildren()){
+                                            for (DataSnapshot sd: ds.child("Past Courses").getChildren()){
+                                                DatabaseReference mel = FirebaseDatabase.getInstance().getReference().child("Users").child("Students").child(ds.getKey()).child("Past Courses").child(finalCourseArray1[finalJ]);
+                                                mel.removeValue();
+                                            }
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
                             }
                         }
                     }
