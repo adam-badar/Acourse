@@ -113,10 +113,8 @@ public class AdminWelcomePage extends AppCompatActivity {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                                         for(DataSnapshot ds: snapshot.getChildren()){
-                                            for (DataSnapshot sd: ds.child("Past Courses").getChildren()){
-                                                DatabaseReference mel = FirebaseDatabase.getInstance().getReference().child("Users").child("Students").child(ds.getKey()).child("Past Courses").child(finalCourseArray1[finalJ]);
-                                                mel.removeValue();
-                                            }
+                                            DatabaseReference mel = FirebaseDatabase.getInstance().getReference().child("Users").child("Students").child("Past Courses").child(finalCourseArray1[finalJ]);
+
                                         }
                                     }
 
