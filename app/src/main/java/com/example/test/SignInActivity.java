@@ -137,6 +137,7 @@ public class SignInActivity extends AppCompatActivity {
                         for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
                             FetchUser user = snapshot.getValue(FetchUser.class);
                             if (txt_email == user.email) {
+                                editor.putString("courses_taken", user.coursesTaken);
                                 editor.putString("id", user.id);
                                 editor.putString("first_name", user.first_name);
                             }
