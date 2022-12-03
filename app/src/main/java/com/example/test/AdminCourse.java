@@ -37,9 +37,13 @@ public class AdminCourse {
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
                     AdminCourse admincourse = snapshot.getValue(AdminCourse.class);
                     if (admincourse.courseCode.equals(courseID)) {
+                        System.out.println(courseID);
                         courseName = admincourse.courseName;
                         prerequisites = admincourse.prerequisites;
                         sessionOfferings = admincourse.sessionOfferings;
+                        System.out.println("current course: "+courseName);
+                        System.out.println("prereuisites: "+prerequisites);
+                        System.out.println("sessions: "+sessionOfferings);
                     }
                 }
             }

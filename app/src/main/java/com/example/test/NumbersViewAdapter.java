@@ -38,19 +38,22 @@ public class NumbersViewAdapter extends ArrayAdapter<AdminCourse> {
 
         // then according to the position of the view assign the desired TextView 1 for the same
         TextView textView1 = currentItemView.findViewById(R.id.textView1);
-        System.out.println(currentNumberPosition.courseCode);
+        System.out.println("code:"+currentNumberPosition.courseCode);
         textView1.setText(currentNumberPosition.courseCode);
 
         // then according to the position of the view assign the desired TextView 2 for the same
         TextView textView2 = currentItemView.findViewById(R.id.textView2);
+        System.out.println("name:"+currentNumberPosition.getCourseName());
         textView2.setText(currentNumberPosition.courseName);
 
         // then return the recyclable view
         TextView textView3 = currentItemView.findViewById(R.id.textView3);
+        System.out.println(currentNumberPosition.sessionOfferings);
         textView3.setText(currentNumberPosition.sessionOfferings);
 
         // then according to the position of the view assign the desired TextView 2 for the same
         TextView textView4 = currentItemView.findViewById(R.id.textView4);
+        System.out.println(currentNumberPosition.prerequisites);
         textView4.setText(currentNumberPosition.prerequisites);
         return currentItemView;
     }

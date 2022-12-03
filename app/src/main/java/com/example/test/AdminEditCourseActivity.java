@@ -68,7 +68,7 @@ public class AdminEditCourseActivity extends AppCompatActivity implements Adapte
     String [] courseArray;
     boolean setFirebase = false;
     String editCourseName;
-    String editCourseCode;
+    String editCourseCode="";
     String editSessions;
     String editPrereq;
     String[] editPrereqArray;
@@ -160,6 +160,16 @@ public class AdminEditCourseActivity extends AppCompatActivity implements Adapte
                 }
                 else {
                     AdminCourse course = new AdminCourse(txt_courseName, txt_courseCode, txt_prerequisites, txt_sessionOfferings);
+                    if (editCourseCode != txt_courseCode) {
+                        //adam add code here
+
+                        //
+                        tempSet.add(editCourseCode);
+                        tempSet.remove(txt_courseCode);
+                        SharedPreferences.Editor editor = sp.edit();
+                        editor.putStringSet("courses", new HashSet<>(tempSet));
+                        editor.commit();
+                    }
                     FirebaseDatabase.getInstance().getReference("Courses").child(txt_courseCode).setValue(course);
                     sendUserToNextActivity();
                 }

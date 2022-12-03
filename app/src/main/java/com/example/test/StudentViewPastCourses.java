@@ -1,5 +1,6 @@
 package com.example.test;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,6 +14,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,16 +56,27 @@ public class StudentViewPastCourses extends AppCompatActivity {
         SharedPreferences sp = getApplicationContext().getSharedPreferences("MyUserPrefs", Context.MODE_PRIVATE);
         coursesTaken = sp.getString("courses_taken", null);
         courseArray = coursesTaken.split(",");
-        for (int i=0; i<courseArray.length; i++) {
-            adminCourseList.add(new AdminCourse(courseArray[i]));
-        }
-        NumbersViewAdapter numbersArrayAdapter = new NumbersViewAdapter(this, adminCourseList);
+        Context context = this;
+        FirebaseDatabase.getInstance().getReference().child("Courses").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                    AdminCourse admincourse = snapshot.getValue(AdminCourse.class);
+                    adminCourseList.add(admincourse);
+                }
+                NumbersViewAdapter numbersArrayAdapter = new NumbersViewAdapter(context, adminCourseList);
 
-        // create the instance of the ListView to set the numbersViewAdapter
-        ListView numbersListView = findViewById(R.id.PastCoursesView);
+                // create the instance of the ListView to set the numbersViewAdapter
+                ListView numbersListView = findViewById(R.id.PastCoursesView);
 
-        // set the numbersViewAdapter for ListView
-        numbersListView.setAdapter(numbersArrayAdapter);
+                // set the numbersViewAdapter for ListView
+                numbersListView.setAdapter(numbersArrayAdapter);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+
 
         /*ListView listView = (ListView) findViewById(R.id.PastCoursesView);
         ArrayAdapter<String> adapter=new ArrayAdapter<>(StudentViewPastCourses.this, android.R.layout.simple_list_item_1,courses);
