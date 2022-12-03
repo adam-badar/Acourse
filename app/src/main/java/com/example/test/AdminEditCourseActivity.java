@@ -194,8 +194,6 @@ public class AdminEditCourseActivity extends AppCompatActivity implements Adapte
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         int courseNameIndex = Arrays.asList(courseArray).indexOf(courseCode.getText().toString().trim());
-                        System.out.println(courseNameIndex);
-                        System.out.println(courseCode.getText().toString().trim());
                         if (selectedCourse[courseNameIndex] == true) {
                             selectedCourse[courseNameIndex] = false;
                             courseList.remove(courseNameIndex);
