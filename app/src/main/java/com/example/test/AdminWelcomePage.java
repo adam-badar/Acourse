@@ -1,12 +1,18 @@
 package com.example.test;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.renderscript.Sampler;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -21,22 +27,29 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 public class AdminWelcomePage extends AppCompatActivity {
     private Button admin_create_course;
     private Button admin_edit_course;
     private Button admin_delete_course;
-    private ListView listView;
+    private ImageView signout;
     boolean [] selectedCourse;
-
+    Set<String> tempSet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_welcome);
+        SharedPreferences sp = getApplicationContext().getSharedPreferences("MyUserPrefs", Context.MODE_PRIVATE);
+        tempSet = sp.getStringSet("courses", null);
+        SharedPreferences.Editor editor = sp.edit();
+
         admin_create_course = (Button) findViewById(R.id.create_course_button);
         admin_edit_course = (Button) findViewById(R.id.edit_course_button);
         admin_delete_course = (Button) findViewById(R.id.courseDeleteBtn);
+        signout = findViewById(R.id.logOutButton);
 
         ArrayList<String> coursesList = new ArrayList<>();
         ArrayList<Integer> courseList = new ArrayList<>();
@@ -65,7 +78,19 @@ public class AdminWelcomePage extends AppCompatActivity {
                 );
                 builder.setTitle("Select Courses to Delete");
                 builder.setCancelable(false);
-
+                reference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        coursesList.clear();
+                        for (DataSnapshot snapshot: dataSnapshot.getChildren()){
+                            AdminCourse admincourse = snapshot.getValue(AdminCourse.class);
+                            coursesList.add(admincourse.courseCode);
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
                 String [] courseArray = new String[coursesList.size()];
                 courseArray = coursesList.toArray(courseArray);
                 selectedCourse = new boolean[courseArray.length];
@@ -87,12 +112,74 @@ public class AdminWelcomePage extends AppCompatActivity {
                 builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        StringBuilder stringBuilder = new StringBuilder();
                         for (int j = 0; j < finalCourseArray1.length; j++) {
-                            System.out.println(finalCourseArray1[j]);
+                            tempSet = new HashSet<>();
+                            tempSet = sp.getStringSet("courses", null);
+                            SharedPreferences.Editor editor = sp.edit();
                             if(selectedCourse[j] == true) {
                                 DatabaseReference del = FirebaseDatabase.getInstance().getReference().child("Courses").child(finalCourseArray1[j]);
                                 del.removeValue();
+                                tempSet.remove(finalCourseArray1[j]);
+                                editor.putStringSet("courses", new HashSet<>(tempSet));
+                                editor.commit();
+                                int finalJ1 = j;
+                                FirebaseDatabase.getInstance().getReference().child("Courses").addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        for (DataSnapshot sd: snapshot.getChildren()) {
+                                            AdminCourse newcourse = sd.getValue(AdminCourse.class);
+                                            DatabaseReference prereqs = FirebaseDatabase.getInstance().getReference().child("Courses").child(sd.getKey()).child("prerequisites");
+                                            String na = newcourse.getPrerequisites();
+                                            if(na.contains("," + finalCourseArray1[finalJ1])){
+                                                na = na.replaceAll("," + finalCourseArray1[finalJ1], "");
+                                                prereqs.setValue(na);
+                                            }
+                                            else if (na.contains(finalCourseArray1[finalJ1] + ",")){
+                                                na = na.replaceAll(finalCourseArray1[finalJ1] + ",", "");
+                                                prereqs.setValue(na);
+                                            }
+                                            else{
+                                                na = na.replaceAll(finalCourseArray1[finalJ1], "");
+                                                prereqs.setValue(na);
+                                            }
+
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
+
+
+                                int finalJ = j;
+                                FirebaseDatabase.getInstance().getReference().child("Users").child("Students").addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        for(DataSnapshot ds: snapshot.getChildren()){
+                                            User user = ds.getValue(User.class);
+                                            DatabaseReference again = FirebaseDatabase.getInstance().getReference().child("Users").child("Students").child(ds.getKey()).child("coursesTaken");
+                                            String naya = user.getCoursesTaken();
+                                            if(naya.contains("," + finalCourseArray1[finalJ])){
+                                                naya = naya.replaceAll("," + finalCourseArray1[finalJ], "");
+                                                again.setValue(naya);
+                                            }
+                                            else if (naya.contains(finalCourseArray1[finalJ] + ",")){
+                                                naya = naya.replaceAll(finalCourseArray1[finalJ] + ",", "");
+                                                again.setValue(naya);
+                                            }
+                                            else{
+                                                naya = naya.replaceAll(finalCourseArray1[finalJ], "");
+                                                again.setValue(naya);
+                                            }
+                                        }
+                                    }
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
                             }
                         }
                     }
@@ -106,14 +193,11 @@ public class AdminWelcomePage extends AppCompatActivity {
                 builder.setNeutralButton("Clear All", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        for (int j=0; j<selectedCourse.length; j++) {
-                            selectedCourse[j] = false;
-                            courseList.clear();
-                        }
+                        dialogInterface.dismiss();
                     }
                 });
                 builder.show();
-                coursesList.clear();
+
             }
             //prerequisites
 
@@ -130,5 +214,15 @@ public class AdminWelcomePage extends AppCompatActivity {
                 startActivity(new Intent(AdminWelcomePage.this, AdminEditCourseActivity.class));
             }
         });
+        signout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AdminWelcomePage.this, SignInActivity.class));
+                Toast.makeText(AdminWelcomePage.this, "Successfully Signed Out", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
     }
 }

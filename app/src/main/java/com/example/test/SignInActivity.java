@@ -1,6 +1,8 @@
 package com.example.test;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -15,11 +17,19 @@ import android.view.View;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -31,13 +41,15 @@ public class SignInActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseUser mUser;
     String pattern = "[a-zA-z0-9._-]+@[a-z]+\\.+[a-z]+";
-
+    SharedPreferences sp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        sp = getSharedPreferences("MyUserPrefs", Context.MODE_PRIVATE);
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
+
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
         sign_in_click = findViewById(R.id.Signin);
@@ -56,7 +68,6 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 perforLogin();
-
             }
         });
 
@@ -107,12 +118,52 @@ public class SignInActivity extends AppCompatActivity {
     private void sendUserToNextActivity() {
         email = findViewById(R.id.email);
         String txt_email = email.getText().toString().trim();
-        int ind = txt_email.indexOf("@");
-        if(txt_email.substring(ind+1, ind+8).equals("student")) {
-            startActivity(new Intent(getApplicationContext(), StudentWelcomePage.class));
-        }else if(txt_email.substring(ind+1, ind+6).equals("admin")){
-            startActivity(new Intent(getApplicationContext(), AdminWelcomePage.class));
-        }
+        ArrayList<String> courseList = new ArrayList<>();
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("email", txt_email);
+        String first_name;
+        String id;
+        FirebaseDatabase.getInstance().getReference().child("Courses").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                    AdminCourse admincourse = snapshot.getValue(AdminCourse.class);
+                    courseList.add(admincourse.courseCode);
+                }
+                Set<String> taskSet = new HashSet<>(courseList);
+                editor.putStringSet("courses", taskSet);
+                int ind = txt_email.indexOf("@");
+                if (txt_email.substring(ind+1, ind+8).equals("student")) {
+                    FirebaseDatabase.getInstance().getReference().child("Users").child("Students").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                                FetchUser user = snapshot.getValue(FetchUser.class);
+                                System.out.println("2;"+user.email);
+                                if (txt_email.equals(user.email)) {
+                                    editor.putString("courses_taken", user.coursesTaken);
+                                    System.out.println("1;"+user.coursesTaken);
+                                    editor.putString("id", user.id);
+                                    editor.putString("first_name", user.first_name);
+                                }
+                            }
+                            editor.commit();
+                            startActivity(new Intent(getApplicationContext(), StudentWelcomePage.class));
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                        }
+                    });
+                }
+                else if(txt_email.substring(ind+1, ind+6).equals("admin")){
+                    editor.commit();
+                    startActivity(new Intent(getApplicationContext(), AdminWelcomePage.class));
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
     }
 
 }

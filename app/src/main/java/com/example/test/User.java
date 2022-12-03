@@ -1,6 +1,7 @@
 package com.example.test;
 
 public class User {
+    private String coursesTaken;
     private String email;
     private String password;
     private String first_name;
@@ -8,7 +9,8 @@ public class User {
     private String id;
 
 
-    public User(String email, String password, String first_name, String last_name, String id) {
+    public User(String coursesTaken, String email, String password, String first_name, String last_name, String id) {
+        this.coursesTaken = coursesTaken;
         this.email = email;
         this.password = password;
         this.first_name = first_name;
@@ -46,7 +48,9 @@ public class User {
         this.password = password;
     }
 
-
+    public String getCoursesTaken() {
+        return coursesTaken;
+    }
     public String getEmail() {
         return email;
     }
