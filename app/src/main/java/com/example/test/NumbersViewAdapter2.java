@@ -5,16 +5,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import java.util.ArrayList;
 
-public class NumbersViewAdapter extends ArrayAdapter<AdminCourse> {
+public class NumbersViewAdapter2 extends ArrayAdapter<AdminCourse> implements Filterable {
 
     // invoke the suitable constructor of the ArrayAdapter class
-    public NumbersViewAdapter(@NonNull Context context, ArrayList<AdminCourse> arrayList) {
+    public NumbersViewAdapter2(@NonNull Context context, ArrayList<AdminCourse> arrayList) {
 
         // pass the context and arrayList for the super
         // constructor of the ArrayAdapter class
@@ -30,7 +31,7 @@ public class NumbersViewAdapter extends ArrayAdapter<AdminCourse> {
 
         // of the recyclable view is null then inflate the custom layout for the same
         if (currentItemView == null) {
-            currentItemView = LayoutInflater.from(getContext()).inflate(R.layout.activity_custom_list_view, parent, false);
+            currentItemView = LayoutInflater.from(getContext()).inflate(R.layout.activity_custom_list_view_search, parent, false);
         }
 
         // get the position of the view from the ArrayAdapter
@@ -55,6 +56,8 @@ public class NumbersViewAdapter extends ArrayAdapter<AdminCourse> {
         TextView textView4 = currentItemView.findViewById(R.id.textView4);
         System.out.println("prereq:"+currentNumberPosition.prerequisites);
         textView4.setText("Prerequisites: "+currentNumberPosition.prerequisites);
+
+
         return currentItemView;
     }
 }

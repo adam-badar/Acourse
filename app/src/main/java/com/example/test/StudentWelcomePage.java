@@ -16,10 +16,17 @@ public class StudentWelcomePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student_welcome);
         student_create_course = (Button) findViewById(R.id.search_courses);
+        student_past_courses = (Button) findViewById(R.id.past_courses);
         student_create_course.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(StudentWelcomePage.this, StudentSearchCourse.class));
+            }
+        });
+        student_past_courses.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(StudentWelcomePage.this, StudentViewPastCourses.class));
             }
         });
     }

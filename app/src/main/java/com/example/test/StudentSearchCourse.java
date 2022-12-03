@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -30,7 +32,8 @@ public class StudentSearchCourse extends AppCompatActivity {
     Dialog dialog;
     ArrayList<String> courses;
     protected static String courseTitle;
-//sfoudba
+    ArrayList<AdminCourse> adminCourseList = new ArrayList<AdminCourse>();
+    private EditText textSearch;
     protected static String getCourseTitle() {
         return courseTitle;
     }
@@ -43,19 +46,40 @@ public class StudentSearchCourse extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_courses2);
+        textSearch = findViewById(R.id.courseSearchBar);
+        Context context = this;
         FirebaseDatabase.getInstance().getReference().child("Courses").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                courses = new ArrayList<>();
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
                     AdminCourse admincourse = snapshot.getValue(AdminCourse.class);
-                    courses.add(admincourse.courseCode);
+                    adminCourseList.add(admincourse);
                 }
+                NumbersViewAdapter2 numbersArrayAdapter = new NumbersViewAdapter2(context, adminCourseList);
+                ListView numbersListView = findViewById(R.id.coursesView);
+                numbersListView.setAdapter(numbersArrayAdapter);
+                textSearch.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        numbersArrayAdapter.getFilter().filter(s);
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                    }
+                });
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
+        /*
         test_dropdown = findViewById(R.id.courseSearchBar);
         test_dropdown.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,6 +136,6 @@ public class StudentSearchCourse extends AppCompatActivity {
                 });
 
             }
-        });
+        });*/
     }
 }

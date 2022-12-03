@@ -69,7 +69,7 @@
             android:id="@+id/logo"
             android:layout_width="wrap_content"
             android:layout_height="100dp"
-            app:srcCompat="@drawable/samplelogo" />
+            app:srcCompat="@drawable/newlogo" />
 
         <Button
             android:id="@+id/create_course_button"
@@ -87,7 +87,8 @@
             android:layout_width="250dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
-            android:layout_below="@id/create_course_button"            android:backgroundTint="@color/white"
+            android:layout_below="@id/create_course_button"
+            android:backgroundTint="@color/white"
             android:text="Edit Courses"
             android:textColor="@color/black"
             android:textSize="20dp" />

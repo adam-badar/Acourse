@@ -53,7 +53,7 @@ public class StudentPopUpMenu extends AppCompatActivity {
 
         int width = dm.widthPixels;
         int height = dm.heightPixels;
-        getWindow().setLayout((int)(width*0.7), (int)(height*.6));
+        getWindow().setLayout((int)(width), (int)(height));
         TextView field = (TextView) findViewById(R.id.popupCourseTitle);
         field.setText("AddText");
         db = FirebaseDatabase.getInstance();
