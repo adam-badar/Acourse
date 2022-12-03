@@ -38,8 +38,8 @@ import java.util.Set;
 
 
 public class AdminAddCourseActivity extends AppCompatActivity {
-   /* Spinner spinner;
-    String[] sessions = {"Fall", "Winter", "Summer"};*/
+    /* Spinner spinner;
+     String[] sessions = {"Fall", "Winter", "Summer"};*/
     private ImageView signout;
     private Button createCourseButton;
     //below is multiple dropdown
