@@ -30,7 +30,7 @@ public class StudentSearchCourse extends AppCompatActivity {
     Dialog dialog;
     ArrayList<String> courses;
     protected static String courseTitle;
-
+//sfoudba
     protected static String getCourseTitle() {
         return courseTitle;
     }
