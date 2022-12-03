@@ -33,6 +33,7 @@ import java.util.Set;
 
 public class SignInActivity extends AppCompatActivity {
 
+
     private TextView signup_tag_click;
     private Button sign_in_click;
     private TextView forgotPassword;
@@ -49,6 +50,9 @@ public class SignInActivity extends AppCompatActivity {
         sp = getSharedPreferences("MyUserPrefs", Context.MODE_PRIVATE);
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
+
+        //SignInModel obj_1 = new SignInModel();
+
 
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
@@ -166,3 +170,6 @@ public class SignInActivity extends AppCompatActivity {
     }
 
 }
+
+
+

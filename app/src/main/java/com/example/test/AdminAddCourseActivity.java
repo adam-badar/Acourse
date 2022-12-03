@@ -27,6 +27,7 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Set;
 
 
 public class AdminAddCourseActivity extends AppCompatActivity {
@@ -51,6 +52,7 @@ public class AdminAddCourseActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private FirebaseDatabase db;
     private DatabaseReference reference;
+    Set<String> tempSet;
 
     private ActivityMainBinding binding;
     @Override
