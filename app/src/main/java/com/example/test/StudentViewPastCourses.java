@@ -21,14 +21,14 @@ import java.util.Set;
 
 public class StudentViewPastCourses extends AppCompatActivity {
     String coursesTaken;
-    ArrayList<String> courses;
+    //ArrayList<String> courses;
     ArrayList<Integer> courseList = new ArrayList<>();
     ArrayList<Integer> finalCourseList = new ArrayList<>();
     private TextView pastCourseButton;
     String [] courseArray;
     boolean [] selectedCourse;
     boolean [] finalSelectedCourse;
-    ArrayList<AdminCourse> arrayList = new ArrayList<AdminCourse>();
+    ArrayList<AdminCourse> adminCourseList = new ArrayList<AdminCourse>();
 
     void arrayCopy(boolean[] currentArray, boolean[] wantedArray) {
         for (int i=0; i<wantedArray.length; i++) {
@@ -50,8 +50,10 @@ public class StudentViewPastCourses extends AppCompatActivity {
         SharedPreferences sp = getApplicationContext().getSharedPreferences("MyUserPrefs", Context.MODE_PRIVATE);
         coursesTaken = sp.getString("courses_taken", null);
         courseArray = coursesTaken.split(",");
-        courses = new ArrayList<>(Arrays.asList(courseArray));
-        NumbersViewAdapter numbersArrayAdapter = new NumbersViewAdapter(this, arrayList);
+        for (int i=0; i<courseArray.length; i++) {
+            adminCourseList.add(new AdminCourse(courseArray[i]));
+        }
+        NumbersViewAdapter numbersArrayAdapter = new NumbersViewAdapter(this, adminCourseList);
 
         // create the instance of the ListView to set the numbersViewAdapter
         ListView numbersListView = findViewById(R.id.PastCoursesView);

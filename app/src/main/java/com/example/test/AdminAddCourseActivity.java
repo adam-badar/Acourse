@@ -94,7 +94,7 @@ public class AdminAddCourseActivity extends AppCompatActivity {
                         for (int j=0; j<courseList.size(); j++) {
                             stringBuilder.append(courseArray[courseList.get(j)]);
                             if (j != courseList.size()-1) {
-                                stringBuilder.append(", ");
+                                stringBuilder.append(",");
                             }
                         }
                         courseButton.setText(stringBuilder.toString());
@@ -150,7 +150,7 @@ public class AdminAddCourseActivity extends AppCompatActivity {
                         for (int j=0; j<sessionList.size(); j++) {
                             stringBuilder.append(sessionArray[sessionList.get(j)]);
                             if (j != sessionList.size()-1) {
-                                stringBuilder.append(", ");
+                                stringBuilder.append(",");
                             }
                         }
                         sessionButton.setText(stringBuilder.toString());
@@ -191,7 +191,10 @@ public class AdminAddCourseActivity extends AppCompatActivity {
                 if ( TextUtils.isEmpty(txt_courseName) || TextUtils.isEmpty(txt_courseCode) || TextUtils.isEmpty((txt_sessionOfferings))) {
                     Toast.makeText(AdminAddCourseActivity.this, "Empty Credentials", Toast.LENGTH_SHORT).show();
                 } else if (txt_courseCode.length() != 6) {
-                    Toast.makeText(AdminAddCourseActivity.this, "CourseCode too short", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AdminAddCourseActivity.this, "Course Code Must Be Length 6", Toast.LENGTH_SHORT).show();
+                }
+                else if (tempSet.contains(txt_courseCode)) {
+                    Toast.makeText(AdminAddCourseActivity.this, "Course Code Already Exists", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     AdminCourse course = new AdminCourse(txt_courseName, txt_courseCode, txt_prerequisites, txt_sessionOfferings);
