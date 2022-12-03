@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -20,13 +21,15 @@ import java.util.Set;
 
 public class StudentViewPastCourses extends AppCompatActivity {
     String coursesTaken;
-    ArrayList<String> courses;
+    //ArrayList<String> courses;
     ArrayList<Integer> courseList = new ArrayList<>();
     ArrayList<Integer> finalCourseList = new ArrayList<>();
     private TextView pastCourseButton;
     String [] courseArray;
     boolean [] selectedCourse;
     boolean [] finalSelectedCourse;
+    ArrayList<AdminCourse> adminCourseList = new ArrayList<AdminCourse>();
+
     void arrayCopy(boolean[] currentArray, boolean[] wantedArray) {
         for (int i=0; i<wantedArray.length; i++) {
             currentArray[i] = wantedArray[i];
@@ -46,17 +49,27 @@ public class StudentViewPastCourses extends AppCompatActivity {
         pastCourseButton = findViewById(R.id.pastCourseButton);
         SharedPreferences sp = getApplicationContext().getSharedPreferences("MyUserPrefs", Context.MODE_PRIVATE);
         coursesTaken = sp.getString("courses_taken", null);
-        System.out.println(coursesTaken);
         courseArray = coursesTaken.split(",");
-        courses = new ArrayList<>(Arrays.asList(courseArray));
+        for (int i=0; i<courseArray.length; i++) {
+            adminCourseList.add(new AdminCourse(courseArray[i]));
+        }
+        NumbersViewAdapter numbersArrayAdapter = new NumbersViewAdapter(this, adminCourseList);
 
-        ListView listView = (ListView) findViewById(R.id.PastCoursesView);
+        // create the instance of the ListView to set the numbersViewAdapter
+        ListView numbersListView = findViewById(R.id.PastCoursesView);
+
+        // set the numbersViewAdapter for ListView
+        numbersListView.setAdapter(numbersArrayAdapter);
+
+        /*ListView listView = (ListView) findViewById(R.id.PastCoursesView);
         ArrayAdapter<String> adapter=new ArrayAdapter<>(StudentViewPastCourses.this, android.R.layout.simple_list_item_1,courses);
-        listView.setAdapter(adapter);
+        listView.setAdapter(adapter);*/
         pastCourseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(
+                startActivity(new Intent(getApplicationContext(), StudentSearchCourse.class));
+
+                /*AlertDialog.Builder builder = new AlertDialog.Builder(
                         StudentViewPastCourses.this
                 );
                 builder.setTitle("Add to Past Courses");
@@ -105,8 +118,7 @@ public class StudentViewPastCourses extends AppCompatActivity {
                             pastCourseButton.setText("");
                         }
                     }
-                });
-                builder.show();
+                });*/
             }
             //prerequisites
 
