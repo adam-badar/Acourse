@@ -3,7 +3,10 @@ package com.example.test;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.SharedMemory;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -30,9 +33,10 @@ public class StudentViewPastCourses extends AppCompatActivity {
         setContentView(R.layout.activity_view_past_courses);
 
         courses = new ArrayList<>();
-
+        SharedPreferences sp = getApplicationContext().getSharedPreferences("MyUserPrefs", Context.MODE_PRIVATE);
+        String userId = sp.getString("id", null);
         rootRef = FirebaseDatabase.getInstance().getReference("Users").child("Students")
-                    .child("1002349856");
+                    .child(userId);
 
         rootRef.addValueEventListener(new ValueEventListener() {
             @Override
