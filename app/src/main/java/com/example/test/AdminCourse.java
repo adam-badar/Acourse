@@ -38,6 +38,19 @@ public class AdminCourse {
         return sessionOfferings;
     }
 
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
 
+    public void setCourseCode(String courseCode) {
+        this.courseCode = courseCode;
+    }
 
+    public void setPrerequisites(String prerequisites) {
+        this.prerequisites = prerequisites;
+    }
+
+    public void setSessionOfferings(String sessionOfferings) {
+        this.sessionOfferings = sessionOfferings;
+    }
 }
