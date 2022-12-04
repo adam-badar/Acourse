@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -34,7 +35,7 @@ public class AdminWelcomePage extends AppCompatActivity {
     private Button admin_create_course;
     private Button admin_edit_course;
     private Button admin_delete_course;
-    private ImageView signout;
+    private Button signout;
     boolean [] selectedCourse;
     Set<String> tempSet;
 
@@ -44,12 +45,15 @@ public class AdminWelcomePage extends AppCompatActivity {
         setContentView(R.layout.activity_admin_welcome);
         SharedPreferences sp = getApplicationContext().getSharedPreferences("MyUserPrefs", Context.MODE_PRIVATE);
         tempSet = sp.getStringSet("courses", null);
+        TextView welcomeText = findViewById(R.id.welcome);
+        String name = sp.getString("first_name",null);
+        welcomeText.setText("WELCOME\n"+name);
         SharedPreferences.Editor editor = sp.edit();
 
         admin_create_course = (Button) findViewById(R.id.create_course_button);
         admin_edit_course = (Button) findViewById(R.id.edit_course_button);
         admin_delete_course = (Button) findViewById(R.id.courseDeleteBtn);
-        signout = findViewById(R.id.logOutButton);
+        signout = (Button) findViewById(R.id.logOutButton);
 
         ArrayList<String> coursesList = new ArrayList<>();
         ArrayList<Integer> courseList = new ArrayList<>();

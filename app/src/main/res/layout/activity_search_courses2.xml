@@ -9,17 +9,6 @@
     android:orientation="vertical"
     android:padding="16dp"
     tools:context=".StudentSearchCourse">
-
-
-<!--        <SearchView-->
-<!--            android:id="@+id/SearchCoursesTitle"-->
-<!--            android:layout_width="294dp"-->
-<!--            android:layout_height="46dp"-->
-<!--            android:layout_marginTop="16dp"-->
-<!--            android:background="@color/white"-->
-<!--            app:layout_constraintEnd_toStartOf="@+id/TimetableGenerator"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/SearchCoursesId" />-->
-
         <TextView
             android:id="@+id/SearchCoursesId"
             android:layout_width="match_parent"

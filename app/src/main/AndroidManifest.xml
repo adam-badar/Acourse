@@ -14,11 +14,9 @@
         tools:targetApi="31" >
         <activity
             android:name=".StudentViewPastCourses"
-            android:exported="false" >
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
+            android:banner="@color/button_color"
+            android:label="View Past Courses"
+            android:parentActivityName=".StudentWelcomePage"/>
         <activity
             android:name=".SignInActivity"
             android:exported="true"
@@ -54,23 +52,23 @@
         <activity
             android:name=".AdminWelcomePage"
             android:banner="@color/button_color"
-            android:label="Home"
-            android:parentActivityName=".SignInActivity" />
+            android:parentActivityName=".SignInActivity"
+            android:theme="@style/Theme.Test.NoActionBar"/>
         <activity
             android:name=".AdminEditCourseActivity"
             android:banner="@color/button_color"
-            android:label="Home"
-            android:parentActivityName=".AdminWelcomePage" />
+            android:parentActivityName=".AdminWelcomePage"
+            android:theme="@style/Theme.Test.NoActionBar"/>
         <activity
             android:name=".AdminAddCourseActivity"
             android:banner="@color/button_color"
-            android:label="Home"
-            android:parentActivityName=".AdminWelcomePage" />
+            android:parentActivityName=".AdminWelcomePage"
+            android:theme="@style/Theme.Test.NoActionBar"/>
         <activity
             android:name=".StudentWelcomePage"
             android:banner="@color/button_color"
             android:label="Home"
-            android:parentActivityName=".SignInActivity" />
+            android:theme="@style/Theme.Test.NoActionBar"/>
     </application>
 
 </manifest>
