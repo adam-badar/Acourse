@@ -87,7 +87,7 @@ public class AdminAddCourseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_course);
         SharedPreferences sp = getApplicationContext().getSharedPreferences("MyUserPrefs", Context.MODE_PRIVATE);
-        tempSet = sp.getStringSet("courses", null);
+        Set<String> tempSet = sp.getStringSet("courses", null);
         courseArray = tempSet.toArray(new String[tempSet.size()]);
         selectedCourse = new boolean[tempSet.size()];
         finalSelectedCourse = new boolean[tempSet.size()];
@@ -277,6 +277,14 @@ public class AdminAddCourseActivity extends AppCompatActivity {
                 startActivity(new Intent(AdminAddCourseActivity.this, SignInActivity.class));
                 Toast.makeText(AdminAddCourseActivity.this, "Successfully Signed Out", Toast.LENGTH_SHORT).show();
 
+            }
+        });
+        //home button
+        ImageView homeButton = findViewById(R.id.homeButton);
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(AdminAddCourseActivity.this, AdminWelcomePage.class));
             }
         });
 

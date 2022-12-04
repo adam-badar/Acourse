@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -112,6 +113,24 @@ public class AdminEditCourseActivity extends AppCompatActivity implements Adapte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_course);
+        //home button
+        ImageView homeButton = findViewById(R.id.homeButton);
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(AdminEditCourseActivity.this, AdminWelcomePage.class));
+            }
+        });
+        //sign out
+        ImageView signout = findViewById(R.id.logOutButton);
+        signout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AdminEditCourseActivity.this, SignInActivity.class));
+                Toast.makeText(AdminEditCourseActivity.this, "Successfully Signed Out", Toast.LENGTH_SHORT).show();
+
+            }
+        });
         SharedPreferences sp = getApplicationContext().getSharedPreferences("MyUserPrefs", Context.MODE_PRIVATE);
         tempSet = sp.getStringSet("courses", null);
         courseArray = tempSet.toArray(new String[tempSet.size()]);
@@ -122,19 +141,6 @@ public class AdminEditCourseActivity extends AppCompatActivity implements Adapte
         courseCode = findViewById(R.id.courseCode);
         prerequisites = findViewById(R.id.prereqs);
         sessionOfferings = findViewById(R.id.sessionOffered);
-        /*FirebaseDatabase.getInstance().getReference().child("Courses").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
-                    AdminCourse admincourse = snapshot.getValue(AdminCourse.class);
-                    coursesList.add(admincourse.courseCode);
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });*/
-        //get courses from firebase
         //spinner select course to edit
         Spinner spinner = findViewById(R.id.select_course);
         spinner.setOnItemSelectedListener(this);

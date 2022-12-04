@@ -138,7 +138,6 @@ public class SignInActivity extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
                                 FetchUser user = snapshot.getValue(FetchUser.class);
-                                System.out.println("2;"+user.email);
                                 if (txt_email.equals(user.email)) {
                                     editor.putString("courses_taken", user.coursesTaken);
                                     System.out.println("1;"+user.coursesTaken);
@@ -155,8 +154,23 @@ public class SignInActivity extends AppCompatActivity {
                     });
                 }
                 else if(txt_email.substring(ind+1, ind+6).equals("admin")){
-                    editor.commit();
-                    startActivity(new Intent(getApplicationContext(), AdminWelcomePage.class));
+                    FirebaseDatabase.getInstance().getReference().child("Users").child("Admins").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                                FetchUser user = snapshot.getValue(FetchUser.class);
+                                if (txt_email.equals(user.email)) {
+                                    editor.putString("id", user.id);
+                                    editor.putString("first_name", user.first_name);
+                                }
+                            }
+                            editor.commit();
+                            startActivity(new Intent(getApplicationContext(), AdminWelcomePage.class));
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                        }
+                    });
                 }
             }
             @Override
