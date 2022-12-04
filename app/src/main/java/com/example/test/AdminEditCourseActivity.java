@@ -162,13 +162,51 @@ public class AdminEditCourseActivity extends AppCompatActivity implements Adapte
                     AdminCourse course = new AdminCourse(txt_courseName, txt_courseCode, txt_prerequisites, txt_sessionOfferings);
                     if (editCourseCode != txt_courseCode) {
                         //adam add code here
+                        FirebaseDatabase.getInstance().getReference().child("Courses").addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                for (DataSnapshot sd: snapshot.getChildren()) {
+                                    AdminCourse newcourse = sd.getValue(AdminCourse.class);
+                                    DatabaseReference prereqs = FirebaseDatabase.getInstance().getReference().child("Courses").child(sd.getKey()).child("prerequisites");
+                                    String na = newcourse.getPrerequisites();
+                                    if(na.contains(editCourseCode)){
+                                        na = na.replaceAll(editCourseCode, txt_courseCode);
+                                        prereqs.setValue(na);
+                                    }
+                                }
+                            }
 
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                            }
+                        });
+
+                        FirebaseDatabase.getInstance().getReference().child("Users").child("Students").addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                for(DataSnapshot ds: snapshot.getChildren()){
+                                    User user = ds.getValue(User.class);
+                                    DatabaseReference again = FirebaseDatabase.getInstance().getReference().child("Users").child("Students").child(ds.getKey()).child("coursesTaken");
+                                    String naya = user.getCoursesTaken();
+                                    if(naya.contains(editCourseCode)){
+                                        naya = naya.replaceAll(editCourseCode, txt_courseCode);
+                                        again.setValue(naya);
+                                    }
+                                }
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
                         //
                         tempSet.add(editCourseCode);
                         tempSet.remove(txt_courseCode);
                         SharedPreferences.Editor editor = sp.edit();
                         editor.putStringSet("courses", new HashSet<>(tempSet));
                         editor.commit();
+                        DatabaseReference del = FirebaseDatabase.getInstance().getReference().child("Courses").child(editCourseCode);
+                        del.removeValue();
                     }
                     FirebaseDatabase.getInstance().getReference("Courses").child(txt_courseCode).setValue(course);
                     sendUserToNextActivity();
