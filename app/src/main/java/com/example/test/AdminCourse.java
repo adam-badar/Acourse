@@ -29,26 +29,9 @@ public class AdminCourse {
         this.prerequisites = prerequisites;
         this.sessionOfferings =sessionOfferings;
     }
-    public AdminCourse(String courseID) {
-        this.courseCode = courseID;
-        FirebaseDatabase.getInstance().getReference().child("Courses").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
-                    AdminCourse admincourse = snapshot.getValue(AdminCourse.class);
-                    if (admincourse.courseCode.equals(courseID)) {
-                        courseName = admincourse.courseName;
-                        prerequisites = admincourse.prerequisites;
-                        sessionOfferings = admincourse.sessionOfferings;
-                    }
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
+    public String toString() {
+        return courseCode;
     }
-
     public String getCourseName() {
         return courseName;
     }

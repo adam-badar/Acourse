@@ -1,30 +1,54 @@
 package com.example.test;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
 
 public class StudentSearchCourse extends AppCompatActivity {
 
     TextView test_dropdown;
     Dialog dialog;
     ArrayList<String> courses;
+    AdminCourse courseClicked;
+    private String courseClickedCode;
+    private String courseClickedPre;
     protected static String courseTitle;
-
+    ArrayList<AdminCourse> adminCourseList = new ArrayList<AdminCourse>();
+    private EditText textSearch;
+    private Button pastCourseButton;
+    private Set<String> tempSet;
+    private String studentID;
+    private String coursesTaken;
+    private ArrayList<String> coursesTakenList;
+    private ArrayList<String> prereqList;
     protected static String getCourseTitle() {
         return courseTitle;
     }
@@ -37,52 +61,30 @@ public class StudentSearchCourse extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_courses2);
-
-        test_dropdown = findViewById(R.id.courseSearchBar);
-
-        courses = new ArrayList<>();
-
-        courses.add("CSCA08");
-        courses.add("MATA31");
-        courses.add("MATA37");
-        courses.add("MATA22");
-        courses.add("ENGA01");
-        courses.add("CSCB07");
-        courses.add("CSCB20");
-
-        test_dropdown.setOnClickListener(new View.OnClickListener() {
+        SharedPreferences sp = getApplicationContext().getSharedPreferences("MyUserPrefs", Context.MODE_PRIVATE);
+        tempSet = sp.getStringSet("courses", null);
+        coursesTaken = sp.getString("courses_taken", null);
+        coursesTakenList = new ArrayList<String>(Arrays.asList(coursesTaken.split(",")));
+        textSearch = findViewById(R.id.courseSearchBar);
+        Context context = this;
+        FirebaseDatabase.getInstance().getReference().child("Courses").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View v) {
-                // Initialize dialog
-                dialog=new Dialog(StudentSearchCourse.this);
-
-                // set custom dialog
-                dialog.setContentView(R.layout.search_spinner_dialogue);
-
-                // set custom height and width
-                dialog.getWindow().setLayout(650,800);
-
-                // set transparent background
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
-                // show dialog
-                dialog.show();
-
-                EditText editText=dialog.findViewById(R.id.edit_text);
-                ListView listView=dialog.findViewById(R.id.list_view);
-
-                ArrayAdapter<String> adapter=new ArrayAdapter<>(StudentSearchCourse.this, android.R.layout.simple_list_item_1,courses);
-
-                listView.setAdapter(adapter);
-                editText.addTextChangedListener(new TextWatcher() {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                    AdminCourse admincourse = snapshot.getValue(AdminCourse.class);
+                    adminCourseList.add(admincourse);
+                }
+                NumbersViewAdapter2 numbersArrayAdapter = new NumbersViewAdapter2(context, adminCourseList);
+                ListView numbersListView = findViewById(R.id.coursesView);
+                numbersListView.setAdapter(numbersArrayAdapter);
+                textSearch.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
                     }
 
                     @Override
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        adapter.getFilter().filter(s);
+                        numbersArrayAdapter.getFilter().filter(s);
                     }
 
                     @Override
@@ -90,20 +92,28 @@ public class StudentSearchCourse extends AppCompatActivity {
 
                     }
                 });
-                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+               /*pastCourseButton.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        // when item selected from list
-                        // set selected item on textView
-                        test_dropdown.setText(adapter.getItem(position));
-                        courseTitle= adapter.getItem(position);
-                        startActivity(new Intent(StudentSearchCourse.this, StudentPopUpMenu.class));
-
-                        // Dismiss dialog
-                        dialog.dismiss();
+                    public void onClick(View view) {
+                        courseClicked = numbersArrayAdapter.courseClicked;
+                        courseClickedCode = courseClicked.courseCode;
+                        courseClickedPre = courseClicked.prerequisites;
+                        prereqList = new ArrayList<String>(Arrays.asList(courseClickedPre.split(",")));
+                        if (coursesTakenList.contains(courseClickedCode)) {
+                            Toast.makeText(StudentSearchCourse.this, "Course Already Taken" , Toast.LENGTH_SHORT).show();
+                        }
+                        else if (coursesTakenList.containsAll(prereqList)) {
+                            coursesTakenList.add(courseClickedCode);
+                            Toast.makeText(StudentSearchCourse.this, "Course Added To Past Courses" , Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            Toast.makeText(StudentSearchCourse.this, "Does Not Have Prerequisites" , Toast.LENGTH_SHORT).show();
+                        }
                     }
-                });
-
+                });*/
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
             }
         });
     }
