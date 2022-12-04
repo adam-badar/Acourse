@@ -64,5 +64,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pastCourses"
         android:id="@+id/PastCoursesView"
+        android:layout_weight="1"
+        android:divider="@drawable/divider"
+        android:dividerHeight="16.0dp"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

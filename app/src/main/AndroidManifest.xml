@@ -47,10 +47,10 @@
             android:name=".StudentSearchCourse"
             android:banner="@color/button_color"
             android:label="Search Courses"
-            android:parentActivityName=".SignInActivity" />
+            android:parentActivityName=".StudentWelcomePage" />
         <activity
             android:name=".StudentPopUpMenu"
-            android:parentActivityName=".SignInActivity" />
+            android:parentActivityName=".StudentWelcomePage" />
         <activity
             android:name=".AdminWelcomePage"
             android:banner="@color/button_color"

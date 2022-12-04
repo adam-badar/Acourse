@@ -4,7 +4,8 @@
     android:layout_marginTop="10dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/searchbackground">
     <TextView
         android:id="@+id/textView1"
         android:layout_width="match_parent"
@@ -16,20 +17,26 @@
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
         android:textColor="@color/black"
+        android:paddingBottom="1dp"
         android:textSize="14dp" />
     <TextView
         android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
         android:textColor="@color/black"
+        android:paddingBottom="1dp"
         android:textSize="14dp" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
         android:textColor="@color/black"
+        android:paddingBottom="1dp"
         android:textSize="14dp" />
 
 </LinearLayout>
