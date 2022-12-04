@@ -1,7 +1,7 @@
 package com.example.test;
 
 public class User {
-    private String coursesTaken;
+    public String coursesTaken;
     private String email;
     private String password;
     private String first_name;

@@ -1,11 +1,15 @@
 package com.example.test;
 
+import static com.example.test.TimelineOps.generateCourseList;
+import static com.example.test.TimelineOps.getPrereqs;
+
 import android.content.Intent;
 
 import androidx.annotation.NonNull;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -17,6 +21,7 @@ public class AdminCourse {
     public String courseCode;
     public String prerequisites;
     public String sessionOfferings;
+    public int weight;
 
     public AdminCourse(){
 
@@ -28,6 +33,7 @@ public class AdminCourse {
         this.courseCode = courseCode;
         this.prerequisites = prerequisites;
         this.sessionOfferings =sessionOfferings;
+        this.weight =0;
     }
     public AdminCourse(String courseID) {
         this.courseCode = courseID;
@@ -83,5 +89,13 @@ public class AdminCourse {
 
     public void setSessionOfferings(String sessionOfferings) {
         this.sessionOfferings = sessionOfferings;
+    }
+
+    public void setWeight(int weight, DatabaseReference ref) {
+        ArrayList<ArrayList<String>> temp = generateCourseList(ref);
+        String []  target = {this.courseCode};
+        ArrayList<String> pre = getPrereqs(temp, target);
+
+        this.weight = pre.size();
     }
 }
