@@ -50,50 +50,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textColor="@color/font_color"
+            android:layout_weight="1"
+            android:divider="@drawable/divider"
+            android:dividerHeight="16.0dp"
             />
-        <!--        <ImageButton-->
-<!--            android:id="@+id/TimetableGenerator"-->
-<!--            android:layout_width="49dp"-->
-<!--            android:layout_height="46dp"-->
-<!--            android:layout_marginTop="16dp"-->
-<!--            android:layout_marginEnd="16dp"-->
-<!--            android:background="@color/main_background"-->
-<!--            android:contentDescription="timetable_Generator"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/SearchCoursesId"-->
-<!--            app:srcCompat="@android:drawable/ic_menu_today" />-->
-
-<!--        <ImageButton-->
-<!--            android:id="@+id/search_button"-->
-<!--            android:layout_width="133dp"-->
-<!--            android:layout_height="94dp"-->
-<!--            android:layout_marginBottom="4dp"-->
-<!--            android:background="@color/main_background"-->
-<!--            android:contentDescription="Takes student to search bar"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent"-->
-<!--            app:srcCompat="@android:drawable/ic_menu_search" />-->
-
-<!--        <AutoCompleteTextView-->
-<!--            android:id="@+id/search_bar"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginBottom="620dp"-->
-<!--            android:completionThreshold="1"-->
-<!--            android:hint="Search for the course name"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent" />-->
-
-<!--        <Spinner-->
-<!--            android:id="@+id/courses"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_below="@+id/SearchCoursesTitle"-->
-<!--            android:layout_marginStart="52dp"-->
-<!--            android:layout_marginTop="16dp"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/SearchCoursesTitle">-->
-<!--        </Spinner>-->
-
 
 </LinearLayout>

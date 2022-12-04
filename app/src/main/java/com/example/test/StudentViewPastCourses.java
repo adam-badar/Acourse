@@ -27,27 +27,37 @@ import java.util.Set;
 
 public class StudentViewPastCourses extends AppCompatActivity {
     private TextView pastCourseButton;
-    ArrayList<AdminCourse> adminCourseList = new ArrayList<AdminCourse>();
+    public ArrayList<AdminCourse> pastCourseList = new ArrayList<AdminCourse>();
+    private String studentID;
+    private String coursesTaken;
+    private ArrayList<String> coursesTakenList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_past_courses);
+        SharedPreferences sp = getApplicationContext().getSharedPreferences("MyUserPrefs", Context.MODE_PRIVATE);
+        coursesTaken = sp.getString("courses_taken", null);
+        coursesTakenList = new ArrayList<String>(Arrays.asList(coursesTaken.split(",")));
+        studentID = sp.getString("id", null);
         pastCourseButton = findViewById(R.id.pastCourseButton);
         Context context = this;
-        FirebaseDatabase.getInstance().getReference().child("Courses").addListenerForSingleValueEvent(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("Courses").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
-                    AdminCourse admincourse = snapshot.getValue(AdminCourse.class);
-                    adminCourseList.add(admincourse);
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    AdminCourse course = snapshot.getValue(AdminCourse.class);
+                    if (coursesTakenList.contains(course.courseCode)) {
+                        pastCourseList.add(course);
+                    }
                 }
-                NumbersViewAdapter numbersArrayAdapter = new NumbersViewAdapter(context, adminCourseList);
+                NumbersViewAdapter numbersArrayAdapter = new NumbersViewAdapter(context, pastCourseList);
                 ListView numbersListView = findViewById(R.id.PastCoursesView);
                 numbersListView.setAdapter(numbersArrayAdapter);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
         pastCourseButton.setOnClickListener(new View.OnClickListener() {
