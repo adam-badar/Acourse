@@ -211,7 +211,7 @@ public class AdminEditCourseActivity extends AppCompatActivity implements Adapte
                         SharedPreferences.Editor editor = sp.edit();
                         editor.putStringSet("courses", new HashSet<>(tempSet));
                         editor.commit();
-                        DatabaseReference del = FirebaseDatabase.getInstance().getReference().child("Courses").child(editCourseCode);
+                        DatabaseReference del = FirebaseDatabase.getInstance().getReference().child("Courses").child(txt_courseCode);
                         del.removeValue();
                     }
                     FirebaseDatabase.getInstance().getReference("Courses").child(txt_courseCode).setValue(course);
