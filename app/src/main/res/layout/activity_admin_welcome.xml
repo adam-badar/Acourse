@@ -71,6 +71,17 @@
             app:srcCompat="@drawable/newlogo" />
 
         <Button
+            android:id="@+id/view_courses"
+            android:layout_width="250dp"
+            android:layout_height="104dp"
+            android:layout_gravity="center"
+            android:layout_below="@id/logo"
+            android:backgroundTint="@color/white"
+            android:text="View Courses"
+            android:textColor="@color/black"
+            android:textSize="20dp" />
+
+        <Button
             android:id="@+id/create_course_button"
             android:layout_width="250dp"
             android:layout_height="104dp"

@@ -119,7 +119,7 @@ public class AdminAddCourseActivity extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(
                         AdminAddCourseActivity.this
                 );
-                builder.setTitle("Select Sessions");
+                builder.setTitle("Select Prerequisites");
                 builder.setCancelable(false);
                 /*if (setFirebase == false) {
                     courseArray = coursesList.toArray(new String[coursesList.size()]);
