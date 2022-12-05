@@ -378,7 +378,7 @@ public class AdminEditCourseActivity extends AppCompatActivity implements Adapte
                         courseName.setText(editCourseName);
                         courseCode.setText(editCourseCode);
                         if (editSessions != null) {
-                            editSessionArray = editSessions.split(", ");
+                            editSessionArray = editSessions.split(",");
                             System.out.println(Arrays.toString(editSessionArray));
                             for (String current: editSessionArray) {
                                 int index = Arrays.asList(sessionArray).indexOf(current);
@@ -393,7 +393,7 @@ public class AdminEditCourseActivity extends AppCompatActivity implements Adapte
                             arrayListCopy(finalSessionList, sessionList);
                         }
                         if (editPrereq != null) {
-                            editPrereqArray = editPrereq.split(", ");
+                            editPrereqArray = editPrereq.split(",");
                             System.out.println(Arrays.toString(editPrereqArray));
                             for (String current: editPrereqArray) {
                                 int index = Arrays.asList(courseArray).indexOf(current);
