@@ -42,6 +42,7 @@ public class SignUpActivity extends AppCompatActivity {
     private SignInActivity binding;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +79,7 @@ public class SignUpActivity extends AppCompatActivity {
                 } else if (!txt_email.matches(pattern)) {
                     Toast.makeText(SignUpActivity.this, "Incorrect email format", Toast.LENGTH_SHORT).show();
                 } else if (txt_id.length() != 10) {
-                    Toast.makeText(SignUpActivity.this, "Invalid IDD", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUpActivity.this, "Invalid ID", Toast.LENGTH_SHORT).show();
                 } else if (!txt_id.substring(0, 3).equals("100") && !txt_id.substring(0, 3).equals("200")) {
                     Toast.makeText(SignUpActivity.this, "Invalid ID", Toast.LENGTH_SHORT).show();
                 }

@@ -15,6 +15,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class StudentAddCourse extends AppCompatActivity {
+    /*
     private Button;
 
     @Override
@@ -42,6 +43,6 @@ public class StudentAddCourse extends AppCompatActivity {
             adapter.notifyDataSetChanged();
         }
     }
-
+    */
 
 }

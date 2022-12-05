@@ -21,6 +21,10 @@ public class AdminCourse {
         this.sessionOfferings =sessionOfferings;
 
     }
+    public void setName(String name) {this.courseName = name;}
+    public void setPrerequisites(String prereq) {this.prerequisites = prereq;}
+    public void setSessionOfferings(String session) {this.sessionOfferings = session;}
+
 
     public String getCourseName() {
         return courseName;
