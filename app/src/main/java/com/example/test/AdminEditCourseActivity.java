@@ -41,8 +41,8 @@ import java.util.Set;
 
 
 public class AdminEditCourseActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-   /* Spinner spinner;
-    String[] sessions = {"Fall", "Winter", "Summer"};*/
+    /* Spinner spinner;
+     String[] sessions = {"Fall", "Winter", "Summer"};*/
     String [] selectCourseArray;
 
     //String [] selectCourseArray;//= GetCourses.fetch();//= {"Select Course", "MATA31", "MATA32", "MATA33", "MATA34"};
@@ -64,7 +64,7 @@ public class AdminEditCourseActivity extends AppCompatActivity implements Adapte
     ArrayList<Integer> courseList = new ArrayList<>();
     ArrayList<Integer> finalCourseList = new ArrayList<>();
 
-   // String [] courseArray = {"CSCA48", "CSCA67", "CSCB36", "MATB41", "STAB52", "MATA31"};
+    // String [] courseArray = {"CSCA48", "CSCA67", "CSCB36", "MATB41", "STAB52", "MATA31"};
     ArrayList<String> coursesList = new ArrayList<>();
     String [] courseArray;
     boolean setFirebase = false;
@@ -168,7 +168,7 @@ public class AdminEditCourseActivity extends AppCompatActivity implements Adapte
                     AdminCourse course = new AdminCourse(txt_courseName, txt_courseCode, txt_prerequisites, txt_sessionOfferings);
                     if (editCourseCode != txt_courseCode) {
                         //adam add code here
-                        FirebaseDatabase.getInstance().getReference().child("Courses").addValueEventListener(new ValueEventListener() {
+                        FirebaseDatabase.getInstance().getReference().child("Courses").addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 for (DataSnapshot sd: snapshot.getChildren()) {
@@ -187,7 +187,7 @@ public class AdminEditCourseActivity extends AppCompatActivity implements Adapte
                             }
                         });
 
-                        FirebaseDatabase.getInstance().getReference().child("Users").child("Students").addValueEventListener(new ValueEventListener() {
+                        FirebaseDatabase.getInstance().getReference().child("Users").child("Students").addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 for(DataSnapshot ds: snapshot.getChildren()){
@@ -206,8 +206,8 @@ public class AdminEditCourseActivity extends AppCompatActivity implements Adapte
                             }
                         });
                         //
-                        tempSet.add(editCourseCode);
-                        tempSet.remove(txt_courseCode);
+                        tempSet.add(txt_courseCode);
+                        tempSet.remove(editCourseCode);
                         SharedPreferences.Editor editor = sp.edit();
                         editor.putStringSet("courses", new HashSet<>(tempSet));
                         editor.commit();
@@ -378,7 +378,7 @@ public class AdminEditCourseActivity extends AppCompatActivity implements Adapte
                         courseName.setText(editCourseName);
                         courseCode.setText(editCourseCode);
                         if (editSessions != null) {
-                            editSessionArray = editSessions.split(", ");
+                            editSessionArray = editSessions.split(",");
                             System.out.println(Arrays.toString(editSessionArray));
                             for (String current: editSessionArray) {
                                 int index = Arrays.asList(sessionArray).indexOf(current);
@@ -393,7 +393,7 @@ public class AdminEditCourseActivity extends AppCompatActivity implements Adapte
                             arrayListCopy(finalSessionList, sessionList);
                         }
                         if (editPrereq != null) {
-                            editPrereqArray = editPrereq.split(", ");
+                            editPrereqArray = editPrereq.split(",");
                             System.out.println(Arrays.toString(editPrereqArray));
                             for (String current: editPrereqArray) {
                                 int index = Arrays.asList(courseArray).indexOf(current);

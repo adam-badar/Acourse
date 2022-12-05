@@ -127,7 +127,7 @@ public class AdminWelcomePage extends AppCompatActivity {
                                 editor.putStringSet("courses", new HashSet<>(tempSet));
                                 editor.commit();
                                 int finalJ1 = j;
-                                FirebaseDatabase.getInstance().getReference().child("Courses").addValueEventListener(new ValueEventListener() {
+                                FirebaseDatabase.getInstance().getReference().child("Courses").addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                                         for (DataSnapshot sd: snapshot.getChildren()) {
@@ -142,9 +142,12 @@ public class AdminWelcomePage extends AppCompatActivity {
                                                 na = na.replaceAll(finalCourseArray1[finalJ1] + ",", "");
                                                 prereqs.setValue(na);
                                             }
-                                            else{
+                                            else if (na.contains(finalCourseArray1[finalJ1])){
                                                 na = na.replaceAll(finalCourseArray1[finalJ1], "");
                                                 prereqs.setValue(na);
+                                            }
+                                            else{
+
                                             }
 
                                         }
@@ -158,7 +161,7 @@ public class AdminWelcomePage extends AppCompatActivity {
 
 
                                 int finalJ = j;
-                                FirebaseDatabase.getInstance().getReference().child("Users").child("Students").addValueEventListener(new ValueEventListener() {
+                                FirebaseDatabase.getInstance().getReference().child("Users").child("Students").addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                                         for(DataSnapshot ds: snapshot.getChildren()){
