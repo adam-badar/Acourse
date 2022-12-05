@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.test.SignUpActivity"
-    android:background="@drawable/backgroundapp"
+    android:background="@drawable/darkbackground"
     >
 
     <TextView
@@ -84,7 +84,7 @@
         android:background="#30ffffff"
         android:drawableLeft="@drawable/ic_baseline_numbers_24"
         android:drawablePadding="20dp"
-        android:hint="Student/Admin number"
+        android:hint="Student/Admin ID"
         android:padding="20dp"
         android:textColor="@color/white"
         android:textColorHint="@color/white" />
@@ -119,7 +119,7 @@
         android:drawablePadding="20dp"
         android:hint="Confirm Password"
         android:padding="20dp"
-        android:textColor="@color/teal_200"
+        android:textColor="@color/white"
         android:textColorHint="@color/white" />
 
     <Button
@@ -130,7 +130,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="160dp"
-        android:backgroundTint="@color/teal_700"
+        android:background="@drawable/roundbuttons"
         android:text="SignUp"
         android:textColor="@color/white" />
 

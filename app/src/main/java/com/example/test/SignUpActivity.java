@@ -123,9 +123,9 @@ public class SignUpActivity extends AppCompatActivity {
         email = findViewById(R.id.email);
         String txt_email = email.getText().toString().trim();
         int ind = txt_email.indexOf("@");
-        if(txt_email.substring(ind+1, ind+7).equals("student")) {
+        if(txt_email.substring(ind+1, ind+8).equals("student")) {
             startActivity(new Intent(getApplicationContext(), StudentHomepageActivity.class));
-        }else if(txt_email.substring(ind+1, ind+5).equals("admin")){
+        }else if(txt_email.substring(ind+1, ind+6).equals("admin")){
             startActivity(new Intent(getApplicationContext(), AdminWelcomePage.class));
         }
     }

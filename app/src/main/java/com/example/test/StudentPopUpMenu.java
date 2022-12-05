@@ -53,13 +53,14 @@ public class StudentPopUpMenu extends AppCompatActivity {
 
         int width = dm.widthPixels;
         int height = dm.heightPixels;
-        getWindow().setLayout((int)(width*0.7), (int)(height*.6));
+        getWindow().setLayout((int)(width), (int)(height));
         TextView field = (TextView) findViewById(R.id.popupCourseTitle);
         field.setText("AddText");
         db = FirebaseDatabase.getInstance();
         referencia = db.getReference("Users").child("Students");
         //if (FirebaseDatabase.getInstance().getReference("Users").child("1002349856").child("Past Courses");
         referenzi = FirebaseDatabase.getInstance().getReference("Users").child("Students").child("1003456789");
+
 
         courselist = findViewById(R.id.addButton);
         courselist.setOnClickListener(new View.OnClickListener() {
