@@ -28,6 +28,7 @@
         android:drawableEnd="@android:drawable/arrow_down_float"
         android:drawablePadding="16dp"
         android:hint="Select Courses"
+        android:textColorHint="@color/black"
         android:padding="12dp"
         android:paddingBottom="@dimen/fab_margin"
         app:layout_constraintTop_toTopOf="parent"></TextView>
