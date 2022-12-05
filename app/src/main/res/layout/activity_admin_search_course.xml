@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_background"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".AdminSearchCourse">
+    <TextView
+        android:id="@+id/SearchCoursesId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed"
+        android:text="Search Courses"
+        android:textAlignment="center"
+        android:textColor="@color/font_color"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/courseSearchBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/SearchCoursesId"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@android:drawable/editbox_background"
+        android:gravity="center_vertical"
+        android:hint="Search course"
+        android:padding="12dp" />
+    <ListView
+        android:id="@+id/coursesView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textColor="@color/font_color"
+        android:layout_weight="1"
+        android:divider="@drawable/divider"
+        android:dividerHeight="16.0dp"
+        />
+
+</LinearLayout>

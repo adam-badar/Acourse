@@ -158,6 +158,8 @@ public class AdminEditCourseActivity extends AppCompatActivity implements Adapte
                 String txt_courseCode = courseCode.getText().toString().trim();
                 String txt_prerequisites = prerequisites.getText().toString().trim();
                 String txt_sessionOfferings = sessionOfferings.getText().toString().trim();
+                txt_prerequisites = txt_prerequisites.replaceAll(", ",",");
+                txt_sessionOfferings = txt_sessionOfferings.replaceAll(", ", ",");
 
                 if ( TextUtils.isEmpty(txt_courseName) || TextUtils.isEmpty(txt_courseCode) || TextUtils.isEmpty((txt_sessionOfferings))) {
                     Toast.makeText(AdminEditCourseActivity.this, "Empty Credentials", Toast.LENGTH_SHORT).show();
@@ -168,7 +170,7 @@ public class AdminEditCourseActivity extends AppCompatActivity implements Adapte
                     AdminCourse course = new AdminCourse(txt_courseName, txt_courseCode, txt_prerequisites, txt_sessionOfferings);
                     if (editCourseCode != txt_courseCode) {
                         //adam add code here
-                        FirebaseDatabase.getInstance().getReference().child("Courses").addValueEventListener(new ValueEventListener() {
+                        FirebaseDatabase.getInstance().getReference().child("Courses").addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 for (DataSnapshot sd: snapshot.getChildren()) {
@@ -187,7 +189,7 @@ public class AdminEditCourseActivity extends AppCompatActivity implements Adapte
                             }
                         });
 
-                        FirebaseDatabase.getInstance().getReference().child("Users").child("Students").addValueEventListener(new ValueEventListener() {
+                        FirebaseDatabase.getInstance().getReference().child("Users").child("Students").addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 for(DataSnapshot ds: snapshot.getChildren()){
@@ -206,8 +208,8 @@ public class AdminEditCourseActivity extends AppCompatActivity implements Adapte
                             }
                         });
                         //
-                        tempSet.add(editCourseCode);
-                        tempSet.remove(txt_courseCode);
+                        tempSet.add(txt_courseCode);
+                        tempSet.remove(editCourseCode);
                         SharedPreferences.Editor editor = sp.edit();
                         editor.putStringSet("courses", new HashSet<>(tempSet));
                         editor.commit();
@@ -254,14 +256,6 @@ public class AdminEditCourseActivity extends AppCompatActivity implements Adapte
                             Toast.makeText(getApplicationContext(), "Cannot Add Itself", Toast.LENGTH_SHORT).show();
                         }
                         setTextFunction(courseList, courseArray, courseButton);
-                        /*StringBuilder stringBuilder = new StringBuilder();
-                        for (int j=0; j<courseList.size(); j++) {
-                            stringBuilder.append(courseArray[courseList.get(j)]);
-                            if (j != courseList.size()-1) {
-                                stringBuilder.append(", ");
-                            }
-                        }
-                        courseButton.setText(stringBuilder.toString());*/
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -378,7 +372,7 @@ public class AdminEditCourseActivity extends AppCompatActivity implements Adapte
                         courseName.setText(editCourseName);
                         courseCode.setText(editCourseCode);
                         if (editSessions != null) {
-                            editSessionArray = editSessions.split(", ");
+                            editSessionArray = editSessions.split(",");
                             System.out.println(Arrays.toString(editSessionArray));
                             for (String current: editSessionArray) {
                                 int index = Arrays.asList(sessionArray).indexOf(current);
@@ -393,7 +387,7 @@ public class AdminEditCourseActivity extends AppCompatActivity implements Adapte
                             arrayListCopy(finalSessionList, sessionList);
                         }
                         if (editPrereq != null) {
-                            editPrereqArray = editPrereq.split(", ");
+                            editPrereqArray = editPrereq.split(",");
                             System.out.println(Arrays.toString(editPrereqArray));
                             for (String current: editPrereqArray) {
                                 int index = Arrays.asList(courseArray).indexOf(current);

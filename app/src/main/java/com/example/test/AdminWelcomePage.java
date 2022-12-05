@@ -36,6 +36,7 @@ public class AdminWelcomePage extends AppCompatActivity {
     private Button admin_edit_course;
     private Button admin_delete_course;
     private Button signout;
+    private Button view_courses;
     boolean [] selectedCourse;
     Set<String> tempSet;
 
@@ -54,6 +55,7 @@ public class AdminWelcomePage extends AppCompatActivity {
         admin_edit_course = (Button) findViewById(R.id.edit_course_button);
         admin_delete_course = (Button) findViewById(R.id.courseDeleteBtn);
         signout = (Button) findViewById(R.id.logOutButton);
+        view_courses = (Button) findViewById(R.id.view_courses);
 
         ArrayList<String> coursesList = new ArrayList<>();
         ArrayList<Integer> courseList = new ArrayList<>();
@@ -127,7 +129,7 @@ public class AdminWelcomePage extends AppCompatActivity {
                                 editor.putStringSet("courses", new HashSet<>(tempSet));
                                 editor.commit();
                                 int finalJ1 = j;
-                                FirebaseDatabase.getInstance().getReference().child("Courses").addValueEventListener(new ValueEventListener() {
+                                FirebaseDatabase.getInstance().getReference().child("Courses").addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                                         for (DataSnapshot sd: snapshot.getChildren()) {
@@ -158,7 +160,7 @@ public class AdminWelcomePage extends AppCompatActivity {
 
 
                                 int finalJ = j;
-                                FirebaseDatabase.getInstance().getReference().child("Users").child("Students").addValueEventListener(new ValueEventListener() {
+                                FirebaseDatabase.getInstance().getReference().child("Users").child("Students").addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                                         for(DataSnapshot ds: snapshot.getChildren()){
@@ -205,6 +207,12 @@ public class AdminWelcomePage extends AppCompatActivity {
             }
             //prerequisites
 
+        });
+        view_courses.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(AdminWelcomePage.this, AdminSearchCourse.class));
+            }
         });
         admin_create_course.setOnClickListener(new View.OnClickListener() {
             @Override
