@@ -1,58 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_background"
+    android:background="@drawable/studentbackground"
     android:paddingTop="15dp"
     android:paddingBottom="15dp"
     android:layout_marginBottom="3dp"
     tools:context=".ViewTimetable">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5"
+        />
+
     <TextView
         android:id="@+id/timeTableBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@android:drawable/editbox_background"
+        android:drawableEnd="@android:drawable/arrow_down_float"
+        android:drawablePadding="16dp"
         android:hint="Select Courses"
         android:padding="12dp"
-        android:layout_centerHorizontal="true"
-        android:drawablePadding="16dp"
-        android:drawableEnd="@android:drawable/arrow_down_float"
-        android:background="@android:drawable/editbox_background"
-        >
-    </TextView>
+        android:paddingBottom="@dimen/fab_margin"
+        app:layout_constraintTop_toTopOf="parent"></TextView>
 
     <TextView
         android:id="@+id/sessions"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/timeTableBar"
-        android:layout_marginTop="0dp"
         android:text="Session"
         android:textAlignment="center"
-        android:textSize="40dp" />
+        android:textSize="40dp"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timeTableBar" />
 
     <TextView
         android:id="@+id/courses"
-        android:layout_width="220dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/timeTableBar"
-        android:layout_toRightOf="@id/sessions"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="3dp"
         android:layout_toEndOf="@+id/sessions"
+        android:layout_toRightOf="@id/sessions"
         android:text="Courses"
+        android:textColor="@color/black"
         android:textAlignment="center"
-        android:textSize="40dp" />
+        android:textSize="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toBottomOf="@+id/timeTableBar" />
 
     <ListView
-        android:id="@+id/timeline_list"
-        android:layout_width="match_parent"
+        android:id="@+id/sessions_list"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/courses"
-        android:layout_marginTop="-3dp" />
+        app:layout_constraintStart_toStartOf="@id/timeTableBar"
+        app:layout_constraintEnd_toStartOf="@id/guideline"
+        android:paddingTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/sessions"
+
+        />
+    <ListView
+        android:id="@+id/courses_list"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/guideline"
+        app:layout_constraintEnd_toEndOf="@id/timeTableBar"
+        android:paddingTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/courses"
+        />
 
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
