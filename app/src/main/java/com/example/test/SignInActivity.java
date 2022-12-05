@@ -102,18 +102,19 @@ public class SignInActivity extends AppCompatActivity {
 
             mAuth.signInWithEmailAndPassword(txt_email, txt_password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if(task.isSuccessful()){
+                public void onComplete( Task<AuthResult> task) {
+//                    if(task.isSuccessful()){
                         Toast.makeText(SignInActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
                         sendUserToNextActivity();
-                    }
-                    else {
-                        Toast.makeText(SignInActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
-                    }
+//                    }
+//                    else {
+//                        Toast.makeText(SignInActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
+//                    }
                 }
             });
         }
     }
+
     private void sendUserToNextActivity() {
         email = findViewById(R.id.email);
         String txt_email = email.getText().toString().trim();

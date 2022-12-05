@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_background"
+    android:paddingTop="15dp"
+    android:paddingBottom="15dp"
+    android:layout_marginBottom="3dp"
+    tools:context=".ViewTimetable">
+
+    <TextView
+        android:id="@+id/timeTableBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Select Courses"
+        android:padding="12dp"
+        android:layout_centerHorizontal="true"
+        android:drawablePadding="16dp"
+        android:drawableEnd="@android:drawable/arrow_down_float"
+        android:background="@android:drawable/editbox_background"
+        >
+    </TextView>
+
+    <TextView
+        android:id="@+id/sessions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/timeTableBar"
+        android:layout_marginTop="0dp"
+        android:text="Session"
+        android:textAlignment="center"
+        android:textSize="40dp" />
+
+    <TextView
+        android:id="@+id/courses"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/timeTableBar"
+        android:layout_toRightOf="@id/sessions"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="3dp"
+        android:layout_toEndOf="@+id/sessions"
+        android:text="Courses"
+        android:textAlignment="center"
+        android:textSize="40dp" />
+
+    <ListView
+        android:id="@+id/timeline_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/courses"
+        android:layout_marginTop="-3dp" />
+
+
+</RelativeLayout>
