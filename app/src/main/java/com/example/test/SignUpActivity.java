@@ -3,6 +3,7 @@ package com.example.test;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -106,12 +107,20 @@ public class SignUpActivity extends AppCompatActivity {
 
     private void registerUser(String email, String password) {
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
+            @SuppressLint("WrongViewCast")
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     Toast.makeText(SignUpActivity.this, "Registering user successful!", Toast.LENGTH_SHORT).show();
                     //startActivity(new Intent(getApplicationContext(), StudentHomepageActivity.class));
-                    sendUserToNextActivity();
+                    //startActivity(new Intent(getApplicationContext(), StudentHomepageActivity.class));
+                    String txt_email = email.toString().trim();
+                    int ind = txt_email.indexOf("@");
+                    if(txt_email.substring(ind+1, ind+7).equals("student")) {
+                        startActivity(new Intent(getApplicationContext(), StudentHomepageActivity.class));
+                    }else if(txt_email.substring(ind+1, ind+5).equals("admin")){
+                        startActivity(new Intent(getApplicationContext(), AdminWelcomePage.class));
+                    }
                 }
                 else {
                     Toast.makeText(SignUpActivity.this, "Registration failed", Toast.LENGTH_SHORT).show();
