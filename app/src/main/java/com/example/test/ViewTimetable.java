@@ -158,24 +158,7 @@ public class ViewTimetable extends AppCompatActivity {
         for (int i = 0; i < coursesString.length; i++) {
             ArrayList<String> temp = new ArrayList<>();
             temp.add(coursesString[i]);
-            ref.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for (DataSnapshot ds : snapshot.getChildren()) {
-                        if(ds.child("courseCode").getValue(String.class).trim().equals(temp.get(0).trim())){
 
-                            String [] mid = ds.child("prerequisites").getValue(String.class).
-                                    split(",");
-
-                            for(String f: mid) temp.add(f);
-                        }
-                    }
-                }
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
             to_return.add(temp);
         }
         return to_return;
