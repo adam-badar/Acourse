@@ -10,6 +10,11 @@ public interface Contract {
     public interface View {
         public void sendUserToNextStudentPage();
         public void sendUsertoNextAdminPage();
+        public String getUsername();
+        public String getPassword();
+        public void createToast(Contract.View context, String message);
+        //public void handleClick
+
     }
 
     public interface Presenter {

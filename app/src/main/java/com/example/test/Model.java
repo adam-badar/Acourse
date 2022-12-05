@@ -1,5 +1,6 @@
 package com.example.test;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
@@ -35,10 +36,11 @@ public class Model implements Contract.Model {
     FirebaseUser mUser;
     String pattern = "[a-zA-z0-9._-]+@[a-z]+\\.+[a-z]+";
     SharedPreferences sp;
-    int x = 0;
-    //ArrayList<String> courseList = new ArrayList<>();
-    //SharedPreferences.Editor editor = sp.edit();
-        //editor.putString("email", txt_email);
+    private int x = 0;
+    Contract.View view;
+    ArrayList<String> courseList = new ArrayList<>();
+    SharedPreferences.Editor editor = sp.edit();
+    //
     /*
     public void isFound(String username) {
         String txt_email = email.getText().toString().trim();
@@ -71,75 +73,81 @@ public class Model implements Contract.Model {
     }
     }*/
     public boolean isFound(String emailiano) {
+        editor.putString("email", emailiano);
         ArrayList<String> courseList = new ArrayList<>();
         SharedPreferences.Editor editor = sp.edit();
         editor.putString("email", emailiano);
         FirebaseDatabase.getInstance().getReference().child("Courses").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                /*
+                //Toast.makeText(view, "yo", Toast.LENGTH_SHORT).show();
+
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
                     AdminCourse admincourse = snapshot.getValue(AdminCourse.class);
                     courseList.add(admincourse.courseCode);
                 }
                 Set<String> taskSet = new HashSet<>(courseList);
-                editor.putStringSet("courses", taskSet);*/
+                editor.putStringSet("courses", taskSet);
                 int ind = emailiano.indexOf("@");
-                if (emailiano.substring(ind+1, ind+8).equals("student")) {
+                view.createToast(view, "sdsad");
+                //Toast.makeText((Context) view, "hello", Toast.LENGTH_SHORT).show();
+                if (emailiano.substring(ind + 1, ind + 8).equals("student")) {
                     FirebaseDatabase.getInstance().getReference().child("Users").child("Students").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                //Toast.makeText(View, "", Toast.LENGTH_SHORT).show();
+                                System.out.println("yooyyo");
                                 FetchUser user = snapshot.getValue(FetchUser.class);
-                                if (emailiano.equals(user.email)) {
-                                    /*
+                                if (user.email.equals(emailiano)) {
+
                                     editor.putString("courses_taken", user.coursesTaken);
                                     System.out.println("1;"+user.coursesTaken);
                                     editor.putString("id", user.id);
-                                    editor.putString("first_name", user.first_name);*/
+                                    editor.putString("first_name", user.first_name);
                                     x++;
                                     break;
                                 }
                             }
-                            //editor.commit();
+                            editor.commit();
                             //startActivity(new Intent(getApplicationContext(), StudentWelcomePage.class));
                         }
+
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
                         }
                     });
-                }
-                else if(emailiano.substring(ind+1, ind+6).equals("admin")){
+                } else if (emailiano.substring(ind + 1, ind + 6).equals("admin")) {
                     FirebaseDatabase.getInstance().getReference().child("Users").child("Admins").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                                 FetchUser user = snapshot.getValue(FetchUser.class);
-                                if (emailiano.equals(user.email)) {
-                                    /*
+                                System.out.println("dd");
+                                if (user.email.equals(emailiano)) {
+
                                     editor.putString("id", user.id);
-                                    editor.putString("first_name", user.first_name);*/
+                                    editor.putString("first_name", user.first_name);
                                     x++;
+                                    break;
                                 }
                             }
-                            //editor.commit();
+                            editor.commit();
                             //startActivity(new Intent(getApplicationContext(), AdminWelcomePage.class));
                         }
+
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
                         }
                     });
                 }
-                else {
-                    x--;
-                }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-        if (x == 0) return false;
-        return true;
+        return false;
     }
 
 }

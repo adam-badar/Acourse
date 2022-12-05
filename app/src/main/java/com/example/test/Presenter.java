@@ -21,18 +21,22 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Presenter extends AppCompatActivity {
+public class Presenter extends AppCompatActivity implements Contract.Presenter {
 
     ArrayList<String> courseList;
     Set<String> taskSet;
-    Model model;
-    SignInView view;
+    Contract.Model model;
+    Contract.View view;
     boolean success;
     //private EditText email;
     //private EditText password;
    // SharedPreferences sp;
+    public Presenter(Contract.Model model, Contract.View view) {
+        this.model = model;
+        this.view = view;
+    }
 
-
+    /*
     public Presenter() {
         this.courseList = new ArrayList<String>();
         this.taskSet = new HashSet<>();
@@ -43,7 +47,7 @@ public class Presenter extends AppCompatActivity {
 //        this.sp = getSharedPreferences("MyUserPrefs", Context.MODE_PRIVATE);
 
 
-    }
+    }*/
 
     public boolean checkIfEmpty(String txt_email, String txt_password) {
 
@@ -64,8 +68,10 @@ public class Presenter extends AppCompatActivity {
         return ((!txt_email.matches(pattern)));
 
     }
-//
-    public void actualLogin(String txt_email, String txt_password, SignInActivity context){
+
+    //public checkUsername
+    /*
+    public void actualLogin(String txt_email, String txt_password, SignInView context){
         model.mAuth.signInWithEmailAndPassword(txt_email, txt_password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -82,10 +88,10 @@ public class Presenter extends AppCompatActivity {
 
     private void updateSuccess(boolean value) {
         this.success = value;
-    }
+    }*/
  //
 
-
+    /*
     public void createCourseList(DataSnapshot dataSnapshot) {
 
         for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
@@ -116,7 +122,7 @@ public class Presenter extends AppCompatActivity {
             }
         }
         editor.commit();
-    }
+    }*/
 
 
 
@@ -130,6 +136,28 @@ public class Presenter extends AppCompatActivity {
         return email.substring(ind+1, ind+6).equals("admin");
     }
 
+    public void checkUsername() {
+        String userEmail = view.getUsername();
+        String password = view.getPassword();
+        if (checkIfEmpty(userEmail, password)) {
+            view.createToast(view,"Fields cannot be empty");
+        }
+        else if (checkEmailFormat(userEmail)) {
+            view.createToast(view,"Incorrect email format");
+        }
+        else if (checkPasswordLength(password)) {
+            view.createToast(view, "Password too short");
+        }
+        else if (!model.isFound(userEmail)) {
+            view.createToast(view, "Account doesn't exist");
+            System.out.println("after");
+        }
+        else if (model.isFound(userEmail)) {
+            view.createToast(view, "Account exists");
+        }
+
+
+    }
 
 
     //public void sendUserToNextActivity() {
