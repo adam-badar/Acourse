@@ -26,7 +26,7 @@
 
     <TextView
         android:id="@+id/sessions"
-        android:layout_width="wrap_content"
+        android:layout_width="190dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/timeTableBar"
         android:layout_marginTop="0dp"
@@ -39,20 +39,17 @@
         android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/timeTableBar"
-        android:layout_toRightOf="@id/sessions"
         android:layout_marginStart="1dp"
         android:layout_marginTop="3dp"
         android:layout_toEndOf="@+id/sessions"
         android:text="Courses"
         android:textAlignment="center"
         android:textSize="40dp" />
-
-    <ListView
-        android:id="@+id/timeline_list"
+        <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/courses"
-        android:layout_marginTop="-3dp" />
+        android:id="@+id/timeline_list"/>
 
 
 </RelativeLayout>

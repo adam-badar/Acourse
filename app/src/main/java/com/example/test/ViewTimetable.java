@@ -65,10 +65,15 @@ public class ViewTimetable extends AppCompatActivity {
         String [] coursesTaken = tempSet2.split(",");
 
 
-        String[] allCourses;
-        Set<String> tempSet = sp.getStringSet("courses", null);
-        allCourses = tempSet.toArray(new String[tempSet.size()]);
+        String[] allCourses2,allCourses;
 
+        Set<String> tempSet = sp.getStringSet("courses", null);
+
+        allCourses2 = tempSet.toArray(new String[tempSet.size()]);
+        allCourses = new String[allCourses2.length];
+        for (int i = 0; i <allCourses.length; i++){
+            allCourses[i] = allCourses2[i].substring(0,6);
+        }
         boolean[] selectedCourse;
         ArrayList<Integer> courseList = new ArrayList<>();
         ArrayList<String> tempArray = new ArrayList<>(); //creates tempArray
@@ -116,11 +121,10 @@ public class ViewTimetable extends AppCompatActivity {
                 String [] targets = courses.toString().split(",");
                 ArrayList<ArrayList<String>> adj_list = generateCourseList(allCourses, sp);
                 ArrayList<String>preReqs = getPrereqs(adj_list, targets);
-////                String userId = sp.getString("id", null);
-////                removeTakenCourses(preReqs, sp);
-//
-//                orderPrereqs(preReqs,adj_list);
-                ArrayAdapter adapt = new ArrayAdapter(ViewTimetable.this, android.R.layout.simple_expandable_list_item_1, adj_list);
+                String userId = sp.getString("id", null);
+                removeTakenCourses(preReqs, sp);
+                orderPrereqs(preReqs,adj_list);
+                ArrayAdapter adapt = new ArrayAdapter(ViewTimetable.this, android.R.layout.simple_expandable_list_item_1, preReqs);
                 lv.setAdapter(adapt);
             }
         });
@@ -151,14 +155,21 @@ public class ViewTimetable extends AppCompatActivity {
         //Creates Adjacency list structure
         ArrayList<ArrayList<String>> to_return = new ArrayList<ArrayList<String>>();
         Set<String> tempSet = sp.getStringSet("courses", null);
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Courses");
+//        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Courses");
 
 
 
         for (int i = 0; i < coursesString.length; i++) {
             ArrayList<String> temp = new ArrayList<>();
             temp.add(coursesString[i]);
-
+            for (String course:tempSet){
+                if (course.substring(0,6).equals(coursesString[i])){
+                    String [] temp2 = course.substring(7, course.lastIndexOf(";")).split(",");
+                    if (course.substring(7,course.lastIndexOf(";")).length() != 0){
+                            for(String name: temp2) temp.add(name.trim());
+                    }
+                }
+            }
             to_return.add(temp);
         }
         return to_return;
@@ -195,9 +206,9 @@ public class ViewTimetable extends AppCompatActivity {
             }
             String t = last.poll();
         }
-//        for (String i: targets){
-//            if(!to_return.contains(i.trim())) to_return.add(i.trim());
-//        }
+        for (String i: targets){
+            if(!to_return.contains(i.trim())) to_return.add(i.trim());
+        }
         return to_return;
     }
 
