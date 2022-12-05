@@ -41,8 +41,8 @@ import java.util.Set;
 
 
 public class AdminEditCourseActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-   /* Spinner spinner;
-    String[] sessions = {"Fall", "Winter", "Summer"};*/
+    /* Spinner spinner;
+     String[] sessions = {"Fall", "Winter", "Summer"};*/
     String [] selectCourseArray;
 
     //String [] selectCourseArray;//= GetCourses.fetch();//= {"Select Course", "MATA31", "MATA32", "MATA33", "MATA34"};
@@ -64,7 +64,7 @@ public class AdminEditCourseActivity extends AppCompatActivity implements Adapte
     ArrayList<Integer> courseList = new ArrayList<>();
     ArrayList<Integer> finalCourseList = new ArrayList<>();
 
-   // String [] courseArray = {"CSCA48", "CSCA67", "CSCB36", "MATB41", "STAB52", "MATA31"};
+    // String [] courseArray = {"CSCA48", "CSCA67", "CSCB36", "MATB41", "STAB52", "MATA31"};
     ArrayList<String> coursesList = new ArrayList<>();
     String [] courseArray;
     boolean setFirebase = false;

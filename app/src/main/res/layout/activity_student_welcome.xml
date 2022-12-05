@@ -69,7 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="100dp"
             android:layout_marginBottom="30dp"
-            app:srcCompat="@drawable/samplelogo" />
+            app:srcCompat="@drawable/newlogo" />
         <Button
             android:id="@+id/search_courses"
             android:layout_width="250dp"

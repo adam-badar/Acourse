@@ -144,9 +144,12 @@ public class AdminWelcomePage extends AppCompatActivity {
                                                 na = na.replaceAll(finalCourseArray1[finalJ1] + ",", "");
                                                 prereqs.setValue(na);
                                             }
-                                            else{
+                                            else if (na.contains(finalCourseArray1[finalJ1])){
                                                 na = na.replaceAll(finalCourseArray1[finalJ1], "");
                                                 prereqs.setValue(na);
+                                            }
+                                            else{
+
                                             }
 
                                         }
