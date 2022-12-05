@@ -206,12 +206,12 @@ public class AdminEditCourseActivity extends AppCompatActivity implements Adapte
                             }
                         });
                         //
-                        tempSet.add(editCourseCode);
-                        tempSet.remove(txt_courseCode);
+                        tempSet.add(txt_courseCode);
+                        tempSet.remove(editCourseCode);
                         SharedPreferences.Editor editor = sp.edit();
                         editor.putStringSet("courses", new HashSet<>(tempSet));
                         editor.commit();
-                        DatabaseReference del = FirebaseDatabase.getInstance().getReference().child("Courses").child(txt_courseCode);
+                        DatabaseReference del = FirebaseDatabase.getInstance().getReference().child("Courses").child(editCourseCode);
                         del.removeValue();
                     }
                     FirebaseDatabase.getInstance().getReference("Courses").child(txt_courseCode).setValue(course);
