@@ -46,7 +46,6 @@ public class SignInActivity extends AppCompatActivity {
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
 
-
         model = new Model();
 
         //mAuth = model.mAuth;
@@ -96,7 +95,6 @@ public class SignInActivity extends AppCompatActivity {
         String txt_email = email.getText().toString().trim();
         String txt_password = password.getText().toString().trim();
 
-        String pattern = "[a-zA-z0-9._-]+@[a-z]+\\.+[a-z]+";
         if (p.checkIfEmpty(txt_email,txt_password)) {
             view.createToast(SignInActivity.this, "Empty Credentials");
         } else if (p.checkPasswordLength(txt_password)) {
@@ -120,6 +118,7 @@ public class SignInActivity extends AppCompatActivity {
             });
         }
     }
+
     private void sendUserToNextActivity() {
         email = findViewById(R.id.email);
         String txt_email = email.getText().toString().trim();

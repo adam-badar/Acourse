@@ -1,8 +1,10 @@
 package com.example.test;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +13,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -23,6 +28,9 @@ public class Presenter extends AppCompatActivity {
     Model model;
     SignInView view;
     boolean success;
+    //private EditText email;
+    //private EditText password;
+   // SharedPreferences sp;
 
 
     public Presenter() {
@@ -30,6 +38,10 @@ public class Presenter extends AppCompatActivity {
         this.taskSet = new HashSet<>();
         this.model = new Model();
         this.view = new SignInView();
+//        this.email = findViewById(R.id.email);
+//        this.password = findViewById(R.id.password);
+//        this.sp = getSharedPreferences("MyUserPrefs", Context.MODE_PRIVATE);
+
 
     }
 
@@ -52,7 +64,7 @@ public class Presenter extends AppCompatActivity {
         return ((!txt_email.matches(pattern)));
 
     }
-
+//
     public void actualLogin(String txt_email, String txt_password, SignInActivity context){
         model.mAuth.signInWithEmailAndPassword(txt_email, txt_password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -71,6 +83,8 @@ public class Presenter extends AppCompatActivity {
     private void updateSuccess(boolean value) {
         this.success = value;
     }
+ //
+
 
     public void createCourseList(DataSnapshot dataSnapshot) {
 
@@ -81,7 +95,7 @@ public class Presenter extends AppCompatActivity {
         this.taskSet = new HashSet<>(this.courseList);
     }
 
-    public void updateStudentCourse(DataSnapshot snapshot, String txt_email,SharedPreferences.Editor editor ) {
+    public void updateStudentCourse(DataSnapshot snapshot, String txt_email, SharedPreferences.Editor editor ) {
 
         for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
             FetchUser user = snapshot.getValue(FetchUser.class);
@@ -115,6 +129,64 @@ public class Presenter extends AppCompatActivity {
         int ind = email.indexOf("@");
         return email.substring(ind+1, ind+6).equals("admin");
     }
+
+
+
+    //public void sendUserToNextActivity() {
+        /*email = findViewById(R.id.email);
+        String txt_email = email.getText().toString().trim();*/
+/*
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("email", txt_email);
+
+        //Model
+        FirebaseDatabase.getInstance().getReference().child("Courses").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                createCourseList(dataSnapshot);
+
+//move to model
+                editor.putStringSet("courses", taskSet);
+
+                if (isStudentEmail(txt_email)) {
+
+                    //move to model
+                    FirebaseDatabase.getInstance().getReference().child("Users").child("Students").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                            updateStudentCourse(dataSnapshot, txt_email, editor);
+
+                            startActivity(new Intent(getApplicationContext(), StudentWelcomePage.class));
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                        }
+                    });
+                }
+                else if(isAdminEmail(txt_email)){
+
+
+                    FirebaseDatabase.getInstance().getReference().child("Users").child("Admins").addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                            updateAdminCourse(dataSnapshot, txt_email, editor);
+
+                            startActivity(new Intent(getApplicationContext(), AdminWelcomePage.class));
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                        }
+                    });
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });*/
+    //}
 
 
 
