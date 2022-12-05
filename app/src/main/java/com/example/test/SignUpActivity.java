@@ -84,7 +84,7 @@ public class SignUpActivity extends AppCompatActivity {
                     Toast.makeText(SignUpActivity.this, "Invalid ID", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    User user = new User(txt_email, txt_password, txt_firstname, txt_lastname, txt_id);
+                    User user = new User("",txt_email, txt_password, txt_firstname, txt_lastname, txt_id);
                     db = FirebaseDatabase.getInstance();
                     reference = db.getReference("Users");
                     int ind = txt_email.indexOf("@");

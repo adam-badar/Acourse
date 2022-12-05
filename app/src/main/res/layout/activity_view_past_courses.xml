@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_background"
+    android:orientation="vertical"
+    android:padding="16dp"
     tools:context=".StudentViewPastCourses">
     <TextView
         android:id="@+id/pastCourses"
-        android:layout_width="412dp"
-        android:layout_height="58dp"
-        android:layout_marginTop="48dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:fontFamily="sans-serif-condensed"
         android:text="View Past Courses"
         android:textAlignment="center"
@@ -23,26 +24,46 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
+        android:id="@+id/pastCourseButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:text="Add Past Courses"
+        android:textSize="15dp"
+        android:padding="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/PastCoursesView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+    <!--<TextView
+        android:id="@+id/pastCourseButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="Add Past Courses"
         android:textSize="15dp"
+        android:background="@android:drawable/editbox_background"
+        android:drawableEnd="@android:drawable/arrow_down_float"
+        android:drawablePadding="16dp"
+        android:hint="Add Course Prerequisites"
+        android:padding="20dp"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp"
         app:layout_constraintBottom_toTopOf="@+id/PastCoursesView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
+-->
     <ListView
-        android:layout_width="409dp"
+        android:layout_width="match_parent"
         android:layout_height="547dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="77dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pastCourses"
         android:id="@+id/PastCoursesView"
+        android:layout_weight="1"
+        android:divider="@drawable/divider"
+        android:dividerHeight="16.0dp"
         />
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
