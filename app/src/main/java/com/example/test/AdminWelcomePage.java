@@ -39,13 +39,17 @@ public class AdminWelcomePage extends AppCompatActivity {
     private Button view_courses;
     boolean [] selectedCourse;
     Set<String> tempSet;
-
+    Set<String> courseCodeTempSet = new HashSet<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_welcome);
         SharedPreferences sp = getApplicationContext().getSharedPreferences("MyUserPrefs", Context.MODE_PRIVATE);
         tempSet = sp.getStringSet("courses", null);
+        for (String course : tempSet) {
+            System.out.println(course.substring(0,6));
+            courseCodeTempSet.add(course.substring(0,6));
+        }
         TextView welcomeText = findViewById(R.id.welcome);
         String name = sp.getString("first_name",null);
         welcomeText.setText("WELCOME\n"+name);
@@ -121,6 +125,9 @@ public class AdminWelcomePage extends AppCompatActivity {
                         for (int j = 0; j < finalCourseArray1.length; j++) {
                             tempSet = new HashSet<>();
                             tempSet = sp.getStringSet("courses", null);
+                            for (String course : tempSet) {
+                                courseCodeTempSet.add(course.substring(0,6));
+                            }
                             SharedPreferences.Editor editor = sp.edit();
                             if(selectedCourse[j] == true) {
                                 DatabaseReference del = FirebaseDatabase.getInstance().getReference().child("Courses").child(finalCourseArray1[j]);

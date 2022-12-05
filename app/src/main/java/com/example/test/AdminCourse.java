@@ -1,7 +1,5 @@
 package com.example.test;
 
-import android.content.Intent;
-
 import androidx.annotation.NonNull;
 
 import com.google.firebase.database.DataSnapshot;
@@ -9,14 +7,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-
 public class AdminCourse {
 
     public String courseName;
     public String courseCode;
     public String prerequisites;
     public String sessionOfferings;
+
 
     public AdminCourse(){
 
@@ -47,7 +44,5 @@ public class AdminCourse {
     public String getSessionOfferings() {
         return sessionOfferings;
     }
-
-
 
 }

@@ -34,7 +34,6 @@ public class AdminSearchCourse extends AppCompatActivity {
     ArrayList<AdminCourse> adminCourseList = new ArrayList<AdminCourse>();
     private EditText textSearch;
     private Button pastCourseButton;
-    private Set<String> tempSet;
     private String studentID;
     private String coursesTaken;
     private ArrayList<String> coursesTakenList;
@@ -52,7 +51,6 @@ public class AdminSearchCourse extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_courses2);
         SharedPreferences sp = getApplicationContext().getSharedPreferences("MyUserPrefs", Context.MODE_PRIVATE);
-        tempSet = sp.getStringSet("courses", null);
         textSearch = findViewById(R.id.courseSearchBar);
         Context context = this;
         FirebaseDatabase.getInstance().getReference().child("Courses").addValueEventListener(new ValueEventListener() {
