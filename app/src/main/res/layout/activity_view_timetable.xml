@@ -15,56 +15,44 @@
         android:id="@+id/timeTableBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Timetable"
-        android:textColor="@color/font_color"
-        android:textSize="35dp"
-        android:textAlignment="center"
+        android:hint="Select Courses"
+        android:padding="12dp"
+        android:layout_centerHorizontal="true"
+        android:drawablePadding="16dp"
+        android:drawableEnd="@android:drawable/arrow_down_float"
+        android:background="@android:drawable/editbox_background"
         >
     </TextView>
 
-    <LinearLayout
-        android:id="@+id/timetableLayout"
+    <TextView
+        android:id="@+id/sessions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/timeTableBar"
+        android:layout_marginTop="0dp"
+        android:text="Session"
+        android:textAlignment="center"
+        android:textSize="40dp" />
+
+    <TextView
+        android:id="@+id/courses"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/timeTableBar"
+        android:layout_toRightOf="@id/sessions"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="3dp"
+        android:layout_toEndOf="@+id/sessions"
+        android:text="Courses"
+        android:textAlignment="center"
+        android:textSize="40dp" />
+
+    <ListView
+        android:id="@+id/timeline_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/timeTableBar"
-        android:layout_marginTop="0dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_below="@id/courses"
+        android:layout_marginTop="-3dp" />
 
-        <TextView
-            android:id="@+id/sessionBar"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_weight="0.5"
-            android:background="@color/button_color"
-            android:gravity="center"
-            android:textAlignment="center"
-            android:text="Session"
-            android:layout_gravity="top"
-            android:textColor="@color/font_color"
-            android:textSize="20dp" />
-
-        <TextView
-            android:id="@+id/courseBar"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_weight="0.5"
-            android:layout_gravity="top"
-            android:background="@color/button_color"
-            android:gravity="center"
-            android:textAlignment="center"
-            android:text="Courses"
-            android:textColor="@color/font_color"
-            android:textSize="20dp" />
-
-    </LinearLayout>
-    <androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/recyclerView"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_below="@id/timetableLayout"
-    android:background="#D6EEEE" />
 
 </RelativeLayout>

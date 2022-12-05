@@ -39,7 +39,7 @@
             android:label=" "
             android:parentActivityName=".SignInActivity" />
         <activity
-            android:name=".StudentHomepageActivity"
+            android:name=".ViewTimetable"
             android:banner="@color/button_color"
             android:label="Home"
             android:parentActivityName=".SignInActivity" />

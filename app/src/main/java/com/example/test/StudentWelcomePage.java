@@ -30,5 +30,14 @@ public class StudentWelcomePage extends AppCompatActivity {
                 startActivity(new Intent(StudentWelcomePage.this, StudentViewPastCourses.class));
             }
         });
+        student_view_timeline = findViewById(R.id.view_timeline);
+        student_view_timeline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity((new Intent(StudentWelcomePage.this, ViewTimetable.class)));
+            }
+        });
     }
+
+
 }

@@ -1,9 +1,6 @@
 package com.example.test;
 
-import static com.example.test.TimelineOps.generateCourseList;
 import static com.example.test.TimelineOps.getPrereqs;
-
-import android.content.Intent;
 
 import androidx.annotation.NonNull;
 
@@ -48,7 +45,7 @@ public class AdminCourse {
                         prerequisites = admincourse.prerequisites;
                         sessionOfferings = admincourse.sessionOfferings;
                         System.out.println("current course: "+courseName);
-                        System.out.println("prereuisites: "+prerequisites);
+                        System.out.println("prerequisites: "+prerequisites);
                         System.out.println("sessions: "+sessionOfferings);
                     }
                 }
@@ -91,11 +88,11 @@ public class AdminCourse {
         this.sessionOfferings = sessionOfferings;
     }
 
-    public void setWeight(int weight, DatabaseReference ref) {
-        ArrayList<ArrayList<String>> temp = generateCourseList(ref);
-        String []  target = {this.courseCode};
-        ArrayList<String> pre = getPrereqs(temp, target);
-
-        this.weight = pre.size();
-    }
+//    public void setWeight(int weight, DatabaseReference ref) {
+//        ArrayList<ArrayList<String>> temp = generateCourseList();
+//        String []  target = {this.courseCode};
+//        ArrayList<String> pre = getPrereqs(temp, target);
+//
+//        this.weight = pre.size();
+//    }
 }
