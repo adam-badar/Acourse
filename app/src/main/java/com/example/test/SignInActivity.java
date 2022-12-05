@@ -120,8 +120,6 @@ public class SignInActivity extends AppCompatActivity {
         ArrayList<String> courseList = new ArrayList<>();
         SharedPreferences.Editor editor = sp.edit();
         editor.putString("email", txt_email);
-        String first_name;
-        String id;
         FirebaseDatabase.getInstance().getReference().child("Courses").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
