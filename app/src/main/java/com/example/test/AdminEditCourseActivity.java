@@ -115,7 +115,7 @@ public class AdminEditCourseActivity extends AppCompatActivity implements Adapte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_course);
         //home button
-        ImageView homeButton = findViewById(R.id.homeButton);
+        /*ImageView homeButton = findViewById(R.id.homeButton);
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -131,7 +131,7 @@ public class AdminEditCourseActivity extends AppCompatActivity implements Adapte
                 Toast.makeText(AdminEditCourseActivity.this, "Successfully Signed Out", Toast.LENGTH_SHORT).show();
 
             }
-        });
+        });*/
         SharedPreferences sp = getApplicationContext().getSharedPreferences("MyUserPrefs", Context.MODE_PRIVATE);
         tempSet = sp.getStringSet("courses", null);
         for (String course : tempSet) {

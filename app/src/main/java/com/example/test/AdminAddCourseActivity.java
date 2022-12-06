@@ -115,7 +115,7 @@ public class AdminAddCourseActivity extends AppCompatActivity {
             }
         });*/
         createCourseButton = (Button) findViewById(R.id.createCourseBtn);
-        signout = findViewById(R.id.logOutButton);
+        //signout = findViewById(R.id.logOutButton);
         courseButton = findViewById(R.id.prereqs);
         createCourseButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -285,7 +285,7 @@ public class AdminAddCourseActivity extends AppCompatActivity {
         });
 
 
-        signout.setOnClickListener(new View.OnClickListener() {
+        /*signout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(AdminAddCourseActivity.this, SignInActivity.class));
@@ -300,7 +300,7 @@ public class AdminAddCourseActivity extends AppCompatActivity {
             public void onClick(View view) {
                 startActivity(new Intent(AdminAddCourseActivity.this, AdminWelcomePage.class));
             }
-        });
+        });*/
 
     }
     private void sendUserToNextActivity() {

@@ -51,8 +51,8 @@ public class AdminWelcomePage extends AppCompatActivity {
             courseCodeTempSet.add(course.substring(0,6));
         }
         TextView welcomeText = findViewById(R.id.welcome);
-        String name = sp.getString("first_name",null);
-        welcomeText.setText("WELCOME\n"+name);
+        //String name = sp.getString("first_name",null);
+        //welcomeText.setText("WELCOME\n"+name);
         SharedPreferences.Editor editor = sp.edit();
 
         admin_create_course = (Button) findViewById(R.id.create_course_button);
