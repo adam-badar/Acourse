@@ -27,7 +27,7 @@ import android.widget.TextView;
 
 
 public class SignInActivity extends AppCompatActivity {
-
+    /*
     private Model model;
 
     private TextView signup_tag_click;
@@ -174,7 +174,7 @@ public class SignInActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError error) {
             }
         });
-    }
+    }*/
 
 }
 

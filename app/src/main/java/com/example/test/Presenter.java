@@ -139,6 +139,7 @@ public class Presenter extends AppCompatActivity implements Contract.Presenter {
     public void checkUsername() {
         String userEmail = view.getUsername();
         String password = view.getPassword();
+        model.isFound(userEmail);
         if (checkIfEmpty(userEmail, password)) {
             view.createToast(view,"Fields cannot be empty");
         }
@@ -148,11 +149,12 @@ public class Presenter extends AppCompatActivity implements Contract.Presenter {
         else if (checkPasswordLength(password)) {
             view.createToast(view, "Password too short");
         }
-        else if (!model.isFound(userEmail)) {
+        else if (model.getX() == 0) {
             view.createToast(view, "Account doesn't exist");
-            System.out.println("after");
+            System.out.println(model.getX());
+            //System.outprintln
         }
-        else if (model.isFound(userEmail)) {
+        else if (model.getX() != 0) {
             view.createToast(view, "Account exists");
         }
 

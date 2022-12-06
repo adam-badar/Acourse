@@ -64,6 +64,8 @@ public class MainActivity extends AppCompatActivity implements Contract.View {
             }
         });
 
+
+
         //handleClick(this);
     }
 

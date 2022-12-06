@@ -1,10 +1,17 @@
 package com.example.test;
 
+import androidx.annotation.NonNull;
+
+import com.google.firebase.database.DataSnapshot;
+
 public interface Contract {
 
     public interface Model {
-        public boolean isFound(String username);
+        public void isFound(String username);
+        public int getX();
 
+        //reference.addValueEventListener(new ValueEventListener() {
+        void onDataChange(@NonNull DataSnapshot dataSnapshot);
     }
 
     public interface View {

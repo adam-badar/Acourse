@@ -40,10 +40,8 @@ public class SignInView extends AppCompatActivity {
 
     }
 
-    public void createToast(SignInActivity context, String text) {
-
+    public void createToast(SignInView context, String text) {
             Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
-
     }
 
 }
