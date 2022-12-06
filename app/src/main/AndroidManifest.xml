@@ -50,6 +50,9 @@
             android:name=".StudentPopUpMenu"
             android:parentActivityName=".StudentWelcomePage" />
         <activity
+            android:name=".ViewTimetable"
+            android:parentActivityName=".StudentWelcomePage" />
+        <activity
             android:name=".AdminWelcomePage"
             android:banner="@color/button_color"
             android:parentActivityName=".SignInActivity"

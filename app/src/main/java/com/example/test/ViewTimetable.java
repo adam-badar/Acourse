@@ -29,9 +29,14 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Dictionary;
+import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
@@ -39,7 +44,7 @@ import kotlin.contracts.Returns;
 
 public class ViewTimetable extends AppCompatActivity {
     TextView tv;
-    ListView lv;
+    ListView lv, lv2;
     DatabaseReference ref;
 
 
@@ -118,14 +123,16 @@ public class ViewTimetable extends AppCompatActivity {
                     }
                 }
                 tv.setText(courses.toString());
-                lv = findViewById(R.id.timeline_list);
+                lv = findViewById(R.id.courseslist);
                 String [] targets = courses.toString().split(",");
                 ArrayList<ArrayList<String>> adj_list = generateCourseList(allCourses, sp);
                 ArrayList<String>preReqs = getPrereqs(adj_list, targets);
-                String userId = sp.getString("id", null);
                 removeTakenCourses(preReqs, sp);
                 orderPrereqs(preReqs,adj_list);
-                ArrayAdapter adapt = new ArrayAdapter(ViewTimetable.this, android.R.layout.simple_expandable_list_item_1, preReqs);
+                ArrayList<AdminCourse> not_quite_last = courses_to_do(adj_list, preReqs, sp);
+                ArrayList<String> last = finalSessions(not_quite_last);
+
+                ArrayAdapter adapt = new ArrayAdapter(ViewTimetable.this, android.R.layout.simple_expandable_list_item_1, last);
                 lv.setAdapter(adapt);
             }
         });
@@ -156,9 +163,6 @@ public class ViewTimetable extends AppCompatActivity {
         //Creates Adjacency list structure
         ArrayList<ArrayList<String>> to_return = new ArrayList<ArrayList<String>>();
         Set<String> tempSet = sp.getStringSet("courses", null);
-//        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Courses");
-
-
 
         for (int i = 0; i < coursesString.length; i++) {
             ArrayList<String> temp = new ArrayList<>();
@@ -217,28 +221,13 @@ public class ViewTimetable extends AppCompatActivity {
 
     static void removeTakenCourses(ArrayList<String> prereqs, SharedPreferences sp){ //Self-explanatory
         ArrayList<String> coursesTaken = new ArrayList<>();
-//        SharedPreferences sp = getApplicationContext().getSharedPreferences("MyUserPrefs", Context.MODE_PRIVATE);
-        String userId = sp.getString("id", null);
-        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference("Users").child("Students")
-                .child(userId);
-
-        rootRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String courseList = snapshot.child("coursesTaken").getValue(String.class);
-                String str[] = courseList.split(",");
-                for(String i:str) coursesTaken.add(i);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        for(String i: coursesTaken){
-            if(prereqs.contains(i.trim())) prereqs.remove(i);
+        String coursesTaken2 = sp.getString("courses_taken", null);
+        String [] mid = coursesTaken2.split(",");
+//4
+        for (String i : mid){
+            coursesTaken.add(i.trim());
         }
+        prereqs.remove(coursesTaken2);
     }
 
      int weight(String a, ArrayList<ArrayList<String>> master){ //finds the number of prereqs for a course
@@ -265,5 +254,267 @@ public class ViewTimetable extends AppCompatActivity {
         }
 
     }
-    LinkedHashMap<String, ArrayList<String>> sortDict()
+    Map<Integer, ArrayList<String>> makeDict(ArrayList<String> prereqs,
+                                             ArrayList<ArrayList<String>> master){
+        Map to_return = new HashMap<Integer, ArrayList<String>>();
+
+        int last = weight(prereqs.get(prereqs.size()-1), master);
+        for(int i = 0; i <=last; i++){
+                ArrayList<String> ind = new ArrayList<>();
+            for (String prereq: prereqs){
+                if(weight(prereq,master) == i) ind.add(prereq);
+            }
+            to_return.put(i,ind);
+        }
+        return to_return;
+    }
+
+
+    ArrayList<AdminCourse> courses_to_do (ArrayList<ArrayList<String>> master,
+                                          ArrayList<String> prereqs,SharedPreferences sp){
+
+        ArrayList<AdminCourse> to_return = new ArrayList<>();
+        Set<String> tempSet = sp.getStringSet("courses", null);
+
+        for(String prereq: prereqs){
+            for(String name: tempSet){
+                if(prereq.equals(name.substring(0,6))) {
+//                    ArrayList<AdminCourse> test = new ArrayList<>();
+//                    for(String i:name.substring(name.lastIndexOf(";")+1).split(",")){
+//                        test.add(new AdminCourse(i.trim()));
+//                    }
+                    AdminCourse doing = new AdminCourse(prereq,
+                            name.substring(7,name.lastIndexOf(";")),name.substring(name.lastIndexOf(";")+1),
+                            weight(prereq, master));
+
+                    to_return.add(doing);
+                }
+            }
+        }
+        return to_return;
+    }
+
+    ArrayList<Integer> getszns(AdminCourse s){
+        ArrayList<Integer> szns = new ArrayList<Integer>();
+
+        if (s.sessionOfferings.contains("Winter"))
+            szns.add(1);
+        if (s.sessionOfferings.contains("Summer"))
+            szns.add(2);
+        if (s.sessionOfferings.contains("Fall"))
+            szns.add(3);
+        return szns;
+    }
+
+    String sznValue(int x) {
+        if (x==1)
+            return "Winter";
+        if (x==2)
+            return "Summer";
+        return "Fall";
+    }
+
+    boolean isInDict(AdminCourse c, LinkedHashMap<String, ArrayList<String>> dict) {
+        String session = sznValue(c.sessionToTake) + " " + String.valueOf(c.yearToTake);
+        if (dict.containsKey(session))
+            return true;
+
+        return false;
+    }
+
+    void inDict(AdminCourse c, LinkedHashMap<String, ArrayList<String>> dict){
+        String session = sznValue(c.sessionToTake) + " " + String.valueOf(c.yearToTake);
+        ArrayList<String> courses = dict.get(session);
+        courses.add(c.courseCode);
+        dict.put(session, courses);
+    }
+    int sznInt(String x) {
+        if (x.contains("Winter"))
+            return 1;
+        else if (x.contains("Summer"))
+            return 2;
+        return 3;
+    }
+
+    LinkedHashMap<String, ArrayList<String>> sortDict(AdminCourse c, LinkedHashMap<String, ArrayList<String>> dict) {
+        int insert = 0;
+        int year = c.yearToTake;
+        int session = c.sessionToTake;
+
+        //iterating through existing sessions dates
+        for (String key : dict.keySet()) {
+            //looking at the last digit of our key to determine the year
+            int keyVal = Integer.parseInt((key).substring(key.length()-4, key.length()));
+            //            System.out.println("KEYVAL: " + keyVal);
+
+            //checking if the current key is in the next year / same year but a later session
+            if (year > keyVal || (year == keyVal && session > sznInt(key))) {
+
+                insert++;
+            }
+        }
+
+        String generate = sznValue(c.sessionToTake) + " " + String.valueOf(c.yearToTake);
+        LinkedHashMap<String, ArrayList<String>> newDict = new LinkedHashMap<String, ArrayList<String>>();
+
+
+        if (insert == dict.size()) {
+            for (String key : dict.keySet()) {
+                newDict.put(key, dict.get(key));
+            }
+
+            ArrayList<String> courses = new ArrayList<String>();
+            courses.add(c.courseCode);
+            dict.put(generate, courses);
+            return dict;
+        }else {
+            int tab = 0;
+            for (String key : dict.keySet()) {
+                if (insert == tab) {
+                    ArrayList<String> courses = new ArrayList<String>();
+                    courses.add(c.courseCode);
+                    newDict.put(generate, courses);
+                }
+                newDict.put(key, dict.get(key));
+                tab++;
+            }
+            return newDict;
+        }
+    }
+
+
+    ArrayList<String> finalSessions(LinkedHashMap<String, ArrayList<String>> dict) {
+        ArrayList<String> list = new ArrayList<String>();
+        for (String key : dict.keySet()) {
+            ArrayList<String> temp = dict.get(key);
+            String added = "";
+            for (String y : temp)
+                added = added + y + "  ";
+            if (key.contains("Fall"))
+                list.add("  " + key + ":   " + added + "\n");
+            else
+                list.add(key + ":   " + added + "\n");
+        }
+        return list;
+    }
+
+    ArrayList<String> finalSessions(ArrayList<AdminCourse> dict) {
+        int year = 2022;
+        String[] sessions = {"Fall", "Winter", "Summer"};
+        ArrayList<AdminCourse> checked = new ArrayList<>();
+
+        int p = 0;
+        for (AdminCourse i : dict) { //For each course required
+
+            ArrayList<AdminCourse> names = new ArrayList<>();
+            if (i.prerequisites.length() < 1) { //If no prerequisites
+                i.yearToTake = year;
+                i.sessionTake = i.getSessionOfferings()[0];
+
+                checked.add(i); //put the usual.
+            } else {
+                AdminCourse f;
+                int total = 0;
+                int pos = 0;
+                int ac = 0;
+                int n_year = 0;
+// //head
+                for (String t : i.getPrerequisitesList()) { //goes over prereqs
+                    f = find_actual(checked, t.trim()); //finds the course
+                    if (f.yearToTake + add_sesh(to_int(f.sessionTake)) > total){
+                       total = f.yearToTake+ add_sesh(to_int(f.sessionTake));
+                       ac = pos; //finds the biggest one
+                    }
+                    pos++;
+                }
+                AdminCourse leak = find_actual(checked, i.getPrerequisitesList().get(ac));
+                int g = iterate(leak.sessionToTake, i.getPrerequisitesList());
+                if (to_int(leak.sessionTake) <= g){
+                    year = year +1;
+                }
+                i.yearToTake = year;
+                i.sessionTake = i.getSessionOfferings()[g];
+                year = i.yearToTake;
+                checked.add(i);
+        }
+    }
+        ArrayList<String> last = new ArrayList<>();
+        for (AdminCourse cc:checked){
+            last.add(cc.courseCode + ": "+ cc.sessionTake+ " "+cc.yearToTake);
+        }
+        return last;
+    }
+
+////                    if(to_int(i.getSessionOfferings()[0]) >= to_int(f.sessionTake){
+////
+////                    }
+//                    if (f.yearToTake+ add_sesh(to_int(f.sessionTake)) > total){
+//                       total = f.yearToTake+ add_sesh(to_int(f.sessionTake));
+//                       ac = pos; //finds the biggest one
+//                    }
+//                    pos++;
+//                }
+//                //end
+//                AdminCourse leak = find_actual(checked, i.getPrerequisitesList().get(ac));
+//                if (to_int(leak.sessionTake) > to_int(i.getSessionOfferings()[0])){
+//                    year = year +1;
+//                }
+//                i.yearToTake = year;
+//                i.sessionTake = i.getSessionOfferings()[0];
+//                year = i.yearToTake;
+//                checked.add(i);
+//            }
+//
+////            if(to_int(i.getSessionOfferings()[0]) >= to_int(f.sessionTake){
+////
+////                i.yearToTake = year;
+////            }else{
+////                year = year + 1;
+////                i.sessionTake = i.getSessionOfferings()[0];
+////            }
+////            if (f.yearToTake+ to_int(f.sessionTake) > total){
+////                total = f.yearToTake+ to_int(f.sessionTake);
+////                ac = pos; //finds the biggest one
+////            }
+////            pos++;
+//
+//        }
+//
+
+
+    boolean is_in(List <String> search, String target){
+        for (String i : search){
+            if (i.equals(target)) return true;
+        }
+        return false;
+    }
+    AdminCourse find_actual(ArrayList<AdminCourse> temp, String target){
+        for(AdminCourse course: temp){
+            if (course.courseCode.trim().equals(target.trim())) return course;
+        }
+        return null;
+    }
+    int to_int(String t){
+        t = t.toLowerCase();
+        if (t.equals("fall")) return 1;
+        if (t.equals("winter")) return 2;
+        if (t.equals("summer")) return 3;
+        return 0;
+    }
+    int add_sesh(int i){
+        if(i == 1) i =1;
+        if(i == 2) i =10;
+        if(i == 3) i =100;
+        return i;
+    }
+    int iterate(int target, List<String> list){
+        int c = 0;
+        for(String i: list){
+            if (to_int(i) == target){
+                c = target+1;
+            }
+        }
+        if (c >= list.size()) c  = 0;
+        return c;
+    }
 }
