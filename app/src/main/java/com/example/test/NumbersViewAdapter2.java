@@ -79,13 +79,14 @@ public class NumbersViewAdapter2 extends ArrayAdapter<AdminCourse> {
         textView4.setText("Prerequisites: "+currentNumberPosition.prerequisites);
         //String coursesTaken = sp.getString("courses_taken", null);
         pastCourseButton = currentItemView.findViewById(R.id.pastCourseButton);
-        timelineButton = currentItemView.findViewById(R.id.timelineButton);
         coursesTaken = sp.getString("courses_taken", null);
         coursesTakenList = new ArrayList<String>(Arrays.asList(coursesTaken.split(",")));
         pastCourseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 System.out.println(coursesTakenList);
+                System.out.println(currentNumberPosition.courseCode+"="+currentNumberPosition.prerequisites+"="+currentNumberPosition.sessionOfferings);
+
                 ArrayList<String> prereqList = new ArrayList<String>(Arrays.asList(currentNumberPosition.prerequisites.split(",")));
 
                 System.out.println(coursesTakenList+";"+currentNumberPosition.courseCode+";"+prereqList+";"+currentNumberPosition.prerequisites+";");

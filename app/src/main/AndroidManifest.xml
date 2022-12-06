@@ -50,6 +50,7 @@
             android:parentActivityName=".StudentWelcomePage" />
         <activity
             android:name=".ViewTimetable"
+            android:label = "Generate Timeline"
             android:parentActivityName=".StudentWelcomePage" />
         <activity
             android:name=".AdminWelcomePage"
