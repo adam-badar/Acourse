@@ -31,13 +31,14 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-public class SignInActivity extends AppCompatActivity {
+public class SignInActivity extends AppCompatActivity implements LoginView{
 
     private TextView signup_tag_click;
     private Button sign_in_click;
     private TextView forgotPassword;
     private EditText email;
     private EditText password;
+    //private LoginPresenter presenter;
     FirebaseAuth mAuth;
     FirebaseUser mUser;
     String pattern = "[a-zA-z0-9._-]+@[a-z]+\\.+[a-z]+";
@@ -52,6 +53,7 @@ public class SignInActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
+        //presenter = new LoginPresenter(this, new LoginService());
         sign_in_click = findViewById(R.id.Signin);
         // Takes to sign up page
         signup_tag_click = (TextView) findViewById(R.id.signup);
@@ -65,6 +67,7 @@ public class SignInActivity extends AppCompatActivity {
         // Takes to sign In page
 
         sign_in_click.setOnClickListener(new View.OnClickListener() {
+            //presenter.onLoginClicked();
             @Override
             public void onClick(View view) {
                 perforLogin();
@@ -178,4 +181,13 @@ public class SignInActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public String getUsername() {
+        return email.getText().toString().trim();
+    }
+
+    @Override
+    public void showUsernameError(int resID) {
+
+    }
 }
