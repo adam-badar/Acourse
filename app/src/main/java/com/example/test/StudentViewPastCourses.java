@@ -51,11 +51,9 @@ public class StudentViewPastCourses extends AppCompatActivity {
                     AdminCourse course = snapshot.getValue(AdminCourse.class);
                     //System.out.println(coursesTakenList+";"+course.courseCode);
                     if (coursesTakenList.contains(course.courseCode)) {
-                        System.out.println(",,,"+course.courseCode);
                         pastCourseList.add(course);
                     }
                 }
-                System.out.println("----"+pastCourseList);
                 NumbersViewAdapter numbersArrayAdapter = new NumbersViewAdapter(context, pastCourseList);
                 ListView numbersListView = findViewById(R.id.PastCoursesView);
                 numbersListView.setAdapter(numbersArrayAdapter);

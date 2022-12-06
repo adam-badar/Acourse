@@ -10,14 +10,14 @@
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="vertical">
         <TextView
             android:id="@+id/textView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="18dp"
             android:textStyle="bold" />
         <TextView
@@ -46,26 +46,13 @@
             android:paddingBottom="1dp"
             android:textSize="14dp" />
     </LinearLayout>
-    <LinearLayout
+    <Button
+        android:id="@+id/pastCourseButton"
+        android:textSize="10dp"
+        android:layout_gravity="center"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_gravity="right"
-        android:gravity="center"
-        android:id="@+id/linearLayout">
-        <Button
-            android:id="@+id/timelineButton"
-            android:textSize = "10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text = "+Timeline" />
-        <Button
-            android:id="@+id/pastCourseButton"
-            android:textSize="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text = "+Past Course" />
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        android:text = "+Past Course" />
 
 
 </LinearLayout>
