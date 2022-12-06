@@ -15,7 +15,7 @@
         <activity
             android:name=".StudentViewPastCourses"
             android:banner="@color/button_color"
-            android:label = "TaCourses"
+            android:label = "View Past Courses"
             android:parentActivityName=".StudentWelcomePage"/>
         <activity
             android:name=".SignInActivity"
@@ -43,7 +43,7 @@
         <activity
             android:name=".StudentSearchCourse"
             android:banner="@color/button_color"
-            android:label = "TaCourses"
+            android:label = "Search Courses"
             android:parentActivityName=".StudentWelcomePage" />
         <activity
             android:name=".StudentPopUpMenu"
@@ -56,12 +56,12 @@
         <activity
             android:name=".AdminEditCourseActivity"
             android:banner="@color/button_color"
-            android:label = "TaCourses"
+            android:label = "Edit Courses"
             android:parentActivityName=".AdminWelcomePage" />
         <activity
             android:name=".AdminAddCourseActivity"
             android:banner="@color/button_color"
-            android:label = "TaCourses"
+            android:label = "Create Course"
             android:parentActivityName=".AdminWelcomePage"/>
         <activity
             android:name=".StudentWelcomePage"
@@ -71,8 +71,8 @@
         <activity
             android:name=".AdminSearchCourse"
             android:banner="@color/button_color"
-            android:label = "TaCourses"
-            android:parentActivityName=".StudentWelcomePage"/>
+            android:label = "Search Courses"
+            android:parentActivityName=".AdminWelcomePage"/>
 
     </application>
 

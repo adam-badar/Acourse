@@ -49,7 +49,7 @@ public class AdminSearchCourse extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_courses2);
+        setContentView(R.layout.activity_admin_search_course);
         SharedPreferences sp = getApplicationContext().getSharedPreferences("MyUserPrefs", Context.MODE_PRIVATE);
         textSearch = findViewById(R.id.courseSearchBar);
         Context context = this;
