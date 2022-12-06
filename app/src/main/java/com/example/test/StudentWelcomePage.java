@@ -27,6 +27,7 @@ public class StudentWelcomePage extends AppCompatActivity {
         signout = (Button) findViewById(R.id.logOutButton);
         student_create_course = (Button) findViewById(R.id.search_courses);
         student_past_courses = (Button) findViewById(R.id.past_courses);
+        student_view_timeline = (Button) findViewById(R.id.view_timeline);
         student_create_course.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,6 +46,12 @@ public class StudentWelcomePage extends AppCompatActivity {
                 startActivity(new Intent(StudentWelcomePage.this, SignInActivity.class));
                 Toast.makeText(StudentWelcomePage.this, "Successfully Signed Out", Toast.LENGTH_SHORT).show();
 
+            }
+        });
+        student_view_timeline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(StudentWelcomePage.this, ViewTimetable.class));
             }
         });
     }
