@@ -10,6 +10,12 @@
     android:padding="16dp"
     tools:context=".AdminSearchCourse">
    <!-- <TextView
+=======
+    android:background="@color/main_background"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".AdminSearchCourse">
+    <TextView
         android:id="@+id/SearchCoursesId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,6 +28,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />-->
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/courseSearchBar"
