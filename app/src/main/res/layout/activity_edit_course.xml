@@ -13,7 +13,7 @@
         android:orientation="vertical"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-        <LinearLayout
+        <!--<LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#000000"
@@ -29,11 +29,10 @@
                 android:textColor="@color/white"
                 android:textSize="30dp"
                 android:textStyle="bold" />
-        </LinearLayout>
+        </LinearLayout>-->
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom = "60dp"
             android:fillViewport="true">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -44,6 +43,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
                 <TextView
+                    android:paddingTop="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text = "Select Course"
@@ -169,7 +169,7 @@
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
-    <LinearLayout
+    <!--<LinearLayout
         android:id="@+id/Navbar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -199,7 +199,7 @@
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             app:srcCompat="@drawable/signout" />
-    </LinearLayout>
+    </LinearLayout>-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

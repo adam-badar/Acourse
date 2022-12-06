@@ -68,6 +68,7 @@ public class AdminAddCourseActivity extends AppCompatActivity {
     private FirebaseDatabase db;
     private DatabaseReference reference;
     Set<String> tempSet;
+    Set<String> courseCodeTempSet = new HashSet<>();
 
     private ActivityMainBinding binding;
     void arrayCopy(boolean[] currentArray, boolean[] wantedArray) {
@@ -88,9 +89,19 @@ public class AdminAddCourseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create_course);
         SharedPreferences sp = getApplicationContext().getSharedPreferences("MyUserPrefs", Context.MODE_PRIVATE);
         Set<String> tempSet = sp.getStringSet("courses", null);
-        courseArray = tempSet.toArray(new String[tempSet.size()]);
-        selectedCourse = new boolean[tempSet.size()];
-        finalSelectedCourse = new boolean[tempSet.size()];
+        // every string in tempSet is format of: "courseCode;prerequisites;sessions"
+        /*for (String course : tempSet) {
+            String courseCode = course.substring(0, 5);
+            String prerequisites = course.substring(7, course.lastIndexOf(';'));
+            String sessions = course.substring(course.lastIndexOf(';')+1);
+        }*/
+        for (String course : tempSet) {
+            System.out.println(course);
+            courseCodeTempSet.add(course.substring(0,6));
+        }
+        courseArray = courseCodeTempSet.toArray(new String[courseCodeTempSet.size()]);
+        selectedCourse = new boolean[courseCodeTempSet.size()];
+        finalSelectedCourse = new boolean[courseCodeTempSet.size()];
        /* FirebaseDatabase.getInstance().getReference().child("Courses").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -104,7 +115,7 @@ public class AdminAddCourseActivity extends AppCompatActivity {
             }
         });*/
         createCourseButton = (Button) findViewById(R.id.createCourseBtn);
-        signout = findViewById(R.id.logOutButton);
+        //signout = findViewById(R.id.logOutButton);
         courseButton = findViewById(R.id.prereqs);
         createCourseButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,7 +155,7 @@ public class AdminAddCourseActivity extends AppCompatActivity {
                         for (int j=0; j<courseList.size(); j++) {
                             stringBuilder.append(courseArray[courseList.get(j)]);
                             if (j != courseList.size()-1) {
-                                stringBuilder.append(",");
+                                stringBuilder.append(", ");
                             }
                         }
                         courseButton.setText(stringBuilder.toString());
@@ -206,7 +217,7 @@ public class AdminAddCourseActivity extends AppCompatActivity {
                         for (int j=0; j<sessionList.size(); j++) {
                             stringBuilder.append(sessionArray[sessionList.get(j)]);
                             if (j != sessionList.size()-1) {
-                                stringBuilder.append(",");
+                                stringBuilder.append(", ");
                             }
                         }
                         sessionButton.setText(stringBuilder.toString());
@@ -248,13 +259,15 @@ public class AdminAddCourseActivity extends AppCompatActivity {
                 String txt_courseCode = courseCode.getText().toString().trim();
                 String txt_prerequisites = prerequisites.getText().toString().trim();
                 String txt_sessionOfferings = sessionOfferings.getText().toString().trim();
+                txt_prerequisites = txt_prerequisites.replaceAll(", ",",");
+                txt_sessionOfferings = txt_sessionOfferings.replaceAll(", ", ",");
 
                 if ( TextUtils.isEmpty(txt_courseName) || TextUtils.isEmpty(txt_courseCode) || TextUtils.isEmpty((txt_sessionOfferings))) {
                     Toast.makeText(AdminAddCourseActivity.this, "Empty Credentials", Toast.LENGTH_SHORT).show();
                 } else if (txt_courseCode.length() != 6) {
                     Toast.makeText(AdminAddCourseActivity.this, "Course Code Must Be Length 6", Toast.LENGTH_SHORT).show();
                 }
-                else if (tempSet.contains(txt_courseCode)) {
+                else if (courseCodeTempSet.contains(txt_courseCode)) {
                     Toast.makeText(AdminAddCourseActivity.this, "Course Code Already Exists", Toast.LENGTH_SHORT).show();
                 }
                 else {
@@ -262,7 +275,7 @@ public class AdminAddCourseActivity extends AppCompatActivity {
                     db = FirebaseDatabase.getInstance();
                     reference = db.getReference("Courses");
                     reference.child(txt_courseCode).setValue(course);
-                    tempSet.add(txt_courseCode);
+                    tempSet.add(txt_courseCode+";"+txt_prerequisites+";"+txt_sessionOfferings);
                     SharedPreferences.Editor editor = sp.edit();
                     editor.putStringSet("courses", new HashSet<>(tempSet));
                     editor.commit();
@@ -271,7 +284,8 @@ public class AdminAddCourseActivity extends AppCompatActivity {
             }
         });
 
-        signout.setOnClickListener(new View.OnClickListener() {
+
+        /*signout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(AdminAddCourseActivity.this, SignInActivity.class));
@@ -286,7 +300,7 @@ public class AdminAddCourseActivity extends AppCompatActivity {
             public void onClick(View view) {
                 startActivity(new Intent(AdminAddCourseActivity.this, AdminWelcomePage.class));
             }
-        });
+        });*/
 
     }
     private void sendUserToNextActivity() {

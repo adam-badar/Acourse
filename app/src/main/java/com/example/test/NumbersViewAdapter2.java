@@ -87,10 +87,14 @@ public class NumbersViewAdapter2 extends ArrayAdapter<AdminCourse> {
             public void onClick(View view) {
                 System.out.println(coursesTakenList);
                 ArrayList<String> prereqList = new ArrayList<String>(Arrays.asList(currentNumberPosition.prerequisites.split(",")));
+
+                System.out.println(coursesTakenList+";"+currentNumberPosition.courseCode+";"+prereqList+";"+currentNumberPosition.prerequisites+";");
+                System.out.println(coursesTakenList.containsAll(prereqList));
                 if (coursesTakenList.contains(currentNumberPosition.courseCode)) {
                     Toast.makeText(getContext(), "Course Already Taken" , Toast.LENGTH_SHORT).show();
                 }
-                else if (coursesTakenList.containsAll(prereqList)) {
+                else if (coursesTakenList.containsAll(prereqList) || currentNumberPosition.prerequisites.equals("")) {
+                    System.out.println(prereqList);
                     coursesTakenList.add(currentNumberPosition.courseCode);
                     coursesTakenList.removeAll(Arrays.asList("", null));
                     String newCoursesTaken = String.join(",", coursesTakenList);

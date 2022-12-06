@@ -107,14 +107,14 @@ public class SignUpActivity extends AppCompatActivity {
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
+//                if (task.isSuccessful()) {
                     Toast.makeText(SignUpActivity.this, "Registering user successful!", Toast.LENGTH_SHORT).show();
                     //startActivity(new Intent(getApplicationContext(), StudentHomepageActivity.class));
                     sendUserToNextActivity();
-                }
-                else {
-                    Toast.makeText(SignUpActivity.this, "Registration failed", Toast.LENGTH_SHORT).show();
-                }
+//                }
+//                else {
+//                    Toast.makeText(SignUpActivity.this, "Registration failed", Toast.LENGTH_SHORT).show();
+//                }
             }
         });
     }

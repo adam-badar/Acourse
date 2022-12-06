@@ -41,8 +41,8 @@ import java.util.Set;
 
 
 public class AdminEditCourseActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-   /* Spinner spinner;
-    String[] sessions = {"Fall", "Winter", "Summer"};*/
+    /* Spinner spinner;
+     String[] sessions = {"Fall", "Winter", "Summer"};*/
     String [] selectCourseArray;
 
     //String [] selectCourseArray;//= GetCourses.fetch();//= {"Select Course", "MATA31", "MATA32", "MATA33", "MATA34"};
@@ -64,7 +64,7 @@ public class AdminEditCourseActivity extends AppCompatActivity implements Adapte
     ArrayList<Integer> courseList = new ArrayList<>();
     ArrayList<Integer> finalCourseList = new ArrayList<>();
 
-   // String [] courseArray = {"CSCA48", "CSCA67", "CSCB36", "MATB41", "STAB52", "MATA31"};
+    // String [] courseArray = {"CSCA48", "CSCA67", "CSCB36", "MATB41", "STAB52", "MATA31"};
     ArrayList<String> coursesList = new ArrayList<>();
     String [] courseArray;
     boolean setFirebase = false;
@@ -75,6 +75,7 @@ public class AdminEditCourseActivity extends AppCompatActivity implements Adapte
     String[] editPrereqArray;
     String[] editSessionArray;
     Set<String> tempSet;
+    Set<String> courseCodeTempSet = new HashSet<>();;
     private EditText courseName;
     private EditText courseCode;
     private TextView prerequisites;
@@ -114,7 +115,7 @@ public class AdminEditCourseActivity extends AppCompatActivity implements Adapte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_course);
         //home button
-        ImageView homeButton = findViewById(R.id.homeButton);
+        /*ImageView homeButton = findViewById(R.id.homeButton);
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -130,12 +131,15 @@ public class AdminEditCourseActivity extends AppCompatActivity implements Adapte
                 Toast.makeText(AdminEditCourseActivity.this, "Successfully Signed Out", Toast.LENGTH_SHORT).show();
 
             }
-        });
+        });*/
         SharedPreferences sp = getApplicationContext().getSharedPreferences("MyUserPrefs", Context.MODE_PRIVATE);
         tempSet = sp.getStringSet("courses", null);
-        courseArray = tempSet.toArray(new String[tempSet.size()]);
-        selectedCourse = new boolean[tempSet.size()];
-        finalSelectedCourse = new boolean[tempSet.size()];
+        for (String course : tempSet) {
+            courseCodeTempSet.add(course.substring(0,6));
+        }
+        courseArray = courseCodeTempSet.toArray(new String[courseCodeTempSet.size()]);
+        selectedCourse = new boolean[courseCodeTempSet.size()];
+        finalSelectedCourse = new boolean[courseCodeTempSet.size()];
 
         courseName = findViewById(R.id.courseName);
         courseCode = findViewById(R.id.courseCode);
@@ -208,14 +212,22 @@ public class AdminEditCourseActivity extends AppCompatActivity implements Adapte
                             }
                         });
                         //
-                        tempSet.add(txt_courseCode);
-                        tempSet.remove(editCourseCode);
-                        SharedPreferences.Editor editor = sp.edit();
-                        editor.putStringSet("courses", new HashSet<>(tempSet));
-                        editor.commit();
                         DatabaseReference del = FirebaseDatabase.getInstance().getReference().child("Courses").child(editCourseCode);
                         del.removeValue();
                     }
+                    for (String s: tempSet) {
+                        if (s.indexOf(editCourseCode)==0) {
+                            s = s.replace(editCourseCode, txt_courseCode);
+                            s = s.replace(editPrereq, txt_prerequisites);
+                            s = s.replace(editSessions, txt_sessionOfferings);
+                            break;
+                        }
+                    }
+                    //tempSet.add(txt_courseCode);
+                    //tempSet.remove(editCourseCode);
+                    SharedPreferences.Editor editor = sp.edit();
+                    editor.putStringSet("courses", new HashSet<>(tempSet));
+                    editor.commit();
                     FirebaseDatabase.getInstance().getReference("Courses").child(txt_courseCode).setValue(course);
                     sendUserToNextActivity();
                 }

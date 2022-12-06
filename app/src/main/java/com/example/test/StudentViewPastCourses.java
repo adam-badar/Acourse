@@ -38,19 +38,24 @@ public class StudentViewPastCourses extends AppCompatActivity {
         setContentView(R.layout.activity_view_past_courses);
         SharedPreferences sp = getApplicationContext().getSharedPreferences("MyUserPrefs", Context.MODE_PRIVATE);
         coursesTaken = sp.getString("courses_taken", null);
+        System.out.println(";;;;"+coursesTaken);
         coursesTakenList = new ArrayList<String>(Arrays.asList(coursesTaken.split(",")));
+        System.out.println(coursesTakenList);
         studentID = sp.getString("id", null);
         pastCourseButton = findViewById(R.id.pastCourseButton);
         Context context = this;
-        FirebaseDatabase.getInstance().getReference().child("Courses").addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("Courses").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     AdminCourse course = snapshot.getValue(AdminCourse.class);
+                    //System.out.println(coursesTakenList+";"+course.courseCode);
                     if (coursesTakenList.contains(course.courseCode)) {
+                        System.out.println(",,,"+course.courseCode);
                         pastCourseList.add(course);
                     }
                 }
+                System.out.println("----"+pastCourseList);
                 NumbersViewAdapter numbersArrayAdapter = new NumbersViewAdapter(context, pastCourseList);
                 ListView numbersListView = findViewById(R.id.PastCoursesView);
                 numbersListView.setAdapter(numbersArrayAdapter);

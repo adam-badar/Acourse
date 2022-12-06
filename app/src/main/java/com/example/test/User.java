@@ -1,7 +1,7 @@
 package com.example.test;
 
 public class User {
-    private String coursesTaken;
+    public String coursesTaken;
     private String email;
     private String password;
     private String first_name;
@@ -21,6 +21,27 @@ public class User {
 
     public User() {
     }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
+    }
+
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
 
     public User(String email, String password) {
         this.email = email;

@@ -15,7 +15,7 @@
         <activity
             android:name=".StudentViewPastCourses"
             android:banner="@color/button_color"
-            android:label="View Past Courses"
+            android:label = "View Past Courses"
             android:parentActivityName=".StudentWelcomePage"/>
         <activity
             android:name=".SignInActivity"
@@ -39,15 +39,17 @@
         <activity
             android:name=".StudentHomepageActivity"
             android:banner="@color/button_color"
-            android:label="Home"
             android:parentActivityName=".SignInActivity" />
         <activity
             android:name=".StudentSearchCourse"
             android:banner="@color/button_color"
-            android:label="Search Courses"
+            android:label = "Search Courses"
             android:parentActivityName=".StudentWelcomePage" />
         <activity
             android:name=".StudentPopUpMenu"
+            android:parentActivityName=".StudentWelcomePage" />
+        <activity
+            android:name=".ViewTimetable"
             android:parentActivityName=".StudentWelcomePage" />
         <activity
             android:name=".AdminWelcomePage"
@@ -57,13 +59,13 @@
         <activity
             android:name=".AdminEditCourseActivity"
             android:banner="@color/button_color"
-            android:parentActivityName=".AdminWelcomePage"
-            android:theme="@style/Theme.Test.NoActionBar"/>
+            android:label = "Edit Courses"
+            android:parentActivityName=".AdminWelcomePage" />
         <activity
             android:name=".AdminAddCourseActivity"
             android:banner="@color/button_color"
-            android:parentActivityName=".AdminWelcomePage"
-            android:theme="@style/Theme.Test.NoActionBar"/>
+            android:label = "Create Course"
+            android:parentActivityName=".AdminWelcomePage"/>
         <activity
             android:name=".StudentWelcomePage"
             android:banner="@color/button_color"
@@ -72,8 +74,8 @@
         <activity
             android:name=".AdminSearchCourse"
             android:banner="@color/button_color"
-            android:label="Home"
-            android:theme="@style/Theme.Test.NoActionBar"/>
+            android:label = "Search Courses"
+            android:parentActivityName=".AdminWelcomePage"/>
 
     </application>
 

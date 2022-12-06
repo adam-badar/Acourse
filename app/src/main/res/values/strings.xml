@@ -9,4 +9,8 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_add_course">activity_add_course</string>
+    <string name="ErrorEmail">Email cannot be empty</string>
+    <string name="ErrorPass">Password cannot be empty</string>
+    <string name="LengthPass">Password length must be atleast 6</string>
+
 </resources>
