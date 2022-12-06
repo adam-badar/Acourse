@@ -120,14 +120,12 @@ public class SignInActivity extends AppCompatActivity {
         ArrayList<String> courseList = new ArrayList<>();
         SharedPreferences.Editor editor = sp.edit();
         editor.putString("email", txt_email);
-        String first_name;
-        String id;
         FirebaseDatabase.getInstance().getReference().child("Courses").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
                     AdminCourse admincourse = snapshot.getValue(AdminCourse.class);
-                    courseList.add(admincourse.courseCode);
+                    courseList.add(admincourse.courseCode+";"+admincourse.prerequisites+";"+admincourse.sessionOfferings);
                 }
                 Set<String> taskSet = new HashSet<>(courseList);
                 editor.putStringSet("courses", taskSet);

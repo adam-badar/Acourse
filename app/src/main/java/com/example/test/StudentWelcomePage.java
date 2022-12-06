@@ -22,11 +22,12 @@ public class StudentWelcomePage extends AppCompatActivity {
         setContentView(R.layout.activity_student_welcome);
         SharedPreferences sp = getApplicationContext().getSharedPreferences("MyUserPrefs", Context.MODE_PRIVATE);
         TextView welcomeText = findViewById(R.id.welcome);
-        String name = sp.getString("first_name",null);
-        welcomeText.setText("WELCOME\n"+name);
+        //String name = sp.getString("first_name",null);
+        //welcomeText.setText("WELCOME\n"+name);
         signout = (Button) findViewById(R.id.logOutButton);
         student_create_course = (Button) findViewById(R.id.search_courses);
         student_past_courses = (Button) findViewById(R.id.past_courses);
+        student_view_timeline = (Button) findViewById(R.id.view_timeline);
         student_create_course.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -45,6 +46,12 @@ public class StudentWelcomePage extends AppCompatActivity {
                 startActivity(new Intent(StudentWelcomePage.this, SignInActivity.class));
                 Toast.makeText(StudentWelcomePage.this, "Successfully Signed Out", Toast.LENGTH_SHORT).show();
 
+            }
+        });
+        student_view_timeline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(StudentWelcomePage.this, ViewTimetable.class));
             }
         });
     }

@@ -29,6 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -52,6 +53,7 @@ public class StudentSearchCourse extends AppCompatActivity {
     protected static String getCourseTitle() {
         return courseTitle;
     }
+    Set<String> courseCodeTempSet = new HashSet<>();
 
     public void setCourseTitle(String courseTitle) {
         this.courseTitle = courseTitle;
@@ -62,7 +64,6 @@ public class StudentSearchCourse extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_courses2);
         SharedPreferences sp = getApplicationContext().getSharedPreferences("MyUserPrefs", Context.MODE_PRIVATE);
-        tempSet = sp.getStringSet("courses", null);
         coursesTaken = sp.getString("courses_taken", null);
         coursesTakenList = new ArrayList<String>(Arrays.asList(coursesTaken.split(",")));
         textSearch = findViewById(R.id.courseSearchBar);
