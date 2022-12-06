@@ -75,6 +75,7 @@ public class AdminEditCourseActivity extends AppCompatActivity implements Adapte
     String[] editPrereqArray;
     String[] editSessionArray;
     Set<String> tempSet;
+    Set<String> courseCodeTempSet = new HashSet<>();;
     private EditText courseName;
     private EditText courseCode;
     private TextView prerequisites;
@@ -114,7 +115,7 @@ public class AdminEditCourseActivity extends AppCompatActivity implements Adapte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_course);
         //home button
-        ImageView homeButton = findViewById(R.id.homeButton);
+        /*ImageView homeButton = findViewById(R.id.homeButton);
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -130,12 +131,15 @@ public class AdminEditCourseActivity extends AppCompatActivity implements Adapte
                 Toast.makeText(AdminEditCourseActivity.this, "Successfully Signed Out", Toast.LENGTH_SHORT).show();
 
             }
-        });
+        });*/
         SharedPreferences sp = getApplicationContext().getSharedPreferences("MyUserPrefs", Context.MODE_PRIVATE);
         tempSet = sp.getStringSet("courses", null);
-        courseArray = tempSet.toArray(new String[tempSet.size()]);
-        selectedCourse = new boolean[tempSet.size()];
-        finalSelectedCourse = new boolean[tempSet.size()];
+        for (String course : tempSet) {
+            courseCodeTempSet.add(course.substring(0,6));
+        }
+        courseArray = courseCodeTempSet.toArray(new String[courseCodeTempSet.size()]);
+        selectedCourse = new boolean[courseCodeTempSet.size()];
+        finalSelectedCourse = new boolean[courseCodeTempSet.size()];
 
         courseName = findViewById(R.id.courseName);
         courseCode = findViewById(R.id.courseCode);
@@ -158,6 +162,8 @@ public class AdminEditCourseActivity extends AppCompatActivity implements Adapte
                 String txt_courseCode = courseCode.getText().toString().trim();
                 String txt_prerequisites = prerequisites.getText().toString().trim();
                 String txt_sessionOfferings = sessionOfferings.getText().toString().trim();
+                txt_prerequisites = txt_prerequisites.replaceAll(", ",",");
+                txt_sessionOfferings = txt_sessionOfferings.replaceAll(", ", ",");
 
                 if ( TextUtils.isEmpty(txt_courseName) || TextUtils.isEmpty(txt_courseCode) || TextUtils.isEmpty((txt_sessionOfferings))) {
                     Toast.makeText(AdminEditCourseActivity.this, "Empty Credentials", Toast.LENGTH_SHORT).show();
@@ -206,14 +212,22 @@ public class AdminEditCourseActivity extends AppCompatActivity implements Adapte
                             }
                         });
                         //
-                        tempSet.add(txt_courseCode);
-                        tempSet.remove(editCourseCode);
-                        SharedPreferences.Editor editor = sp.edit();
-                        editor.putStringSet("courses", new HashSet<>(tempSet));
-                        editor.commit();
                         DatabaseReference del = FirebaseDatabase.getInstance().getReference().child("Courses").child(editCourseCode);
                         del.removeValue();
                     }
+                    for (String s: tempSet) {
+                        if (s.indexOf(editCourseCode)==0) {
+                            s = s.replace(editCourseCode, txt_courseCode);
+                            s = s.replace(editPrereq, txt_prerequisites);
+                            s = s.replace(editSessions, txt_sessionOfferings);
+                            break;
+                        }
+                    }
+                    //tempSet.add(txt_courseCode);
+                    //tempSet.remove(editCourseCode);
+                    SharedPreferences.Editor editor = sp.edit();
+                    editor.putStringSet("courses", new HashSet<>(tempSet));
+                    editor.commit();
                     FirebaseDatabase.getInstance().getReference("Courses").child(txt_courseCode).setValue(course);
                     sendUserToNextActivity();
                 }
@@ -254,14 +268,6 @@ public class AdminEditCourseActivity extends AppCompatActivity implements Adapte
                             Toast.makeText(getApplicationContext(), "Cannot Add Itself", Toast.LENGTH_SHORT).show();
                         }
                         setTextFunction(courseList, courseArray, courseButton);
-                        /*StringBuilder stringBuilder = new StringBuilder();
-                        for (int j=0; j<courseList.size(); j++) {
-                            stringBuilder.append(courseArray[courseList.get(j)]);
-                            if (j != courseList.size()-1) {
-                                stringBuilder.append(", ");
-                            }
-                        }
-                        courseButton.setText(stringBuilder.toString());*/
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

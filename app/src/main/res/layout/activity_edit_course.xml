@@ -33,7 +33,6 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom = "60dp"
             android:fillViewport="true">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -169,7 +168,7 @@
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
-    <LinearLayout
+    <!--<LinearLayout
         android:id="@+id/Navbar"
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -199,7 +198,7 @@
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             app:srcCompat="@drawable/signout" />
-    </LinearLayout>
+    </LinearLayout>-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

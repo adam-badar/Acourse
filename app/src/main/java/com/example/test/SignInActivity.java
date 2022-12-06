@@ -129,7 +129,7 @@ public class SignInActivity extends AppCompatActivity implements LoginView{
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
                     AdminCourse admincourse = snapshot.getValue(AdminCourse.class);
-                    courseList.add(admincourse.courseCode);
+                    courseList.add(admincourse.courseCode+";"+admincourse.prerequisites+";"+admincourse.sessionOfferings);
                 }
                 Set<String> taskSet = new HashSet<>(courseList);
                 editor.putStringSet("courses", taskSet);

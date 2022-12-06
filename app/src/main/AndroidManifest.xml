@@ -15,7 +15,7 @@
         <activity
             android:name=".StudentViewPastCourses"
             android:banner="@color/button_color"
-            android:label="View Past Courses"
+            android:label = "TaCourses"
             android:parentActivityName=".StudentWelcomePage"/>
         <activity
             android:name=".SignInActivity"
@@ -39,12 +39,11 @@
         <activity
             android:name=".StudentHomepageActivity"
             android:banner="@color/button_color"
-            android:label="Home"
             android:parentActivityName=".SignInActivity" />
         <activity
             android:name=".StudentSearchCourse"
             android:banner="@color/button_color"
-            android:label="Search Courses"
+            android:label = "TaCourses"
             android:parentActivityName=".StudentWelcomePage" />
         <activity
             android:name=".StudentPopUpMenu"
@@ -57,18 +56,24 @@
         <activity
             android:name=".AdminEditCourseActivity"
             android:banner="@color/button_color"
-            android:parentActivityName=".AdminWelcomePage"
-            android:theme="@style/Theme.Test.NoActionBar"/>
+            android:label = "TaCourses"
+            android:parentActivityName=".AdminWelcomePage" />
         <activity
             android:name=".AdminAddCourseActivity"
             android:banner="@color/button_color"
-            android:parentActivityName=".AdminWelcomePage"
-            android:theme="@style/Theme.Test.NoActionBar"/>
+            android:label = "TaCourses"
+            android:parentActivityName=".AdminWelcomePage"/>
         <activity
             android:name=".StudentWelcomePage"
             android:banner="@color/button_color"
             android:label="Home"
             android:theme="@style/Theme.Test.NoActionBar"/>
+        <activity
+            android:name=".AdminSearchCourse"
+            android:banner="@color/button_color"
+            android:label = "TaCourses"
+            android:parentActivityName=".StudentWelcomePage"/>
+
     </application>
 
 </manifest>

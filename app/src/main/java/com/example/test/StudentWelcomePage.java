@@ -22,8 +22,8 @@ public class StudentWelcomePage extends AppCompatActivity {
         setContentView(R.layout.activity_student_welcome);
         SharedPreferences sp = getApplicationContext().getSharedPreferences("MyUserPrefs", Context.MODE_PRIVATE);
         TextView welcomeText = findViewById(R.id.welcome);
-        String name = sp.getString("first_name",null);
-        welcomeText.setText("WELCOME\n"+name);
+        //String name = sp.getString("first_name",null);
+        //welcomeText.setText("WELCOME\n"+name);
         signout = (Button) findViewById(R.id.logOutButton);
         student_create_course = (Button) findViewById(R.id.search_courses);
         student_past_courses = (Button) findViewById(R.id.past_courses);
