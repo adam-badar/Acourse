@@ -76,6 +76,9 @@
             android:banner="@color/button_color"
             android:label = "Search Courses"
             android:parentActivityName=".AdminWelcomePage"/>
+          
+            
+
 
     </application>
 
